@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 16:11:00 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/09 16:46:56 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/14 17:55:06 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static void			modify_string(t_shell *info, char *str2, int insert_len)
 
 void				p_space(t_shell *info, char *str)
 {
-	int		buf;
-	char	*str2;
-	int		insert_len;
-	int		cursor;
+	int					buf;
+	char				*str2;
+	int					insert_len;
+	int					cursor;
 	struct winsize		screen;
 
 	ioctl(0, TIOCGWINSZ, &screen);

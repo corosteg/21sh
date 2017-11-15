@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/09 19:07:51 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/15 02:16:04 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # define RED		"\033[31m"
 # define GRAS		"\033[1m"
 
+typedef struct			s_env
+{
+	char				*var;
+	struct s_env		*next;
+}						t_env;
+
 typedef struct			s_shell
 {
 	int					x;
@@ -36,7 +42,10 @@ typedef struct			s_shell
 	int					len;
 	int					is_his;
 	int					no_move_his;
+	int					quote;
+	int					dquote;
 	struct s_his		*his;
+	struct s_env		*env;
 	char				*command;
 	char				*command2;
 }						t_shell;
@@ -51,6 +60,7 @@ typedef struct			s_his
 }						t_his;
 
 void					p_home(t_shell *info);
+void					core(t_shell *info);
 void					p_end(t_shell *info);
 void					press_string(t_shell *info);
 void					init_term(void);
@@ -64,10 +74,21 @@ void					p_s_left(t_shell *info);
 void					p_s_right(t_shell *info);
 void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
+void					free_c_tab(char **array);
+void					manage_squote(t_shell *info);
+void					manage_dquote(t_shell *info);
+void					check_quotes(t_shell *info);
+void					print_cpy(int buf, t_shell *info);
+char					**alloc_tab(t_env *list);
 int						p_left(t_shell *info);
 int						check_press(int buf, t_shell *info, t_his *his);
 int						insert_ascii(t_shell *info, char *str);
-t_shell					*init_info_list(t_shell *info);
+int						exec_simpl_comm(t_shell *info, char *command);
+int						quote_n(t_shell *info);
+int						check_copy(int buf);
+int						check_press_quote(int buf, t_shell *info);
+//t_shell					*init_info_list(t_shell *info);
+t_env					*copy_env(char **env, t_env *list);
 t_his					*p_up(t_shell *info, t_his *his);
 t_his					*check_entry(t_shell *info, t_his *his);
 t_his					*manage_his_list(t_his *his, t_shell *info);

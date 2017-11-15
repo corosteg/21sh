@@ -6,11 +6,26 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/07 19:12:06 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/14 23:44:08 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+static t_shell				*init_info_list(t_shell *info, char **env)
+{
+	info = (t_shell*)malloc(sizeof(t_shell));
+	info->command = ft_strdup("\0");
+	info->command2 = ft_strdup("\0");
+	info->no_move_his = 0;
+	info->env = copy_env(env, info->env);
+	info->x = 5;
+	info->y = 0;
+	info->quote = 0;
+	info->dquote = 0;
+	info->len = 0;
+	return (info);
+}
 
 void				ft_error(char *str)
 {
@@ -40,16 +55,23 @@ int					main(int ac, char **av, char **env)
 {
 	t_shell		*info;
 	t_his		*his;
+	char		**tab_env;
 
 //	check_signal();
 	(void)av;
 	init_term();
 	his = NULL;
+	info = init_info_list(info, env);
 	while(42)
 	{
-		info = init_info_list(info);
 		ft_print(""GRAS""VERT"21sh"RED">"STOP"");
 		his = check_entry(info, his);
+		free(info->command);
+		free(info->command2);
+		tab_env = alloc_tab(info->env);
+		free(info);
+		info = init_info_list(info, tab_env);
+		free_c_tab(tab_env);
 	}
 	return (ac);
 }

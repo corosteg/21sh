@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_list.c                                        :+:      :+:    :+:   */
+/*   exec_simpl_comm.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/28 16:53:25 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/13 19:28:44 by corosteg         ###   ########.fr       */
+/*   Created: 2017/11/13 23:30:39 by corosteg          #+#    #+#             */
+/*   Updated: 2017/11/14 19:09:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "./21sh.h"
 
-t_shell				*init_info_list(t_shell *info)
+int				exec_simpl_comm(t_shell *info, char *command)
 {
-	info = (t_shell*)malloc(sizeof(t_shell));
-	info->command = ft_strdup("\0");
-	info->command2 = ft_strdup("\0");
-	info->no_move_his = 0;
-	info->x = 5;
-	info->y = 0;
-	info->len = 0;
-	return (info);
+
+	return (0);
 }

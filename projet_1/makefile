@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2017/11/09 19:08:09 by corosteg         ###   ########.fr        #
+#    Updated: 2017/11/15 01:44:16 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,13 @@ SRCS = ./srcs/main.c\
 	   ./srcs/press_shift_right.c\
 	   ./srcs/press_shift_up.c\
 	   ./srcs/press_home_or_end.c\
-	   ./srcs/tools.c
+	   ./srcs/core.c\
+	   ./srcs/exec_simpl_comm.c\
+	   ./srcs/tools.c\
+	   ./srcs/manage_all_quotes.c\
+	   ./srcs/manage_dquote.c\
+	   ./srcs/manage_squote.c\
+	   ./srcs/check_funct.c
 
 
 all: $(NAME)

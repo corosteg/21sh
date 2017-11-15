@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:53:40 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/09 17:34:17 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/11 18:10:16 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void			modify_string(t_shell *info)
 void				p_backspace(t_shell *info, int a)
 {
 	struct winsize		screen;
+	int					cursor;
 
 	info->x--;
 	ioctl(0, TIOCGWINSZ, &screen);
@@ -49,7 +50,7 @@ void				p_backspace(t_shell *info, int a)
 		info->y--;
 		info->x = 0;
 		tputs(tgetstr("up", NULL), 1, ft_putchar);
-		while (info->x <= screen.ws_col)
+		while (info->x < screen.ws_col)
 		{
 			tputs(tgetstr("nd", NULL), 1, ft_putchar);
 			info->x++;
@@ -58,7 +59,7 @@ void				p_backspace(t_shell *info, int a)
 		info->len--;
 		info->command[ft_strlen(info->command) - 1] = '\0';
 		tputs(tgetstr("up", NULL), 1, ft_putchar);
-		while (info->x <= screen.ws_col)
+		while (info->x < screen.ws_col)
 		{
 			tputs(tgetstr("nd", NULL), 1, ft_putchar);
 			info->x++;
@@ -70,7 +71,20 @@ void				p_backspace(t_shell *info, int a)
 	info->len--;
 	if (a != 1)
 		modify_string(info);
-	tputs(tgetstr("dc", NULL), 1, ft_putchar);
+	cursor = info->len;
+	while (info->len > 0)
+		p_left(info);
+		tputs(tgetstr("le", NULL), 1, ft_putchar);
+		tputs(tgetstr("le", NULL), 1, ft_putchar);
+		tputs(tgetstr("le", NULL), 1, ft_putchar);
+		tputs(tgetstr("le", NULL), 1, ft_putchar);
+		tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	ft_print(""GRAS""VERT"21sh"RED">"STOP"");
+	press_string(info);
+	while (info->len > cursor)
+		p_left(info);
+//	tputs(tgetstr("dc", NULL), 1, ft_putchar);
 	if (info->is_his && a != 1)
 		info->no_move_his = 1;
 }

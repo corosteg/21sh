@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/09 23:50:01 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/15 02:15:52 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				check_copy(int buf)
 	check[3] = buf >> 24;
 	while (i < 4)
 	{
-		if ((int)check[i] > 126 || (int)check[i] < 33)
+		if ((int)check[i] > 126 || (int)check[i] < 32)
 			return (0);
 		i++;
 	}
@@ -82,16 +82,16 @@ int				check_press(int buf, t_shell *info, t_his *his)
 	else if (buf == 4348699 && his != NULL && his->last != 3 &&
 			!(info->no_move_his))
 		info->his = p_down(info, info->his);
-	else if (buf == 32)
-		p_space(info, " ");
-	else if (buf == 27)
-		;
+	else if (check_copy(buf))
+		print_cpy(buf, info);
 	else if  (buf == 127 && info->len > 0)
 		p_backspace(info, 0);
 	else if ((buf > 32 && buf < 126) && (info->len == ft_strlen(info->command)))
 		p_ascii(info, str, buf);
 	else if ((buf > 32 && buf < 126) && (info->len < ft_strlen(info->command)))
 		insert_ascii(info, str);
+	else if (buf == 32)
+		p_space(info, " ");
 	else if (buf == 16690)
 		p_s_up(info);
 	else if (buf == 16946)
@@ -106,8 +106,6 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		p_end(info);
 	else if (buf == 10)
 		return (1);
-	else if (check_copy(buf))
-		print_cpy(buf, info);
 //	printf("buf == %i\n", buf);
 	return (0);
 }
@@ -128,12 +126,14 @@ t_his			*check_entry(t_shell *info, t_his *his)
 				break ;
 		}
 	}
+	check_quotes(info);
+	if (info->quote == 1)
+		manage_squote(info);
+	if (info->dquote == 1)
+		manage_dquote(info);
 	his = manage_his_list(his, info);
 	ft_print("\n     ");
 	ft_print("%s\n", info->command);
-	free(info->command);
-	info->command = NULL;
-	free(info);
-	info = NULL;
+//	core(info);
 	return (his);
 }
