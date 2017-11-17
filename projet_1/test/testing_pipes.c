@@ -6,13 +6,18 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 17:05:21 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/13 18:27:44 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/17 16:20:41 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/21sh.h"
 #include <string.h>
 #include <fcntl.h>
+
+void			ft_test(char *str)
+{
+	printf("%s", str);
+}
 
 int main(int ac, char **av, char **env)
 {

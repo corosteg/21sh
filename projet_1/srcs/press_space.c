@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 16:11:00 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/14 17:55:06 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/16 18:24:49 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,26 @@ void				p_space(t_shell *info, char *str)
 		p_left(info);
 	if (info->is_his)
 		info->no_move_his = 1;
+}
+
+void				p_quote_space(t_shell *info, char *str)
+{
+	int					buf;
+	char				*str2;
+	int					insert_len;
+	int					cursor;
+	struct winsize		screen;
+
+	ioctl(0, TIOCGWINSZ, &screen);
+	insert_len = info->len;
+	str2 = ft_strdup(str);
+	cursor = info->len + 1;
+	modify_string(info, str2, insert_len);
+	while (info->x > 6)
+		p_left(info);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	press_quote_string(info);
+	while (info->len > cursor)
+		p_left(info);
+	info->quote_len++;
 }

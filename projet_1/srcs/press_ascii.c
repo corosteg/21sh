@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:28:34 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/06 17:55:35 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/16 16:59:40 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void				p_ascii(t_shell *info, char *str, int buf)
 	ft_putchar(buf);
 	info->len++;
 	info->x++;
+	info->quote_len++;
 	if (info->x > screen.ws_col - 1)
 	{
 		info->x = 0;

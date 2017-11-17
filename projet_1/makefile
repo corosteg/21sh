@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2017/11/15 01:44:16 by corosteg         ###   ########.fr        #
+#    Updated: 2017/11/17 21:22:55 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS = ./srcs/main.c\
 	   ./srcs/press_ascii.c\
 	   ./srcs/insert_ascii.c\
 	   ./srcs/press_space.c\
+	   ./srcs/parse_command.c\
 	   ./srcs/init_list.c\
 	   ./srcs/manage_his_list.c\
 	   ./srcs/press_up.c\
@@ -35,8 +36,10 @@ SRCS = ./srcs/main.c\
 	   ./srcs/core.c\
 	   ./srcs/exec_simpl_comm.c\
 	   ./srcs/tools.c\
+	   ./srcs/tools2.c\
 	   ./srcs/manage_all_quotes.c\
 	   ./srcs/manage_dquote.c\
+	   ./srcs/parse_path.c\
 	   ./srcs/manage_squote.c\
 	   ./srcs/check_funct.c
 

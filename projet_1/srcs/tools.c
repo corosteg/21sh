@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:35:47 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/14 18:06:50 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/16 19:43:51 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ void			p_ascii_emulation(char *str, t_shell *info)
 	ioctl(0, TIOCGWINSZ, &screen);
 	while (str[i])
 	{
-		ft_putchar(str[i]);
-		info->len++;
-		info->x++;
-		if (info->x > screen.ws_col - 1)
-		{
-			info->x = 0;
-			tputs(tgetstr("do", NULL), 1, ft_putchar);
-			tputs(tgetstr("cr", NULL), 1, ft_putchar);
-			info->y++;
-		}
+	//	if (str[i] != '\n')
+	//	{
+			ft_putchar(str[i]);
+			info->len++;
+			info->x++;
+			if (info->x > screen.ws_col - 1)
+			{
+				info->x = 0;
+				tputs(tgetstr("do", NULL), 1, ft_putchar);
+				tputs(tgetstr("cr", NULL), 1, ft_putchar);
+				info->y++;
+			}
+	//	}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:53:40 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/11 18:10:16 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/16 18:00:18 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,38 @@ void				p_backspace(t_shell *info, int a)
 //	tputs(tgetstr("dc", NULL), 1, ft_putchar);
 	if (info->is_his && a != 1)
 		info->no_move_his = 1;
+}
+
+static void				print_quote_prompt(t_shell *info)
+{
+	if (info->quote == 1)
+		ft_print("squote >");
+}
+
+void					p_quote_backspace(t_shell *info)
+{
+	int			cursor;
+
+	info->x--;
+	info->len--;
+	info->quote_len--;
+	cursor = info->x;
+	modify_string(info);
+	while (info->x  > 6)
+		p_left(info);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+//	print_quote_prompt(info);
+	ft_print("squote >");
+	press_quote_string(info);
+	while (info->x > cursor)
+		p_left(info);
 }

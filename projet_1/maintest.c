@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   press_shift_left.c                                 :+:      :+:    :+:   */
+/*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 18:28:00 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/16 18:30:04 by corosteg         ###   ########.fr       */
+/*   Created: 2017/11/17 20:16:05 by corosteg          #+#    #+#             */
+/*   Updated: 2017/11/17 20:18:25 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include <stdlib.h>
 
-void			p_s_left(t_shell *info)
+int			main()
 {
-	while(info->command[info->len] != ' '
-			&& info->len > 0)
-		p_left(info);
-	while(info->command[info->len] == ' '
-			&& info->len > 0)
-		p_left(info);
-}
-
-void			p_s_quote_left(t_shell *info)
-{
-	while(info->command[info->len] != ' '
-			&& info->x > 6)
-		p_left(info);
-	while(info->command[info->len] == ' '
-			&& info->x > 6)
-		p_left(info);
+	char *str = malloc(5000000);
+	sleep(30);
+	exit;
 }

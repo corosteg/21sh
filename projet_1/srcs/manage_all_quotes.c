@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 23:53:08 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/15 02:29:00 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/16 18:30:55 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void				check_quotes(t_shell *info)
 
 	a = 0;
 	b = 0;
-	i = 0;
-	while (info->command[i])
+	i = ft_strlen(info->command);
+	while (i >= 0 && info->command[i] != '\n')
 	{
 		if (info->command[i] == '\'')
 		{
@@ -37,38 +37,38 @@ void				check_quotes(t_shell *info)
 			else
 				info->dquote = 1;
 		}
-		i++;
+		i--;
 	}
 }
 
-int				check_pressi_quote(int buf, t_shell *info)
+int				check_press_quote(int buf, t_shell *info)
 {
 	char	str[2];
 
 	str[0] = (char)buf;
 	str[1] = '\0';
 	if (buf == 2117294875)
-		p_delete(info);
-	else if (buf == 4479771 && (info->len > 0))
+		p_quote_delete(info);
+	else if (buf == 4479771 && (info->x > 6))
 		p_left(info);
-	else if (buf == 4414235 && ((info->len) < ft_strlen(info->command)))
+	else if (buf == 4414235 && ((info->x) < info->quote_len))
 		p_right(info);
 	else if (check_copy(buf))
 		print_cpy(buf, info);
-	else if  (buf == 127 && info->len > 0)
-		p_backspace(info, 0);
-	else if ((buf > 32 && buf < 126) && (info->len == ft_strlen(info->command)))
+	else if  (buf == 127 && info->x > 6)
+		p_quote_backspace(info);
+	else if ((buf > 32 && buf < 126) && (info->x == info->quote_len))
 		p_ascii(info, str, buf);
-	else if ((buf > 32 && buf < 126) && (info->len < ft_strlen(info->command)))
-		insert_ascii(info, str);
+	else if ((buf > 32 && buf < 126) && (info->x < info->quote_len))
+		insert_quote_ascii(info, str);
 	else if (buf == 32)
-		p_space(info, " ");
+		p_quote_space(info, " ");
 	else if (buf == 17202)
 		p_s_right(info);
 	else if (buf == 17458)
-		p_s_left(info);
+		p_s_quote_left(info);
 	else if (buf == 4741915)
-		p_home(info);
+		p_quote_home(info);
 	else if (buf == 4610843)
 		p_end(info);
 	else if (buf == 10)

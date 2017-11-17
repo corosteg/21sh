@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:12:07 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/09 17:26:29 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/16 17:18:09 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ static void		modify_string(t_shell *info)
 		info->command = str;
 		free(tmp);
 	}
+}
+
+void			p_quote_delete(t_shell *info)
+{
+	int		cursor;
+
+	cursor = info->x;
+	modify_string(info);
+	while (info->x > 6)
+		p_left(info);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	press_quote_string(info);
+	while (info->x > cursor)
+		p_left(info);
+	info->quote_len--;
 }
 
 void			p_delete(t_shell *info)

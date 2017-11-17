@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/14 23:17:31 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/17 22:40:34 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ void				core(t_shell *info)
 		{
 			if (info->command[run] == ';')
 				str[i] = '\0';
-			ret = exec_simpl_comm(info, str);
+			exec_simpl_comm(info, str);
+			str = ft_strnew(ft_strlen(info->command));
+			i = -1;
+		}
+		if (info->command[run] == '|')
+		{
+			exec_pipe_comm(info, str, i, 0);
 			str = ft_strnew(ft_strlen(info->command));
 			i = -1;
 		}
