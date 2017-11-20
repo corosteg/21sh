@@ -22,9 +22,12 @@ void			ft_test(char *str)
 int main(int ac, char **av, char **env)
 {
 	int		cmd_fd[2];
+	int		cmd_fd2[2];
 	int		father;
+	int		father2;
 	char	*cmd1[3];
 	char	*cmd2[3];
+	char	*cmd3[3];
 	int		fd;
 
 	cmd1[0] = strdup("/bin/ls");
@@ -35,7 +38,12 @@ int main(int ac, char **av, char **env)
 	cmd2[1] = strdup("-e");
 	cmd2[2] = NULL;
 
+	cmd3[0] = strdup("/usr/bin/wc");
+	cmd3[1] = strdup("-c");
+	cmd3[2] = NULL;
+
 	pipe (cmd_fd);
+	pipe (cmd_fd2);
 	fd = open("testing_output.txt", O_APPEND | O_RDWR, 0644);
 
 	father = fork();
@@ -51,7 +59,20 @@ int main(int ac, char **av, char **env)
 	{
 		dup2(cmd_fd[0], 0);
 		close(cmd_fd[1]);
-		dup2(fd, 1);
-		execve(cmd2[0], cmd2, env);
+		father2 = fork();
+		if (father2 > 0)
+			wait(NULL);
+		if (father2 == 0)
+		{
+			dup2(cmd_fd2[1], 1);
+			close(cmd_fd2[0]);
+			execve(cmd2[0], cmd2, env);
+		}
+		else
+		{
+			dup2(cmd_fd2[0], 0);
+			close(cmd_fd2[1]);
+			execve(cmd3[0], cmd3, env);
+		}
 	}
 }
