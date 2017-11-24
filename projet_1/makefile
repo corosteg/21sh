@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2017/11/17 21:22:55 by corosteg         ###   ########.fr        #
+#    Updated: 2017/11/23 17:43:10 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS = ./srcs/main.c\
 	   ./srcs/core.c\
 	   ./srcs/exec_simpl_comm.c\
 	   ./srcs/tools.c\
+	   ./srcs/exec_pipe_comm.c\
 	   ./srcs/tools2.c\
 	   ./srcs/manage_all_quotes.c\
 	   ./srcs/manage_dquote.c\

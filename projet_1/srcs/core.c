@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/17 22:40:34 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/23 19:56:59 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,24 @@ void				core(t_shell *info)
 	i = 0;
 	run = 0;
 	ret = 1;
-	str = ft_strnew(ft_strlen(info->command));
 	while (info->command[run])
 	{
-		str[i] = info->command[run];
 		if (info->command[run] == ';' || (info->command[run + 1] == '\0'))
 		{
-			if (info->command[run] == ';')
-				str[i] = '\0';
-			exec_simpl_comm(info, str);
-			str = ft_strnew(ft_strlen(info->command));
-			i = -1;
+			if (info->command[run + 1] == '\0')
+				exec_simpl_comm(info, ft_strndup(info->command, (run + 1)));
+			else
+				exec_simpl_comm(info, ft_strndup(info->command, (run)));
+			//str = ft_strnew(ft_strlen(info->command));
+			info->command = ft_strdup(&info->command[run + 1]);
+			run = -1;
 		}
-		if (info->command[run] == '|')
+		if (run != -1 && info->command[run] && info->command[run] == '|')
 		{
-			exec_pipe_comm(info, str, i, 0);
-			str = ft_strnew(ft_strlen(info->command));
-			i = -1;
+			exec_pipe_comm(info, info->command, i, 0);
+//			str = ft_strnew(ft_strlen(info->command));
+			run = -1;
 		}
-		i++;
 		run++;
 //		if (info->command[run] == '|')
 //		{
@@ -48,5 +47,4 @@ void				core(t_shell *info)
 //			i = run + 1;
 //		}
 	}
-	free(str);
 }

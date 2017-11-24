@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/17 21:23:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/24 16:54:05 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <termcap.h>
 # include "../libft/libft.h"
+# include "../libft/keys.h"
 # define STOP		"\033[0m"
 # define VERT		"\033[32m"
 # define CYAN		"\033[36m"
@@ -101,6 +102,8 @@ int						p_left(t_shell *info);
 int						check_press(int buf, t_shell *info, t_his *his);
 int						insert_ascii(t_shell *info, char *str);
 int						exec_simpl_comm(t_shell *info, char *command);
+int						exec_pipe_comm(t_shell *info, char *str,
+							int i, int fd);
 int						quote_n(t_shell *info);
 int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info);

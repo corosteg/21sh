@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/14 23:44:08 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/23 20:16:28 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int					main(int ac, char **av, char **env)
 
 //	check_signal();
 	(void)av;
-	init_term();
 	his = NULL;
+	init_term();
 	info = init_info_list(info, env);
 	while(42)
 	{

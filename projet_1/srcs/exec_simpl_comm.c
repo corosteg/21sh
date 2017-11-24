@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 23:30:39 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/17 18:13:54 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/22 00:18:30 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int		exec_bin_comm(t_shell *info, char *command, t_path *var_path)
 		wait(&status);
 	if (!(father))
 	{
-		ft_print("\n");
 		if (execve(bin_path, comm_tab, env_tab))
 		{
 			ft_print("command not found: %s\n", comm_tab[0]);

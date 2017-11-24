@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/17 21:24:47 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/24 18:22:26 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,43 +68,43 @@ int				check_press(int buf, t_shell *info, t_his *his)
 
 	str[0] = (char)buf;
 	str[1] = '\0';
-	if (buf == 2117294875)
+	if (buf == DELETE_K)
 		p_delete(info);
-	else if (buf == 4479771 && (info->len > 0))
+	else if (buf == LEFT_K && (info->len > 0))
 		p_left(info);
-	else if (buf == 4283163 && his != NULL && !(info->no_move_his))
+	else if (buf == UP_K && his != NULL && !(info->no_move_his))
 	{
 		info->his = p_up(info, info->his);
 		info->is_his = 1;
 	}
-	else if (buf == 4414235 && ((info->len) < ft_strlen(info->command)))
+	else if (buf == RIGHT_K && ((info->len) < ft_strlen(info->command)))
 		p_right(info);
-	else if (buf == 4348699 && his != NULL && his->last != 3 &&
+	else if (buf == DOWN_K && his != NULL && his->last != 3 &&
 			!(info->no_move_his))
 		info->his = p_down(info, info->his);
 	else if (check_copy(buf))
 		print_cpy(buf, info);
-	else if  (buf == 127 && info->len > 0)
+	else if  (buf == BCKSPCE_K && info->len > 0)
 		p_backspace(info, 0);
 	else if ((buf > 32 && buf < 126) && (info->len == ft_strlen(info->command)))
 		p_ascii(info, str, buf);
 	else if ((buf > 32 && buf < 126) && (info->len < ft_strlen(info->command)))
 		insert_ascii(info, str);
-	else if (buf == 32)
+	else if (buf == SPCE_K)
 		p_space(info, " ");
-	else if (buf == 16690)
+	else if (buf == SHIFTUP_K)
 		p_s_up(info);
-	else if (buf == 16946)
+	else if (buf == SHIFTDWN_K)
 		p_s_down(info);
-	else if (buf == 17202)
+	else if (buf == SHIFTRIGHT_K)
 		p_s_right(info);
-	else if (buf == 17458)
+	else if (buf == SHIFTLEFT_K)
 		p_s_left(info);
-	else if (buf == 4741915)
+	else if (buf == HOME_K)
 		p_home(info);
-	else if (buf == 4610843)
+	else if (buf == END_K)
 		p_end(info);
-	else if (buf == 10)
+	else if (buf == RET_K)
 		return (1);
 //	printf("buf == %i\n", buf);
 	return (0);
@@ -120,7 +120,8 @@ t_his			*check_entry(t_shell *info, t_his *his)
 	while (42)
 	{
 		buf = 0;
-		if (read(0, &buf, sizeof(int)))
+	//	printf("coucou\n");
+		if (read(STDIN_FILENO, &buf, sizeof(int)))
 		{
 			if (check_press(buf, info, his))
 				break ;
@@ -132,7 +133,7 @@ t_his			*check_entry(t_shell *info, t_his *his)
 	if (info->dquote == 1)
 		manage_dquote(info);
 	his = manage_his_list(his, info);
-//	ft_print("\n     ");
+	ft_print("\n");
 //	ft_print("%s\n", info->command);
 	if (parse_command(info->command))
 		core(info);

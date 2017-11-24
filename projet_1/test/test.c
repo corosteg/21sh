@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 17:05:21 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/21 16:58:49 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/11/24 18:01:45 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,26 @@ int main(int ac, char **av, char **env)
 	if (father == 0)
 	{
 		dup2 (cmd_fd[1], 1);
-		close(cmd_fd[0]);
+//		close(cmd_fd[0]);
 		execve(cmd1[0], cmd1, env);
 	}
+	father = fork();
 	dup2(cmd_fd[0], 0);
 	close(cmd_fd[1]);
-	father = fork();
 	if (father > 0)
 		wait(NULL);
 	if (father == 0)
 	{
 		dup2(cmd_fd2[1], 1);
-		close(cmd_fd[0]);
+//		close(cmd_fd2[0]);
 		execve(cmd2[0], cmd2, env);
 	}
+	father = fork();
 	dup2(cmd_fd2[0], 0);
 	close(cmd_fd2[1]);
-	father = fork();
 	if (father > 0)
 		wait(NULL);
 	if (father == 0)
-	{
 		execve(cmd3[0], cmd3, env);
-	}
 	printf("super!!\n");
 }
