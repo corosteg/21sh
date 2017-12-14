@@ -6,12 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/24 16:54:05 by corosteg         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:26:44 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH_H
 # define SH_H
+# include <fcntl.h>
 # include <termios.h>
 # include <dirent.h>
 # include <unistd.h>
@@ -48,6 +49,15 @@ typedef struct			s_shell
 	int					quote;
 	int					dquote;
 	int					quote_len;
+	int					pipefd[2];
+	int					pipefd2[2];
+	int					exec_on_stdout;
+	int					save_stdin;
+	int					save_stdout;
+	int					exec_sign;
+	int					redir;
+	int					fd_out;
+	int					fd_in;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*command;
@@ -95,6 +105,8 @@ void					press_quote_string(t_shell *info);
 void					p_quote_home(t_shell *info);
 void					p_quote_space(t_shell *info, char *str);
 void					p_s_quote_left(t_shell *info);
+void					exec_pipe(t_shell *info, char *command,
+							int a, char **env_tab);
 char					**alloc_tab(t_env *list);
 char					*look_for_bin(char *co, t_path *e_path);
 int						insert_quote_ascii(t_shell *info, char *str);
