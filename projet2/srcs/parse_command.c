@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/17 21:28:22 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:27:44 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int		check_false(char *str, int i)
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] == '\0')
-		return (ft_print("\n21sh: syntax error near unexpected token 'newline'\n"
-					));
+		return (ft_print
+				("\n21sh: syntax error near unexpected token 'newline'\n"));
 	if (str[i] == ';')
 		return (ft_print("\n21sh: syntax error near unexpected token ';'\n"));
 	if (str[i] == '>' && (str[i + 1] > '9' || str[i + 1] < '0'))

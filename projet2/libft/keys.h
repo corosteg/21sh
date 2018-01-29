@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 16:50:46 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/24 17:24:15 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/24 12:40:11 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 #define SHIFTDWN_K 16946
 #define SHIFTRIGHT_K 17202
 #define SHIFTLEFT_K 17458
+#define ALTLEFT_K 1146821403
+#define ALTRIGHT_K 1130044187
+#define ALTC_K 42947
+#define ALTV_K 10127586
+#define ALTX_K 8948194
 #define HOME_K 4741915
 #define END_K 4610843
 #define RET_K 10

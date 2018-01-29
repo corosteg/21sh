@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/24 18:22:26 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:43:08 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,16 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		p_s_right(info);
 	else if (buf == SHIFTLEFT_K)
 		p_s_left(info);
+	else if (buf == ALTLEFT_K)
+		p_a_left(info);
+	else if (buf == ALTRIGHT_K)
+		p_a_right(info);
+	else if (buf == ALTC_K)
+		p_a_c(info);
+	else if (buf == ALTV_K)
+		p_a_v(info);
+	else if (buf == ALTX_K)
+		p_a_x(info);
 	else if (buf == HOME_K)
 		p_home(info);
 	else if (buf == END_K)

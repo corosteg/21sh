@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2017/12/14 15:49:41 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/23 16:05:18 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ int					check_final(t_shell *info, int run)
 		close(tmp);
 		return (1);
 	}
+	if (info->command[run]  == ';')
+	{
+		tmp = info->fd_out;
+		info->fd_out = dup(info->save_stdout);
+		close(tmp);
+		return (1);
+	}
 	return(0);
 }
 
@@ -148,7 +155,8 @@ static void			exec_with_pipe(t_shell *info, int run, char **env_tab)
 		}
 	}
 	info->fd_in = tmp_fd[0];
-	info->fd_out = tmp_fd[1];
+	close(tmp_fd[1]);
+	info->fd_out = dup(info->save_stdout);
 }
 
 void				core(t_shell *info)

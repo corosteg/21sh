@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:35:47 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/16 19:43:51 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/24 16:25:29 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ void			press_string(t_shell *info)
 	ioctl(0, TIOCGWINSZ, &screen);
 	while (info->command[i])
 	{
+		if (i >= info->start_cp && i < info->end_cp)
+			tputs(tgetstr("mr", NULL), 1, ft_putchar);
 		ft_putchar(info->command[i]);
+		tputs(tgetstr("me", NULL), 1, ft_putchar);
 		info->len++;
 		info->x++;
 		if (info->x > screen.ws_col - 1)

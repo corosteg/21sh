@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/29 23:53:05 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/29 13:53:47 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ typedef struct			s_shell
 	int					quote;
 	int					dquote;
 	int					quote_len;
-	int					start_cp;
-	int					end_cp;
 	int					pipefd[2];
 	int					pipefd2[2];
 	int					exec_on_stdout;
@@ -62,10 +60,29 @@ typedef struct			s_shell
 	int					fd_in;
 	struct s_his		*his;
 	struct s_env		*env;
-	char				*cp_string;
 	char				*command;
 	char				*command2;
 }						t_shell;
+
+typedef struct			s_morelex
+{
+	char				**more_cut;
+	struct s_morelex	*next;
+}						t_morelex;
+
+typedef struct			s_parselex
+{
+	char				**cutting;
+	struct s_morelex	*more;
+	struct s_parselex	*next;
+}						t_parselex;
+
+typedef struct			s_lexem
+{
+	char				*command;
+	struct s_parselex	*multi;
+	struct s_lexem		*next;
+}						t_lexem;
 
 typedef struct			s_his
 {
@@ -93,17 +110,12 @@ void					p_backspace(t_shell *info, int a);
 void					p_quote_backspace(t_shell *info);
 void					p_delete(t_shell *info);
 void					p_right(t_shell *info);
-void					p_right2(t_shell *info);
-int						p_left(t_shell *info);
-int						p_left2(t_shell *info);
 void					p_ascii(t_shell *info, char *str, int buf);
 void					p_space(t_shell *info, char *str);
 void					p_s_left(t_shell *info);
 void					p_s_right(t_shell *info);
 void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
-int						p_a_left(t_shell *info);
-int						p_a_right(t_shell *info);
 void					free_c_tab(char **array);
 void					manage_squote(t_shell *info);
 void					manage_dquote(t_shell *info);
@@ -113,16 +125,14 @@ void					press_quote_string(t_shell *info);
 void					p_quote_home(t_shell *info);
 void					p_quote_space(t_shell *info, char *str);
 void					p_s_quote_left(t_shell *info);
-void					tool_refresh(t_shell *info);
-void					p_a_c(t_shell *info);
-void					p_a_v(t_shell *info);
 void					exec_pipe(t_shell *info, char *command,
 							int a, char **env_tab);
 char					**alloc_tab(t_env *list);
 char					*look_for_bin(char *co, t_path *e_path);
-char					*parse_flag(char *str);
 int						insert_quote_ascii(t_shell *info, char *str);
+int						p_left(t_shell *info);
 int						check_press(int buf, t_shell *info, t_his *his);
+char					*str_quote(int *i, char *str);
 int						insert_ascii(t_shell *info, char *str);
 int						exec_simpl_comm(t_shell *info, char *command);
 int						exec_pipe_comm(t_shell *info, char *str,
@@ -131,7 +141,6 @@ int						quote_n(t_shell *info);
 int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info);
 int						parse_command(char *str);
-int						p_a_x(t_shell *info);
 //t_shell					*init_info_list(t_shell *info);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);

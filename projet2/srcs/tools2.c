@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 17:06:25 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/17 17:46:18 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/24 12:31:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,16 @@ char		*look_for_bin(char *co, t_path *e_path)
 			tpm = tpm->next;
 		}
 	return (ft_strdup(co));
+}
+
+void		tool_refresh(t_shell *info)
+{
+	int i = 0;
+	i = info->len;
+	while (info->len > 0)
+		p_left2(info);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	press_string(info);
+	while (info->len > i)
+		p_left2(info);
 }

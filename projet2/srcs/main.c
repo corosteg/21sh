@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2017/12/14 17:26:55 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/24 16:05:38 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static t_shell				*init_info_list(t_shell *info, char **env)
 	info = (t_shell*)malloc(sizeof(t_shell));
 	info->command = ft_strdup("\0");
 	info->command2 = ft_strdup("\0");
+	info->cp_string = ft_strdup("\0");
 	info->no_move_his = 0;
 	info->exec_on_stdout = 0;
+	info->start_cp = -1;
+	info->end_cp = -1;
 	info->exec_sign = 0;
 	info->redir = 0;
 	info->env = copy_env(env, info->env);
