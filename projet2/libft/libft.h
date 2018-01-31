@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 20:29:00 by corosteg          #+#    #+#             */
-/*   Updated: 2017/10/16 15:05:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/29 11:17:10 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <wchar.h>
 # include <unistd.h>
 # define PRINT_LL "dDioOuUxX"
+# define IS_SPACE(x) (x == ' ' || x == '\t' || x == '\r' || x == '\f')
 
 typedef struct		s_list
 {
@@ -78,6 +79,8 @@ char				*ft_strcat(char *dest, const char *src);
 char				*ft_strncat(char *dest, const char *src, size_t n);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				**ft_strsplit(char const *s, char c);
+char				**ft_strsplitkeep(char const *s, char *c);
+char				**ft_splitmulti(char const *s, char *c);
 char				*ft_strupcase(char *str);
 char				*ft_strlowcase(char *s);
 int					ft_strequ(char const *s1, char const *s2);

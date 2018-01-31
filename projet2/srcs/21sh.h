@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/29 23:53:05 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/31 12:39:03 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,20 @@ typedef struct			s_path
 	char				*path;
 	struct s_path		*next;
 }						t_path;
+
+typedef struct			s_parselex
+{
+	char				**cutting;
+	struct s_morelex	*more;
+	struct s_parselex	*next;
+}						t_parselex;
+
+typedef struct			s_lexem
+{
+	char				*command;
+	struct s_parselex	*multi;
+	struct s_lexem		*next;
+}						t_lexem;
 
 void					p_home(t_shell *info);
 void					core(t_shell *info);

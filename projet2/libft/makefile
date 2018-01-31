@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 20:49:17 by corosteg          #+#    #+#              #
-#    Updated: 2017/10/09 13:24:49 by corosteg         ###   ########.fr        #
+#    Updated: 2018/01/29 11:18:45 by paoroste         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,9 @@ SRC = ft_atoi.c\
 	  ft_print.c\
 	  ft_print_aplist.c\
 	  ft_strclen.c\
-	  ft_strndup.c
+	  ft_strndup.c\
+	  ft_strsplitkeep.c\
+	  ft_splitmulti.c
 
 SRCO = ft_atoi.o\
 	  ft_strfreejoin.o\
@@ -154,7 +156,9 @@ SRCO = ft_atoi.o\
 	  ft_print.o\
 	  ft_print_aplist.o\
 	  ft_strclen.o\
-	  ft_strndup.o
+	  ft_strndup.o\
+	  ft_strsplitkeep.o\
+	  ft_splitmulti.o
 
 all: $(NAME)
 
