@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/01/29 12:50:40 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:59:17 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,32 @@ static char			**ft_split(char const *s, char *c, char **str, int count)
 	int				i;
 	int				count2;
 	int				len;
+	int				r;
 
 	i = 0;
+	r = 0;
 	while (s[i])
 	{
 		count2 = 0;
 		while (one_of3(s[i], c, s[i + 1]))
 			i++;
-		if (s[i] == '\"')
-			while (s[i] != '\"')
-				i++;
 		len = i;
 		while (s[len] && (!(one_of3(s[len], c, s[len + 1]))))
 		{
+			if (s[len] == '\"')
+				r++;
 			len++;
 		}
+		if ((one_of3(s[len], c, s[len + 1])) && r == 1)
+		{
+			if (s[len] == s[len + 1])
+				len = len + 2;
+			else
+				len++;
+			r--;
+		}
+		while (s[len] && (!(one_of3(s[len], c, s[len + 1]))))
+			len++;
 		if (len > i)
 		{
 			str[count] = (char *)malloc(sizeof(char) * (len - i + 1));

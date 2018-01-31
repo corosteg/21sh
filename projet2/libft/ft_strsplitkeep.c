@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:10:21 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/31 12:26:13 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/01/31 16:53:36 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ int				one_of(char cmp, char *c, char cmp2)
 		{
 			if (c[i] == cmp && c[i] == cmp2)
 				return (1);
+			//if ((cmp == '0' || cmp == '1' || cmp == '2') && cmp2 == '>'
+			//		&& cmp3 == '&')
+			//	return (1);
 		}
-		if (c[i] == cmp)
+		if (c[i] == cmp)// && (cmp != '0' && cmp != '1' && cmp != '2'))
 			return (1);
 		i++;
 	}

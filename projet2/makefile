@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/01/24 17:46:33 by corosteg         ###   ########.fr        #
+#    Updated: 2018/01/31 14:23:58 by paoroste         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS = ./srcs/main.c\
 	   ./srcs/exec_pipe.c\
 	   ./srcs/press_alt_right_left.c\
 	   ./srcs/press_alt_cvx.c\
-	   ./srcs/check_funct.c
+	   ./srcs/check_funct.c\
+	   ./srcs/lexem.c
 
 
 all: $(NAME)

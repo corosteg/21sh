@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/31 12:39:03 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/01/31 16:17:46 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ typedef struct			s_parselex
 typedef struct			s_lexem
 {
 	char				*command;
-	struct s_parselex	*multi;
 	struct s_lexem		*next;
 }						t_lexem;
 
@@ -146,6 +145,8 @@ int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info);
 int						parse_command(char *str);
 int						p_a_x(t_shell *info);
+t_parselex				*parse_cmd(char *command,int i,
+		t_lexem *list, t_lexem *tmp);
 //t_shell					*init_info_list(t_shell *info);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);
