@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/01/31 14:23:58 by paoroste         ###   ########.fr        #
+#    Updated: 2018/01/31 17:56:43 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,13 +55,24 @@ $(NAME):
 		@echo "\033[31m" "compiling" [ $(NAME) ]
 		make -C $(LIB_PATH)
 		gcc $(FLAGS) $(SRCS) $(LIB) -ltermcap -o $(NAME)
-		@echo "\033[32m" "    -------- 21sh has been Created --------"
+		@echo "\033[32m" "       -------          -----                       "
+		@echo "\033[32m" "      /___   /         /__  |                       "
+		@echo "\033[32m" "                          | |                       "
+		@echo "\033[32m" "                                                    "
 
 cc:
 		gcc $(SRCS) $(LIB) -g -ltermcap -o $(NAME)
+		@echo "\033[32m" "       -------          -----                       "
+		@echo "\033[32m" "      /___   /         /__  |                       "
+		@echo "\033[32m" "                          | |                       "
+		@echo "\033[32m" "                                                    "
 
 sanitize:
 		gcc $(SRCS) $(LIB) -g3 -fsanitize=address -ltermcap -o $(NAME)
+		@echo "\033[32m" "       -------          -----                       "
+		@echo "\033[32m" "      /___   /         /__  |                       "
+		@echo "\033[32m" "                          | |                       "
+		@echo "\033[32m" "                                                    "
 
 clean:
 		@echo "\033[34m" "Deleting"
