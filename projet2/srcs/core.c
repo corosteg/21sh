@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/23 16:05:18 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/01/31 15:47:07 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ static void			exec_with_pipe(t_shell *info, int run, char **env_tab)
 	info->fd_out = dup(info->save_stdout);
 }
 
-void				core(t_shell *info)
+/*void				core(t_shell *info)
 {
 	int		run;
 	int		i;
@@ -185,4 +185,25 @@ void				core(t_shell *info)
 		}
 	}
 	dup2(info->save_stdin, 0);
+}*/
+
+void		core(t_shell *info)
+{
+	t_parselex		*list;
+
+	int		i = 0;
+	list = parse_cmd(info->command, 1, NULL, NULL);
+	while (list)
+	{
+		while (list->cutting[i])
+		{
+			ft_print("tab[%d]: ", i);
+			ft_putstr(list->cutting[i]);
+			ft_putchar('\n');
+			i++;
+		}
+		i = 0;
+		ft_putstr(""RED"maillon suivant:\n\n"STOP"");
+		list = list->next;
+	}
 }
