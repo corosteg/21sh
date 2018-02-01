@@ -13,21 +13,28 @@
 
 #include "libft.h"
 
-int				one_of3(char cmp, char *c, char cmp2)
+int				one_of3(char const *s, char *c, int nb)
 {
 	int		i;
 
 	i = 0;
-	if (cmp == '\0' || c == NULL)
+	if (s[nb] == '\0' || c == NULL)
 		return (0);
 	while (c[i])
 	{
-		if (cmp == '&' || cmp == '|' || cmp == '<' || cmp == '>')
+		if ((s[nb] == '0' || s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
 		{
-			if (c[i] == cmp && c[i] == cmp2)
+			if (s[nb + 2] == '&' || (s[nb + 2] == '&' && s[nb + 3] != '#'))
 				return (1);
 		}
-		if (c[i] == cmp)
+		if (nb > 2 && s[nb] != '#' && s[nb - 1] == '&' && s[nb - 2] == '>')
+			return (1);
+		if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
+		{
+			if (c[i] == s[nb] && c[i] == s[nb + 1])
+				return (1);
+		}
+		if (c[i] == s[nb] && (s[nb] != '0' && s[nb] != '1' && s[nb] != '2'))
 			return (1);
 		i++;
 	}
@@ -43,11 +50,11 @@ static int			ft_compte(char const *s, char *c)
 	compteur = 0;
 	while (s[i])
 	{
-		while (one_of3(s[i], c, s[i + 1]))
+		while (one_of3(s, c, i))
 			i++;
 		if (s[i] != '\0')
 			compteur++;
-		while (s[i] && (!(one_of3(s[i], c, s[i + 1]))))
+		while (s[i] && (!(one_of3(s, c, i))))
 			i++;
 	}
 	return (compteur);
@@ -65,16 +72,16 @@ static char			**ft_split(char const *s, char *c, char **str, int count)
 	while (s[i])
 	{
 		count2 = 0;
-		while (one_of3(s[i], c, s[i + 1]))
+		while (one_of3(s, c, i))
 			i++;
 		len = i;
-		while (s[len] && (!(one_of3(s[len], c, s[len + 1]))))
+		while (s[len] && (!(one_of3(s, c, len))))
 		{
 			if (s[len] == '\"')
 				r++;
 			len++;
 		}
-		if ((one_of3(s[len], c, s[len + 1])) && r == 1)
+		if ((one_of3(s, c, len)) && r == 1)
 		{
 			if (s[len] == s[len + 1])
 				len = len + 2;
@@ -82,7 +89,7 @@ static char			**ft_split(char const *s, char *c, char **str, int count)
 				len++;
 			r--;
 		}
-		while (s[len] && (!(one_of3(s[len], c, s[len + 1]))))
+		while (s[len] && (!(one_of3(s, c, len))))
 			len++;
 		if (len > i)
 		{

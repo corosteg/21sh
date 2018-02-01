@@ -13,24 +13,26 @@
 #include "libft.h"
 #include "../srcs/21sh.h"
 
-int				one_of(char cmp, char *c, char cmp2)
+int				one_of(char const *s, char *c, int nb)
 {
 	int		i;
 
 	i = 0;
-	if (cmp == '\0' || c == NULL)
+	if (s[nb] == '\0' || c == NULL)
 		return (0);
 	while (c[i])
 	{
-		if (cmp == '&' || cmp == '|' || cmp == '<' || cmp == '>')
+		if ((s[nb] == '0' || s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
 		{
-			if (c[i] == cmp && c[i] == cmp2)
+			if (s[nb + 2] == '&' || (s[nb + 2] == '&' && s[nb + 3] != ' '))
 				return (1);
-			//if ((cmp == '0' || cmp == '1' || cmp == '2') && cmp2 == '>'
-			//		&& cmp3 == '&')
-			//	return (1);
 		}
-		if (c[i] == cmp)// && (cmp != '0' && cmp != '1' && cmp != '2'))
+		if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
+		{
+			if (c[i] == s[nb] && c[i] == s[nb + 1])
+				return (1);
+		}
+		if (c[i] == s[nb] && (s[nb] != '0' && s[nb] != '1' && s[nb] != '2'))
 			return (1);
 		i++;
 	}
@@ -46,11 +48,11 @@ static int			ft_compte(char const *s, char *c)
 	compteur = 0;
 	while (s[i])
 	{
-		while (one_of(s[i], c, s[i + 1]))
+		while (one_of(s, c, i))
 			i++;
 		if (s[i] != '\0')
 			compteur++;
-		while (s[i] && (!(one_of(s[i], c, s[i + 1]))))
+		while (s[i] && (!(one_of(s, c, i))))
 			i++;
 	}
 	return (compteur);
@@ -71,15 +73,15 @@ static char			**ft_split(char const *s, char *c, char **str)
 	while (s[i])
 	{
 		count2 = 0;
-		while (one_of(s[i], c, s[i + 1]))
+		while (one_of(s, c, i))
 			i++;
-		while (s[i] && (!(one_of(s[i], c, s[i + 1]))))
+		while (s[i] && (!(one_of(s, c, i))))
 		{
 			if (s[i] == '\"')
 				r++;
 			i++;
 		}
-		if ((one_of(s[i], c, s[i + 1])) && r == 1)
+		if ((one_of(s, c, i)) && r == 1)
 		{
 			if (s[i] == s[i + 1])
 				i = i + 2;
@@ -87,7 +89,7 @@ static char			**ft_split(char const *s, char *c, char **str)
 				i++;
 			r--;
 		}
-		while (s[i] && (!(one_of(s[i], c, s[i + 1]))))
+		while (s[i] && (!(one_of(s, c, i))))
 			i++;
 		str[count] = (char*)malloc(sizeof(char) * (i + 1));
 		while (len < i)
