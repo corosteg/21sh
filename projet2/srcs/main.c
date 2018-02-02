@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 16:05:38 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/02 15:08:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static t_shell				*init_info_list(t_shell *info, char **env)
 	info->quote = 0;
 	info->dquote = 0;
 	info->len = 0;
+	info->save_stdin = dup(0);
+	info->save_stdout = dup(1);
 	return (info);
 }
 

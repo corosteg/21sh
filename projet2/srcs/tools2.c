@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 17:06:25 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 12:31:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/02 20:19:17 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,15 @@ void		tool_refresh(t_shell *info)
 	while (info->len > i)
 		p_left2(info);
 }
+
+int			end_token_tool(char *str, t_shell *info)
+{
+	if (!(ft_strcmp(str, ";")))
+		return (1);
+	if (!(ft_strcmp(str, "||")))
+		return (1);
+	if (!(ft_strcmp(str, "&&")))
+		return (1);
+	return (0);
+}
+

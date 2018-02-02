@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/31 17:10:52 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/02/02 21:34:00 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,23 +187,61 @@ static void			exec_with_pipe(t_shell *info, int run, char **env_tab)
 	dup2(info->save_stdin, 0);
 }*/
 
-void		core(t_shell *info)
+int			parsing_list(t_parselex *list)
+{
+	if (!(ft_strcmp(list->cutting[0], ";")))
+	{
+		ft_print("21sh:  syntax error near unexpected token `;'");
+		return (1);
+	}
+	if (!(ft_strcmp(list->cutting[0], "|")))
+	{
+		ft_print("21sh:  syntax error near unexpected token `|'");
+		return (1);
+	}
+	if (!(ft_strcmp(list->cutting[0], "||")))
+	{
+		ft_print("21sh:  syntax error near unexpected token `||'");
+		return (1);
+	}
+	if (!(ft_strcmp(list->cutting[0], "&")))
+	{
+		ft_print("21sh:  syntax error near unexpected token `&'");
+		return (1);
+	}
+	if (!(ft_strcmp(list->cutting[0], "&&")))
+	{
+		ft_print("21sh:  syntax error near unexpected token `&&'");
+		return (1);
+	}
+	return (0);
+}
+
+int			core(t_shell *info)
 {
 	t_parselex		*list;
 
-	int		i = 0;
+	info->fd_in = dup(0);
+	info->fd_out = dup(1);
 	list = parse_cmd(info->command, 1, NULL, NULL);
+	if (parsing_list(list))
+		return (0);
 	while (list)
 	{
-		while (list->cutting[i])
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
+			list = redir_simpl(info,list);
+		if (list == NULL)
+			break;
+		if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
+			exec_in_pipe(list->cutting, info, alloc_tab(info->env));
+		if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
 		{
-			ft_print("tab[%d]: ", i);
-			ft_putstr(list->cutting[i]);
-			ft_putchar('\n');
-			i++;
+			exec_simpl(list->cutting, info);
+			info->fd_in = dup(info->save_stdin);
+			info->fd_out = dup(info->save_stdout);
 		}
-		i = 0;
-		ft_putstr(""RED"maillon suivant:\n\n"STOP"");
 		list = list->next;
 	}
+	dup2(info->save_stdin, 0);
+	return (1);
 }
