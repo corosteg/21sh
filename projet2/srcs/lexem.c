@@ -11,41 +11,30 @@
 /* ************************************************************************** */
 
 #include "./21sh.h"
-int				one_ofs(char cmp, char *c, char cmp2)
+int				one_ofs(char *s, char *c, int nb)
 {
 	int		i;
 
 	i = 0;
-	if (cmp == '\0' || c == NULL)
+	if (s[nb] == '\0' || c == NULL)
 		return (0);
 	while (c[i])
 	{
-		if (cmp == '&' || cmp == '|' || cmp == '<' || cmp == '>')
+		if ((s[nb] == '0' || s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
 		{
-			if (c[i] == cmp && c[i] == cmp2)
+			if (s[nb + 2] == '&' || (s[nb + 2] == '&' && s[nb + 3] != '#'))
 				return (1);
 		}
-		if (c[i] == cmp)
+		if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
+		{
+			if (c[i] == s[nb] && c[i] == s[nb + 1])
+				return (1);
+		}
+		if (c[i] == s[nb] && (s[nb] != '0' && s[nb] != '1' && s[nb] != '2'))
 			return (1);
 		i++;
 	}
 	return (0);
-}
-
-void		ft_freestrarr(char **arr)
-{
-	int		i;
-
-	if (arr)
-	{
-		i = -1;
-		while (arr[++i])
-		{
-			ft_strdel(&arr[i]);
-			free(arr[i]);
-		}
-		free(arr);
-	}
 }
 
 int		is_even(int nb)
@@ -61,8 +50,8 @@ char	*epur_cmd(char *str, int i, int nb, int odd)
 	char	*new;
 
 	new = (char*)malloc(sizeof(char) * (ft_strlen(str)));
-	//while (IS_SPACE(str[i]))
-	//	i++;
+	while (IS_SPACE(str[i]))
+		i++;
 	while (str[i] != '\0')
 	{
 		if (i > 0 && str[i - 1] == '\"')
@@ -80,6 +69,24 @@ char	*epur_cmd(char *str, int i, int nb, int odd)
 	return (new);
 }
 
+t_parselex		*cutting(t_parselex *tmp, char *str)
+{
+		tmp->cutting = (char**)malloc(sizeof(char*) * 2);
+		if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1] == '>' && str[2] == '&' && str[3] != '#')
+			tmp->cutting[0] = ft_strndup(str, 4);
+		else if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1] == '>' && str[2] == '&')
+			tmp->cutting[0] = ft_strndup(str, 3);
+		else if (str[1] == str[0])
+			tmp->cutting[0] = ft_strndup(str, 2);
+		else
+			tmp->cutting[0] = ft_strndup(str, 1);
+		tmp->cutting[1] = NULL;
+		tmp->next = NULL;
+		tmp->next = (t_parselex*)malloc(sizeof(t_parselex));
+		tmp = tmp->next;
+	return (tmp);
+}
+
 t_parselex		*parselex(t_lexem *list)
 {
 	t_parselex	*newlist;
@@ -90,43 +97,16 @@ t_parselex		*parselex(t_lexem *list)
 	newlist->cutting = ft_splitmulti(list->command, "#&;|<>");
 	list = list->next;
 	newlist->next = NULL;
-	//free(tableau);
-	//ft_freestrarr(tableau);
 	while (list)
 	{
 		tmp->next = (t_parselex*)malloc(sizeof(t_parselex));
 		tmp = tmp->next;
-		if (one_ofs(list->command[0], "&;|<>", list->command[1]))
-		{
-			tmp->cutting = (char**)malloc(sizeof(char*) * 2);
-			if (list->command[1] == list->command[0])
-				tmp->cutting[0] = ft_strndup(list->command, 2);
-			else
-				tmp->cutting[0] = ft_strndup(list->command, 1);
-			tmp->cutting[1] = NULL;
-			tmp->next = NULL;
-			tmp->next = (t_parselex*)malloc(sizeof(t_parselex));
-			tmp = tmp->next;
-		}
+		if (one_ofs(list->command, "&;|<>", 0))
+			tmp = cutting(tmp, list->command);
 		tmp->cutting = ft_splitmulti(list->command, "#&|;<>");
 		tmp->next = NULL;
 		list = list->next;
 	}
-	//tmp2 = newlist;
-	//int i = 0;
-	/*while (tmp2)
-	{
-		while (tmp2->cutting[i])
-		{
-			ft_print("tab[%d]: ", i);
-			ft_putstr(tmp2->cutting[i]);
-			ft_putchar('\n');
-			i++;
-		}
-		i = 0;
-		ft_putstr(""RED"maillon suivant:\n\n"STOP"");
-		tmp2 = tmp2->next;
-	}*/
 	return (newlist);
 }
 
@@ -134,7 +114,6 @@ t_parselex		*parse_cmd(char *command,int i, t_lexem *list, t_lexem *tmp)
 {
 	t_parselex	*list2;
 	char		**tableau;
-	t_lexem		*tmp2;
 
 	tableau = ft_strsplitkeep(command, ";&|<>");
 	tmp = (t_lexem*)malloc(sizeof(t_lexem));
@@ -149,19 +128,19 @@ t_parselex		*parse_cmd(char *command,int i, t_lexem *list, t_lexem *tmp)
 		tmp->next = NULL;
 		i++;
 	}
-	tmp2 = list;
+	tmp = list;
 	while (tmp)
 	{
-	//	printf("%s\n", tmp2->command);
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
 		tmp = tmp->next;
 	}
-	while (tmp2)
+	/*tmp = list;
+	while (tmp)
 	{
-		ft_putstr(tmp2->command);
+		ft_putstr(tmp->command);
 		ft_putchar('\n');
-		tmp2 = tmp2->next;
-	}
+		tmp = tmp->next;
+	}*/
 	list2 = parselex(list);
 	return (list2);
 }
