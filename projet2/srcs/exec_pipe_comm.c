@@ -82,7 +82,7 @@ void			redir_simpl2(t_shell *info, char *file)
 	info->redir = 1;
 }
 
-static int		redir_simpl(t_shell *info, int i)
+/*static int		redir_simpl(t_shell *info, int i)
 {
 	char	*file;
 	int		a;
@@ -185,4 +185,4 @@ int				exec_pipe_comm(t_shell *info, char *str, int i, int fd)
 	dup2(info->save_stdin, 0);
 	dup2(info->save_stdout, 1);
 	return (0);
-}
+}*/

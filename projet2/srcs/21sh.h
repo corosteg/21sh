@@ -148,9 +148,10 @@ int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info);
 int						parse_command(char *str);
 int						p_a_x(t_shell *info);
+t_parselex				*redir_doble(t_shell *info, t_parselex *list);
 t_parselex				*redir_simpl(t_shell *info, t_parselex *list);
 t_parselex				*parse_cmd(char *command,int i,
-		t_lexem *list, t_lexem *tmp);
+							t_lexem *list, t_lexem *tmp);
 //t_shell					*init_info_list(t_shell *info);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);

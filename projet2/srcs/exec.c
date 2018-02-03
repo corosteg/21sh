@@ -28,7 +28,6 @@ void			exec_simpl(char **com, t_shell *info)
 	if (father == 0)
 	{
 		dup2(info->fd_out, 1);
-	ft_print("info->fd_out3 --->%d\n", info->fd_out);
 		close(info->fd_in);
 		if (execve(bin_path, com, env))
 		{

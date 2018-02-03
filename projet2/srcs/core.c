@@ -217,6 +217,14 @@ int			parsing_list(t_parselex *list)
 	return (0);
 }
 
+void		reset_fd(t_shell *info)
+{
+	close(info->fd_in);
+	close(info->fd_out);
+	info->fd_in = dup(info->save_stdin);
+	info->fd_out = dup(info->save_stdout);
+}
+
 int			core(t_shell *info)
 {
 	t_parselex		*list;
@@ -228,6 +236,8 @@ int			core(t_shell *info)
 		return (0);
 	while (list)
 	{
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
+			list = redir_doble(info,list);
 		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
 			list = redir_simpl(info,list);
 		if (list == NULL)
@@ -237,8 +247,7 @@ int			core(t_shell *info)
 		if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
 		{
 			exec_simpl(list->cutting, info);
-			info->fd_in = dup(info->save_stdin);
-			info->fd_out = dup(info->save_stdout);
+			reset_fd(info);
 		}
 		list = list->next;
 	}
