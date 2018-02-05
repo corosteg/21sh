@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/02 20:19:27 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 16:56:24 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void					p_a_v(t_shell *info);
 void					exec_simpl(char **com, t_shell *info);
 void					exec_pipe(t_shell *info, char *command,
 							int a, char **env_tab);
+void					reset_fd_tool(t_shell *info);
 char					**alloc_tab(t_env *list);
 char					*look_for_bin(char *co, t_path *e_path);
 char					*parse_flag(char *str);
@@ -152,6 +153,7 @@ t_parselex				*redir_doble(t_shell *info, t_parselex *list);
 t_parselex				*redir_simpl(t_shell *info, t_parselex *list);
 t_parselex				*parse_cmd(char *command,int i,
 							t_lexem *list, t_lexem *tmp);
+t_parselex				*redir_left(t_shell *info, t_parselex *list);
 //t_shell					*init_info_list(t_shell *info);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);

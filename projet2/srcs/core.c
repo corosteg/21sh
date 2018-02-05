@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/02 21:34:00 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 17:29:47 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,14 +217,6 @@ int			parsing_list(t_parselex *list)
 	return (0);
 }
 
-void		reset_fd(t_shell *info)
-{
-	close(info->fd_in);
-	close(info->fd_out);
-	info->fd_in = dup(info->save_stdin);
-	info->fd_out = dup(info->save_stdout);
-}
-
 int			core(t_shell *info)
 {
 	t_parselex		*list;
@@ -240,6 +232,8 @@ int			core(t_shell *info)
 			list = redir_doble(info,list);
 		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
 			list = redir_simpl(info,list);
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
+			list = redir_left(info,list);
 		if (list == NULL)
 			break;
 		if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
@@ -247,7 +241,7 @@ int			core(t_shell *info)
 		if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
 		{
 			exec_simpl(list->cutting, info);
-			reset_fd(info);
+			reset_fd_tool(info);
 		}
 		list = list->next;
 	}
