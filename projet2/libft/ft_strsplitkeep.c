@@ -58,6 +58,28 @@ static int			ft_compte(char const *s, char *c)
 	return (compteur);
 }
 
+int					fck_quote(int i, char const *s, char *c)
+{
+	int		r;
+
+	r = 0;
+	while (one_of(s, c, i))
+		i++;
+	while (s[i] && (!(one_of(s, c, i))))
+	{
+		if (s[i] == '\"')
+			r++;
+		i++;
+	}
+	if ((one_of(s, c, i)) && r == 1)
+	{
+		while (s[i] != '\"')
+			i++;
+		i++;
+	}
+	return (i);
+}
+
 static char			**ft_split(char const *s, char *c, char **str)
 {
 	int				i;
@@ -73,24 +95,7 @@ static char			**ft_split(char const *s, char *c, char **str)
 	while (s[i])
 	{
 		count2 = 0;
-		while (one_of(s, c, i))
-			i++;
-		while (s[i] && (!(one_of(s, c, i))))
-		{
-			if (s[i] == '\"')
-				r++;
-			i++;
-		}
-		if ((one_of(s, c, i)) && r == 1)
-		{
-			if (s[i] == s[i + 1])
-				i = i + 2;
-			else
-				i++;
-			r--;
-		}
-		while (s[i] && (!(one_of(s, c, i))))
-			i++;
+		i = fck_quote(i, s, c);
 		str[count] = (char*)malloc(sizeof(char) * (i + 1));
 		while (len < i)
 			str[count][count2++] = s[len++];
