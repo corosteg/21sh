@@ -60,37 +60,40 @@ static int			ft_compte(char const *s, char *c)
 	return (compteur);
 }
 
+int					fck_quote2(char const *s, int len, char *c)
+{
+	int		r;
+
+	r = 0;
+	while (s[len] && (!(one_of3(s, c, len))))
+	{
+		if (s[len] == '\"')
+			r++;
+		len++;
+	}
+	if ((one_of3(s, c, len)) && r == 1)
+	{
+		while (s[len] != '\"')
+			len++;
+		len++;
+	}
+	return (len);
+}
+
 static char			**ft_split(char const *s, char *c, char **str, int count)
 {
 	int				i;
 	int				count2;
 	int				len;
-	int				r;
 
 	i = 0;
-	r = 0;
 	while (s[i])
 	{
 		count2 = 0;
 		while (one_of3(s, c, i))
 			i++;
 		len = i;
-		while (s[len] && (!(one_of3(s, c, len))))
-		{
-			if (s[len] == '\"')
-				r++;
-			len++;
-		}
-		if ((one_of3(s, c, len)) && r == 1)
-		{
-			if (s[len] == s[len + 1])
-				len = len + 2;
-			else
-				len++;
-			r--;
-		}
-		while (s[len] && (!(one_of3(s, c, len))))
-			len++;
+		len = fck_quote2(s, len, c);
 		if (len > i)
 		{
 			str[count] = (char *)malloc(sizeof(char) * (len - i + 1));
