@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 16:56:24 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:12:20 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,13 @@ void					tool_refresh(t_shell *info);
 void					p_a_c(t_shell *info);
 void					p_a_v(t_shell *info);
 void					exec_simpl(char **com, t_shell *info);
+void					free_list_path_tool(t_path *list);
 void					exec_pipe(t_shell *info, char *command,
 							int a, char **env_tab);
 void					reset_fd_tool(t_shell *info);
 char					**alloc_tab(t_env *list);
-char					*look_for_bin(char *co, t_path *e_path);
+char					*look_for_bin(char *co, t_path *e_path,
+							DIR *rep, char *tmp);
 char					*parse_flag(char *str);
 int						insert_quote_ascii(t_shell *info, char *str);
 int						check_press(int buf, t_shell *info, t_his *his);
