@@ -87,14 +87,20 @@ t_parselex		*cutting(t_parselex *tmp, char *str)
 	return (tmp);
 }
 
-t_parselex		*parselex(t_lexem *list)
+t_parselex		*parselex(t_lexem *list, t_parselex *tmp, int i)
 {
 	t_parselex	*newlist;
-	t_parselex	*tmp;
 
 	tmp = (t_parselex*)malloc(sizeof(t_parselex));
 	newlist = tmp;
-	newlist->cutting = ft_splitmulti(list->command, "#&;|<>");
+	if (list->command[0] == ';')
+	{
+		newlist->cutting = (char**)malloc(sizeof(char*) * 2);
+		newlist->cutting[0] = ft_strdup(list->command);
+		newlist->cutting[1] = NULL;
+	}
+	else
+		newlist->cutting = ft_splitmulti(list->command, "#&;|<>");
 	list = list->next;
 	newlist->next = NULL;
 	while (list)
@@ -134,13 +140,13 @@ t_parselex		*parse_cmd(char *command,int i, t_lexem *list, t_lexem *tmp)
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
 		tmp = tmp->next;
 	}
-	/*tmp = list;
+	tmp = list;
 	while (tmp)
 	{
 		ft_putstr(tmp->command);
 		ft_putchar('\n');
 		tmp = tmp->next;
-	}*/
-	list2 = parselex(list);
+	}
+	list2 = parselex(list, NULL, 0);
 	return (list2);
 }
