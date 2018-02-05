@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:07:22 by corosteg          #+#    #+#             */
-/*   Updated: 2017/12/14 18:49:16 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:15:14 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		exec_pipe(t_shell *info, char *command, int a, char **env_tab)
 }*/
 
 
-void		exec_pipe(t_shell *info, char *command, int a, char **env_tab)
+/*void		exec_pipe(t_shell *info, char *command, int a, char **env_tab)
 {
 	pid_t		father;
 	char		*bin_path;
@@ -138,4 +138,4 @@ void		exec_pipe(t_shell *info, char *command, int a, char **env_tab)
 	}
 	info->fd_in = tmp_fd[0];
 	info->fd_out = tmp_fd[1];
-}
+}*/

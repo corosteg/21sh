@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 17:29:28 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:14:32 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void			exec_redir(char **com, t_shell *info, int fd)
 	pid_t		father;
 
 	env = alloc_tab(info->env);
-	bin_path = look_for_bin(com[0], parse_path(info->env));
+	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	father = fork();
 	dup2(info->fd_in, 0);
 	close(info->fd_out);

@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 23:30:39 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/22 00:18:30 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:17:36 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./21sh.h"
 
-static int		exec_bin_comm(t_shell *info, char *command, t_path *var_path)
+/*static int		exec_bin_comm(t_shell *info, char *command, t_path *var_path)
 {
 	pid_t		father;
 	int			status;
@@ -54,4 +54,4 @@ int				exec_simpl_comm(t_shell *info, char *command)
 	else
 		return (exec_bin_comm(info, command, var_path));
 	return (0);
-}
+}*/

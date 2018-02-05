@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 17:06:25 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/02 20:19:17 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:13:48 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void				press_quote_string(t_shell *info)
 	}
 }
 
-char		*look_for_bin(char *co, t_path *e_path)
+char		*look_for_bin(char *co, t_path *e_path, DIR *rep, char *tmp)
 {
-	DIR				*rep;
-	char			*tmp;
 	t_path			*tpm;
 	struct dirent	*ent;
 
@@ -65,6 +63,7 @@ char		*look_for_bin(char *co, t_path *e_path)
 					{
 						closedir(rep);
 						tmp = ft_strfreejoin(tpm->path, "/", 0);
+						free_list_path_tool(e_path);
 						return (co = ft_strfreejoin(tmp, co, 1));
 					}
 				}
@@ -72,6 +71,7 @@ char		*look_for_bin(char *co, t_path *e_path)
 			}
 			tpm = tpm->next;
 		}
+	free_list_path_tool(e_path);
 	return (ft_strdup(co));
 }
 

@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 17:29:47 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:17:13 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int					check_final(t_shell *info, int run)
 	return(0);
 }
 
-static void				exec(t_shell *info, int run, char **env_tab)
+/*static void				exec(t_shell *info, int run, char **env_tab)
 {
 	pid_t			father;
 	char			*bin_path;
@@ -157,7 +157,7 @@ static void			exec_with_pipe(t_shell *info, int run, char **env_tab)
 	info->fd_in = tmp_fd[0];
 	close(tmp_fd[1]);
 	info->fd_out = dup(info->save_stdout);
-}
+}*/
 
 /*void				core(t_shell *info)
 {

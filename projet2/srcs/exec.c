@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 18:13:48 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:09:32 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			exec_simpl(char **com, t_shell *info)
 	pid_t		father;
 
 	env = alloc_tab(info->env);
-	bin_path = look_for_bin(com[0], parse_path(info->env));
+	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	father = fork();
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
@@ -35,6 +35,8 @@ void			exec_simpl(char **com, t_shell *info)
 			exit(father);
 		}
 	}
+	free_c_tab(env);
+	free(bin_path);
 }
 
 void			exec_in_pipe(char **com, t_shell *info, char **env)
@@ -43,7 +45,7 @@ void			exec_in_pipe(char **com, t_shell *info, char **env)
 	char		*bin_path;
 	int			tmp_fd[2];
 
-	bin_path = look_for_bin(com[0], parse_path(info->env));
+	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	pipe(tmp_fd);
 	father = fork();
 	dup2(info->fd_in, 0);
@@ -60,6 +62,8 @@ void			exec_in_pipe(char **com, t_shell *info, char **env)
 			exit(father);
 		}
 	}
+	free_c_tab(env);
+	free(bin_path);
 	info->fd_in = tmp_fd[0];
 	close(tmp_fd[1]);
 	info->fd_out = dup(info->save_stdout);
