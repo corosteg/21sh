@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 19:17:13 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 22:30:59 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,30 @@ int			parsing_list(t_parselex *list)
 	return (0);
 }
 
-int			core(t_shell *info)
+static t_parselex		*check_redire(t_parselex *list, t_shell *info)
+{
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
+			list = redir_doble(info,list);
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
+			list = redir_simpl(info,list);
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
+			list = redir_left(info,list);
+		return (list);
+}
+
+static t_parselex		*check_exec(t_parselex *list, t_shell *info)
+{
+		if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
+			exec_in_pipe(list->cutting, info, alloc_tab(info->env));
+		if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
+		{
+			exec_simpl(list->cutting, info);
+			reset_fd_tool(info);
+		}
+		return (list);
+}
+
+int						core(t_shell *info)
 {
 	t_parselex		*list;
 
@@ -228,21 +251,9 @@ int			core(t_shell *info)
 		return (0);
 	while (list)
 	{
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
-			list = redir_doble(info,list);
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
-			list = redir_simpl(info,list);
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
-			list = redir_left(info,list);
-		if (list == NULL)
+		if (!(list = check_redire(list, info)))
 			break;
-		if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
-			exec_in_pipe(list->cutting, info, alloc_tab(info->env));
-		if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
-		{
-			exec_simpl(list->cutting, info);
-			reset_fd_tool(info);
-		}
+		list = check_exec(list, info);
 		list = list->next;
 	}
 	dup2(info->save_stdin, 0);
