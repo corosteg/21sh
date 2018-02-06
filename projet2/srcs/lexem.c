@@ -45,26 +45,45 @@ int		is_even(int nb)
 		return (0);
 }
 
+int		epur_len(char *str, int i, int nb, int odd)
+{
+	while (str[i])
+	{
+		if (i > 0 && str[i - 1] == '\"')
+			odd++;
+		if (IS_SPACE(str[i]) && is_even(odd) == 1)
+		{
+			if (is_even(odd) == 1 && str[i + 1] != '\0')
+				nb++;
+			while (IS_SPACE(str[i]) && str[i + 1] != '\0')
+				i++;
+		}
+		nb++;
+		i++;
+	}
+	return (nb);
+}
+
 char	*epur_cmd(char *str, int i, int nb, int odd)
 {
 	char	*new;
 
-	new = (char*)malloc(sizeof(char) * (ft_strlen(str)));
-	while (IS_SPACE(str[i]))
-		i++;
+	new = (char*)malloc(sizeof(char) * (epur_len(str, 0, 0, 0) + 1));
 	while (str[i] != '\0')
 	{
 		if (i > 0 && str[i - 1] == '\"')
 			odd++;
-		if (IS_SPACE(str[i]))
+		if (IS_SPACE(str[i]) && is_even(odd) == 1)
 		{
-			if (is_even(odd) == 1)
+			if (is_even(odd) == 1 && str[i + 1] != '\0')
 				new[nb++] = '#';
-			while (IS_SPACE(str[i]) && (is_even(odd) == 1))
+			while (IS_SPACE(str[i]) && str[i + 1] != '\0')
 				i++;
 		}
 		new[nb++] = str[i++];
 	}
+	if (new[nb - 1] == ' ')
+		nb--;
 	new[nb] = '\0';
 	return (new);
 }
@@ -72,9 +91,11 @@ char	*epur_cmd(char *str, int i, int nb, int odd)
 t_parselex		*cutting(t_parselex *tmp, char *str)
 {
 		tmp->cutting = (char**)malloc(sizeof(char*) * 2);
-		if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1] == '>' && str[2] == '&' && str[3] != '#')
+		if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1] == '>'
+		&& str[2] == '&' && str[3] != '#')
 			tmp->cutting[0] = ft_strndup(str, 4);
-		else if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1] == '>' && str[2] == '&')
+		else if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1]
+		== '>' && str[2] == '&')
 			tmp->cutting[0] = ft_strndup(str, 3);
 		else if (str[1] == str[0])
 			tmp->cutting[0] = ft_strndup(str, 2);
@@ -121,7 +142,9 @@ t_parselex		*parse_cmd(char *command,int i, t_lexem *list, t_lexem *tmp)
 	t_parselex	*list2;
 	char		**tableau;
 
-	tableau = ft_strsplitkeep(command, ";&|<>");
+	if (command[0] == '\0')
+		return (NULL);
+	(tableau = ft_strsplitkeep(command, ";&|<>"));
 	tmp = (t_lexem*)malloc(sizeof(t_lexem));
 	list = tmp;
 	list->command = ft_strdup(tableau[0]);
@@ -130,9 +153,8 @@ t_parselex		*parse_cmd(char *command,int i, t_lexem *list, t_lexem *tmp)
 	{
 		tmp->next = (t_lexem*)malloc(sizeof(t_lexem));
 		tmp = tmp->next;
-		tmp->command = ft_strdup(tableau[i]);
+		tmp->command = ft_strdup(tableau[i++]);
 		tmp->next = NULL;
-		i++;
 	}
 	tmp = list;
 	while (tmp)
@@ -140,13 +162,13 @@ t_parselex		*parse_cmd(char *command,int i, t_lexem *list, t_lexem *tmp)
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
 		tmp = tmp->next;
 	}
-	tmp = list;
-	while (tmp)
-	{
-		ft_putstr(tmp->command);
-		ft_putchar('\n');
-		tmp = tmp->next;
-	}
 	list2 = parselex(list, NULL, 0);
 	return (list2);
 }
+	/*tmp = list;
+	while (tmp)
+	{
+		ft_putstr(tmp->command);
+		ft_putstr("end\n");
+		tmp = tmp->next;
+	}*/
