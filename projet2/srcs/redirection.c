@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-static void			exec_redir(char **com, t_shell *info, int fd)
+void				exec_redir(char **com, t_shell *info, int fd)
 {
 	char		*bin_path;
 	char		**env;
@@ -68,6 +68,25 @@ t_parselex				*redir_doble(t_shell *info, t_parselex *list)
 }
 
 t_parselex				*redir_left(t_shell *info, t_parselex *list)
+{
+	int		fd;
+	char	*ta[3];
+
+
+	if (list->next->next == NULL)
+		return (NULL);
+	ta[0] = ft_strdup("/bin/cat");
+	ta[1] = ft_strdup(list->next->next->cutting[0]);
+	ta[2] = NULL;
+	exec_in_pipe(ta, info, alloc_tab(info->env));
+	exec_redir(list->cutting, info, info->fd_out);
+	while (list && !(end_token_tool(list->cutting[0], info)))
+		list = list->next;
+	reset_fd_tool(info);
+	return (list);
+}
+
+t_parselex				*redir_heredoc(t_shell *info, t_parselex *list)
 {
 	int		fd;
 	char	*ta[3];

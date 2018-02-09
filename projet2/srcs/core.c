@@ -221,8 +221,16 @@ static t_parselex		*check_redire(t_parselex *list, t_shell *info)
 {
 		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
 			list = redir_doble(info,list);
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<<")))
+			list = redir_heredoc(info,list);
 		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
 			list = redir_simpl(info,list);
+		if (list && list->next && list->next->next
+				&& list->next->next->next
+				&& list->next->next->next->next
+				&& !(ft_strcmp(list->next->cutting[0], "<"))
+				&& !(ft_strcmp(list->next->next->next->cutting[0], ">")))
+			list = redir_left_and_right(info,list);
 		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
 			list = redir_left(info,list);
 		return (list);

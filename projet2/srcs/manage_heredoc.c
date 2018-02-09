@@ -20,8 +20,12 @@ char			*manage_heredoc(t_shell *info, char *end)
 {
 	int		buf;
 	char	*ret;
+	int		i;
 
-	ft_print("\nheredoc>");
+	i = 0;
+	while (i < info->y)
+		ft_print("\n");
+	ft_print("heredoc>");
 	info->quote_len = 6;
 	info->len++;
 	info->x = 6;
@@ -44,6 +48,7 @@ char			*manage_heredoc(t_shell *info, char *end)
 			}
 		}
 	}
+	ft_print("\n");
 	buf = open("/tmp/21sh_heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	ft_putstr_fd(info->command, buf);
 	free(end);

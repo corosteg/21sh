@@ -116,6 +116,7 @@ void					p_s_left(t_shell *info);
 void					p_s_right(t_shell *info);
 void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
+void					exec_redir(char **com, t_shell *info, int fd);
 int						p_a_left(t_shell *info);
 int						p_a_right(t_shell *info);
 int						end_token_tool(char *str, t_shell *info);
@@ -153,12 +154,12 @@ int						check_press_quote(int buf, t_shell *info);
 int						parse_command(char *str);
 int						p_a_x(t_shell *info);
 t_parselex				*parse_cmd(t_shell *info, int i,
-		t_lexem *list, t_lexem *tmp);
+							t_lexem *list, t_lexem *tmp);
 t_parselex				*redir_doble(t_shell *info, t_parselex *list);
 t_parselex				*redir_simpl(t_shell *info, t_parselex *list);
-t_parselex				*parse_cmd(char *command,int i,
-							t_lexem *list, t_lexem *tmp);
 t_parselex				*redir_left(t_shell *info, t_parselex *list);
+t_parselex				*redir_heredoc(t_shell *info, t_parselex *list);
+t_parselex				*redir_left_and_right(t_shell *info, t_parselex *list);
 //t_shell					*init_info_list(t_shell *info);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);
