@@ -141,11 +141,12 @@ t_parselex		*check_heredoc(t_parselex *list, t_shell *info)
 {
 	t_parselex		*tmp;
 
+	tmp = list;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->cutting[0], "<<"))
 			tmp->next->cutting[0] =
-				manager_heredoc(info, tmp->next->cutting[0]);
+				manage_heredoc(info, tmp->next->cutting[0]);
 		tmp = tmp->next;
 	}
 	return (list);

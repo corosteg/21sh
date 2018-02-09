@@ -134,6 +134,7 @@ void					exec_pipe(t_shell *info, char *command,
 char					**alloc_tab(t_env *list);
 char					*look_for_bin(char *co, t_path *e_path);
 char					*parse_flag(char *str);
+char					*manage_heredoc(t_shell *info, char *end);
 int						insert_quote_ascii(t_shell *info, char *str);
 int						check_press(int buf, t_shell *info, t_his *his);
 int						insert_ascii(t_shell *info, char *str);

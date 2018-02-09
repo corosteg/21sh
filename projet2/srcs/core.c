@@ -192,7 +192,7 @@ void		core(t_shell *info)
 	t_parselex		*list;
 
 	int		i = 0;
-	list = parse_cmd(info->command, 1, NULL, NULL);
+	list = parse_cmd(info, 1, NULL, NULL);
 	while (list)
 	{
 		while (list->cutting[i])
