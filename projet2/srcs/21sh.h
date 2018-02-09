@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/31 16:17:46 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:12:20 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ typedef struct			s_lexem
 }						t_lexem;
 
 void					p_home(t_shell *info);
-void					core(t_shell *info);
+void					exec_in_pipe(char **com, t_shell *info, char **env);
+int						core(t_shell *info);
 void					p_end(t_shell *info);
 void					press_string(t_shell *info);
 void					p_quote_delete(t_shell *info);
@@ -117,6 +118,7 @@ void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
 int						p_a_left(t_shell *info);
 int						p_a_right(t_shell *info);
+int						end_token_tool(char *str, t_shell *info);
 void					free_c_tab(char **array);
 void					manage_squote(t_shell *info);
 void					manage_dquote(t_shell *info);
@@ -129,10 +131,14 @@ void					p_s_quote_left(t_shell *info);
 void					tool_refresh(t_shell *info);
 void					p_a_c(t_shell *info);
 void					p_a_v(t_shell *info);
+void					exec_simpl(char **com, t_shell *info);
+void					free_list_path_tool(t_path *list);
 void					exec_pipe(t_shell *info, char *command,
 							int a, char **env_tab);
+void					reset_fd_tool(t_shell *info);
 char					**alloc_tab(t_env *list);
-char					*look_for_bin(char *co, t_path *e_path);
+char					*look_for_bin(char *co, t_path *e_path,
+							DIR *rep, char *tmp);
 char					*parse_flag(char *str);
 char					*manage_heredoc(t_shell *info, char *end);
 int						insert_quote_ascii(t_shell *info, char *str);
@@ -148,6 +154,11 @@ int						parse_command(char *str);
 int						p_a_x(t_shell *info);
 t_parselex				*parse_cmd(t_shell *info, int i,
 		t_lexem *list, t_lexem *tmp);
+t_parselex				*redir_doble(t_shell *info, t_parselex *list);
+t_parselex				*redir_simpl(t_shell *info, t_parselex *list);
+t_parselex				*parse_cmd(char *command,int i,
+							t_lexem *list, t_lexem *tmp);
+t_parselex				*redir_left(t_shell *info, t_parselex *list);
 //t_shell					*init_info_list(t_shell *info);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);

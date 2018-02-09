@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 16:05:38 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:29:37 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,30 @@ static t_shell				*init_info_list(t_shell *info, char **env)
 	info->quote = 0;
 	info->dquote = 0;
 	info->len = 0;
+	info->save_stdin = dup(0);
+	info->save_stdout = dup(1);
 	return (info);
+}
+
+static void				free_env(t_env *list)
+{
+	t_env		*tmp;
+
+	while (list)
+	{
+		free(list->var);
+		tmp = list;
+		list = list->next;
+		free(tmp);
+	}
+}
+
+static void				free_info(t_shell *info)
+{
+//	free(info->command);
+//	free(info->command2);
+	free(info->cp_string);
+	free_env(info->env);
 }
 
 void				ft_error(char *str)
@@ -75,7 +98,7 @@ int					main(int ac, char **av, char **env)
 		free(info->command);
 		free(info->command2);
 		tab_env = alloc_tab(info->env);
-		free(info);
+		free_info(info);
 		info = init_info_list(info, tab_env);
 		free_c_tab(tab_env);
 	}
