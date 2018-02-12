@@ -35,6 +35,7 @@ SRCS = ./srcs/main.c\
 	   ./srcs/press_home_or_end.c\
 	   ./srcs/core.c\
 	   ./srcs/exec_simpl_comm.c\
+	   ./srcs/redir_left_right.c\
 	   ./srcs/tools.c\
 	   ./srcs/exec_pipe_comm.c\
 	   ./srcs/tools2.c\
@@ -47,6 +48,7 @@ SRCS = ./srcs/main.c\
 	   ./srcs/press_alt_cvx.c\
 	   ./srcs/check_funct.c\
 	   ./srcs/exec.c\
+	   ./srcs/manage_heredoc.c\
 	   ./srcs/redirection.c\
 	   ./srcs/tools3.c\
 	   ./srcs/lexem.c

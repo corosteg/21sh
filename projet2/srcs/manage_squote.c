@@ -26,7 +26,7 @@ void				manage_squote(t_shell *info)
 		buf = 0;
 		if (read(0, &buf, sizeof(int)))
 		{
-			if (check_press_quote(buf, info))
+			if (check_press_quote(buf, info, 0))
 			{
 				check_quotes(info);
 				if (info->quote == 0)

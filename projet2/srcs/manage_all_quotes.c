@@ -41,7 +41,7 @@ void				check_quotes(t_shell *info)
 	}
 }
 
-int				check_press_quote(int buf, t_shell *info)
+int				check_press_quote(int buf, t_shell *info, int i)
 {
 	char	str[2];
 
@@ -56,7 +56,7 @@ int				check_press_quote(int buf, t_shell *info)
 	else if (check_copy(buf))
 		print_cpy(buf, info);
 	else if  (buf == 127 && info->x > 6)
-		p_quote_backspace(info);
+		p_quote_backspace(info, i);
 	else if ((buf > 32 && buf < 126) && (info->x == info->quote_len))
 		p_ascii(info, str, buf);
 	else if ((buf > 32 && buf < 126) && (info->x < info->quote_len))

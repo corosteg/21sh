@@ -245,6 +245,7 @@ static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 			exec_simpl(list->cutting, info);
 			reset_fd_tool(info);
 		}
+		list = list->next;
 		return (list);
 }
 
@@ -262,7 +263,6 @@ int						core(t_shell *info)
 		if (!(list = check_redire(list, info)))
 			break;
 		list = check_exec(list, info);
-		list = list->next;
 	}
 	dup2(info->save_stdin, 0);
 	return (1);

@@ -95,7 +95,7 @@ static void				print_quote_prompt(t_shell *info)
 		ft_print("squote >");
 }
 
-void					p_quote_backspace(t_shell *info)
+void					p_quote_backspace(t_shell *info, int i)
 {
 	int			cursor;
 
@@ -117,7 +117,38 @@ void					p_quote_backspace(t_shell *info)
 	tputs(tgetstr("le", NULL), 1, ft_putchar);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 //	print_quote_prompt(info);
-	ft_print("squote >");
+	if (i == 1)
+		ft_print("heredoc>");
+	else
+		ft_print("squote >");
+	press_quote_string(info);
+	while (info->x > cursor)
+		p_left(info);
+}
+
+void					p_heredoc_backspace(t_shell *info)
+{
+	int			cursor;
+
+	info->x--;
+	info->len--;
+	info->quote_len--;
+	cursor = info->x;
+	modify_string(info);
+	while (info->x  > 6)
+		p_left(info);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+//	print_quote_prompt(info);
+	ft_print("heredoc >");
 	press_quote_string(info);
 	while (info->x > cursor)
 		p_left(info);

@@ -104,7 +104,8 @@ void					p_quote_delete(t_shell *info);
 void					init_term(void);
 void					p_ascii_emulation(char *str, t_shell *info);
 void					p_backspace(t_shell *info, int a);
-void					p_quote_backspace(t_shell *info);
+void					p_quote_backspace(t_shell *info, int i);
+void					p_heredoc_backspace(t_shell *info);
 void					p_delete(t_shell *info);
 void					p_right(t_shell *info);
 void					p_right2(t_shell *info);
@@ -150,7 +151,7 @@ int						exec_pipe_comm(t_shell *info, char *str,
 							int i, int fd);
 int						quote_n(t_shell *info);
 int						check_copy(int buf);
-int						check_press_quote(int buf, t_shell *info);
+int						check_press_quote(int buf, t_shell *info, int i);
 int						parse_command(char *str);
 int						p_a_x(t_shell *info);
 t_parselex				*parse_cmd(t_shell *info, int i,
