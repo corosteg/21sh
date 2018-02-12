@@ -6,11 +6,11 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 17:00:48 by corosteg          #+#    #+#             */
-/*   Updated: 2017/10/12 16:21:19 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/12 19:43:45 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "21sh.h"
 
 int			print_env(t_env *list, char *str, t_env *l, int a)
 {

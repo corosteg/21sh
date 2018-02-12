@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 22:30:59 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/12 22:05:46 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,20 +219,20 @@ int			parsing_list(t_parselex *list)
 
 static t_parselex		*check_redire(t_parselex *list, t_shell *info)
 {
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
-			list = redir_doble(info,list);
 		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<<")))
 			list = redir_heredoc(info,list);
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
+			list = redir_left(info,list);
 		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
 			list = redir_simpl(info,list);
-		if (list && list->next && list->next->next
+		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
+			list = redir_doble(info,list);
+/*		if (list && list->next && list->next->next
 				&& list->next->next->next
 				&& list->next->next->next->next
 				&& !(ft_strcmp(list->next->cutting[0], "<"))
 				&& !(ft_strcmp(list->next->next->next->cutting[0], ">")))
-			list = redir_left_and_right(info,list);
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
-			list = redir_left(info,list);
+			list = redir_left_and_right(info,list);*/
 		return (list);
 }
 
@@ -249,6 +249,18 @@ static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 		return (list);
 }
 
+/*static t_parselex		*check_builtin(t_parselex *list, t_shell *info)
+{
+	if (!(ft_strcmp(list->cutting[0], "cd")))
+	{
+		ft_cd_pars(list->cutting, info->env, 1);
+		while (list->next && (!(end_token_tool(list->cutting[0], info))))
+			list = list->next;
+		list = list->next;
+	}
+	return (list);
+}*/
+
 int						core(t_shell *info)
 {
 	t_parselex		*list;
@@ -260,6 +272,8 @@ int						core(t_shell *info)
 		return (0);
 	while (list)
 	{
+//		if (!(list = check_builtin(list, info)))
+//			break;
 		if (!(list = check_redire(list, info)))
 			break;
 		list = check_exec(list, info);

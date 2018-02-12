@@ -6,11 +6,11 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 20:20:38 by corosteg          #+#    #+#             */
-/*   Updated: 2017/10/12 22:27:20 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/12 20:08:55 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "21sh.h"
 
 int			ft_get_cd(char **command2)
 {

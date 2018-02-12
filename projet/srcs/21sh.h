@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 19:12:20 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/12 22:30:49 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void					exec_redir(char **com, t_shell *info, int fd);
 int						p_a_left(t_shell *info);
 int						p_a_right(t_shell *info);
 int						end_token_tool(char *str, t_shell *info);
+int						check_builtin(char **command, t_shell *info, int out);
 void					free_c_tab(char **array);
 void					manage_squote(t_shell *info);
 void					manage_dquote(t_shell *info);
@@ -161,12 +162,22 @@ t_parselex				*redir_simpl(t_shell *info, t_parselex *list);
 t_parselex				*redir_left(t_shell *info, t_parselex *list);
 t_parselex				*redir_heredoc(t_shell *info, t_parselex *list);
 t_parselex				*redir_left_and_right(t_shell *info, t_parselex *list);
-//t_shell					*init_info_list(t_shell *info);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);
 t_his					*p_up(t_shell *info, t_his *his);
 t_his					*check_entry(t_shell *info, t_his *his);
 t_his					*manage_his_list(t_his *his, t_shell *info);
 t_his					*p_down(t_shell *info, t_his *his);
+
+t_env		*set_env(char *path, t_env *env, char *arg, int p);
+char		*findhome(t_env *env);
+char		*findoldpwd(t_env *env);
+int			ft_get_arg(char **command2);
+t_env		*ft_cd(char **command2, t_env *env);
+t_env		*ft_cd_pars(char **command2, t_env *env, int i);
+int			ft_echo(char **command, t_env *list, int out);
+
+
+int			print_env(t_env *list, char *str, t_env *l, int a);
 
 #endif

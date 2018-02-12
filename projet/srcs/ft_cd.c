@@ -6,11 +6,11 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 20:26:12 by corosteg          #+#    #+#             */
-/*   Updated: 2017/10/12 20:35:45 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/12 19:24:30 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "21sh.h"
 
 int			env_cmp(char *arg, t_env *env)
 {
