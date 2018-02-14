@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 19:09:32 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/12 22:45:20 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void			exec_simpl(char **com, t_shell *info)
 
 	env = alloc_tab(info->env);
 	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
+	if (check_builtin(com, info, info->fd_out))
+		return;
 	father = fork();
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
@@ -47,6 +49,13 @@ void			exec_in_pipe(char **com, t_shell *info, char **env)
 
 	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	pipe(tmp_fd);
+	if (check_builtin(com, info, tmp_fd[1]))
+	{
+		close(tmp_fd[1]);
+		info->fd_in = tmp_fd[0];
+		info->fd_out = dup(info->save_stdout);
+		return;
+	}
 	father = fork();
 	dup2(info->fd_in, 0);
 	close(info->fd_out);

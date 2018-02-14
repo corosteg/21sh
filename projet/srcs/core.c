@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/12 22:05:46 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/13 20:54:07 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,8 +267,21 @@ int						core(t_shell *info)
 
 	info->fd_in = dup(0);
 	info->fd_out = dup(1);
+	info->fd_err = dup(2);
 	list = parse_cmd(info, 1, NULL, NULL);
-	if (parsing_list(list))
+	int i = 0;
+	while (list)
+	{
+		while (list->cutting[i])
+		{
+			ft_print("%s\n", list->cutting[i]);
+			i++;
+		}
+		i = 0;
+		ft_print("maillon suivant\n");
+		list = list->next;
+	}
+/*	if (parsing_list(list))
 		return (0);
 	while (list)
 	{
@@ -278,6 +291,7 @@ int						core(t_shell *info)
 			break;
 		list = check_exec(list, info);
 	}
-	dup2(info->save_stdin, 0);
+	dup2(info->save_stdin, 0); //peut etre a remplacer par reset_fd_tool
+	*/
 	return (1);
 }

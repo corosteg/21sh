@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/12 22:30:49 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/13 19:21:00 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ typedef struct			s_shell
 	int					exec_on_stdout;
 	int					save_stdin;
 	int					save_stdout;
-	int					exec_sign;
-	int					redir;
+	int					save_stderr;
 	int					fd_out;
 	int					fd_in;
+	int					fd_err;
+	int					exec_sign;
+	int					redir;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*cp_string;
@@ -169,14 +171,16 @@ t_his					*check_entry(t_shell *info, t_his *his);
 t_his					*manage_his_list(t_his *his, t_shell *info);
 t_his					*p_down(t_shell *info, t_his *his);
 
-t_env		*set_env(char *path, t_env *env, char *arg, int p);
-char		*findhome(t_env *env);
-char		*findoldpwd(t_env *env);
-int			ft_get_arg(char **command2);
-t_env		*ft_cd(char **command2, t_env *env);
-t_env		*ft_cd_pars(char **command2, t_env *env, int i);
-int			ft_echo(char **command, t_env *list, int out);
+t_env					*set_env(char *path, t_env *env, char *arg, int p);
+char					*findhome(t_env *env);
+char					*findoldpwd(t_env *env);
+int						ft_get_arg(char **command2);
+t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
+t_env					*ft_cd_pars(char **command2, t_env *env, int i,
+							t_shell *info);
+void					cd_error(int i, char *str, t_shell *info);
 
+int						ft_echo(char **command, t_env *list, int out);
 
 int			print_env(t_env *list, char *str, t_env *l, int a);
 
