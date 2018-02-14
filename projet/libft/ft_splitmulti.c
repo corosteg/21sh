@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/01/31 15:59:17 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/02/14 14:27:22 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ int					fck_quote2(char const *s, int len, char *c)
 	r = 0;
 	while (s[len] && (!(one_of3(s, c, len))))
 	{
-		if (s[len] == '\"')
+		if (s[len] == '\"' || s[len] == '\'')
 			r++;
 		len++;
 	}
 	if ((one_of3(s, c, len)) && r == 1)
 	{
-		while (s[len] != '\"')
+		while (s[len] != '\"' || s[len] != '\'')
 			len++;
 		len++;
 	}
