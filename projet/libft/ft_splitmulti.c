@@ -6,14 +6,13 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/01/31 15:59:17 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/02/14 15:22:29 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
 
-int				one_of3(char const *s, char *c, int nb)
+int					one_of3(char const *s, char *c, int nb)
 {
 	int		i;
 
@@ -67,13 +66,13 @@ int					fck_quote2(char const *s, int len, char *c)
 	r = 0;
 	while (s[len] && (!(one_of3(s, c, len))))
 	{
-		if (s[len] == '\"')
+		if (s[len] == '\"' || s[len] == '\'')
 			r++;
 		len++;
 	}
 	if ((one_of3(s, c, len)) && r == 1)
 	{
-		while (s[len] != '\"')
+		while (s[len] != '\"' || s[len] != '\'')
 			len++;
 		len++;
 	}
@@ -94,6 +93,8 @@ static char			**ft_split(char const *s, char *c, char **str, int count)
 			i++;
 		len = i;
 		len = fck_quote2(s, len, c);
+		(s[i] == '\"' || s[i] == '\'') ? len-- : 0;
+		(s[i] == '\"' || s[i] == '\'') ? i++ : 0;
 		if (len > i)
 		{
 			str[count] = (char *)malloc(sizeof(char) * (len - i + 1));

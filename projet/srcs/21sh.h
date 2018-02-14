@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/13 19:21:00 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/14 15:49:36 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,9 @@ int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info, int i);
 int						parse_command(char *str);
 int						p_a_x(t_shell *info);
+int						one_ofs(char *s, char *c, int nb);
+int						is_even(int nb);
+int						epur_len(char *str, int i, int nb, int odd);
 t_parselex				*parse_cmd(t_shell *info, int i,
 							t_lexem *list, t_lexem *tmp);
 t_parselex				*redir_doble(t_shell *info, t_parselex *list);
