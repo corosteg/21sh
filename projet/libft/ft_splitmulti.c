@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/02/14 14:27:22 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/02/14 14:32:05 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ static char			**ft_split(char const *s, char *c, char **str, int count)
 			i++;
 		len = i;
 		len = fck_quote2(s, len, c);
+		(s[i] == '\"' || s[i] == '\'') ? len-- : 0;
+		(s[i] == '\"' || s[i] == '\'') ? i++ : 0;
 		if (len > i)
 		{
 			str[count] = (char *)malloc(sizeof(char) * (len - i + 1));
