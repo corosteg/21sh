@@ -6,14 +6,14 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:10:21 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/14 14:27:59 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/02/14 15:23:24 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "../srcs/21sh.h"
 
-int				one_of(char const *s, char *c, int nb)
+int					one_of(char const *s, char *c, int nb)
 {
 	int		i;
 

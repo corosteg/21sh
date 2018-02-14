@@ -6,14 +6,13 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/02/14 14:32:05 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/02/14 15:22:29 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
 
-int				one_of3(char const *s, char *c, int nb)
+int					one_of3(char const *s, char *c, int nb)
 {
 	int		i;
 

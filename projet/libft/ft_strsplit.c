@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:10:21 by corosteg          #+#    #+#             */
-/*   Updated: 2017/10/12 21:11:16 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/14 15:24:15 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,10 @@ static char			**ft_split(char const *s, char c, char **str)
 char				**ft_strnsplit(char *s, char c, int i)
 {
 	char			**str;
-//	char			*tmp;
 
 	if (s == NULL)
 		return (NULL);
-//	tmp = s;
 	s = ft_strndup(s, i);
-//	free(tmp);
 	if (!(str = (char **)malloc(sizeof(char *) * (ft_compte(s, c) + 1))))
 		return (NULL);
 	return (ft_split(s, c, str));
