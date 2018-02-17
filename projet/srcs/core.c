@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/14 18:36:26 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/17 15:33:09 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,47 +219,42 @@ int			parsing_list(t_parselex *list)
 
 static t_parselex		*check_redire(t_parselex *list, t_shell *info)
 {
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<<")))
-			list = redir_heredoc(info,list);
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
-			list = redir_left(info,list);
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
-			list = redir_simpl(info,list);
-		if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
-			list = redir_doble(info,list);
-/*		if (list && list->next && list->next->next
-				&& list->next->next->next
-				&& list->next->next->next->next
-				&& !(ft_strcmp(list->next->cutting[0], "<"))
-				&& !(ft_strcmp(list->next->next->next->cutting[0], ">")))
-			list = redir_left_and_right(info,list);*/
-		return (list);
+	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<<")))
+		list = redir_heredoc(info,list);
+	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
+		list = redir_left(info,list);
+	if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
+		list = redir_simpl(info,list);
+	if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
+		list = redir_doble(info,list);
+	return (list);
+}
+
+static void				create_files(t_parselex *list)
+{
+	while (list && ft_strcmp(list->cutting[0], ";") != 0)
+	{
+		if (!(ft_strcmp(list->cutting[0], ">")))
+			open(list->next->cutting[0], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		list = list->next;
+	}
 }
 
 static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 {
-		if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
-			exec_in_pipe(list->cutting, info, alloc_tab(info->env));
-		if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
-		{
-			exec_simpl(list->cutting, info);
-			reset_fd_tool(info);
-		}
-		list = list->next;
-		return (list);
-}
-
-/*static t_parselex		*check_builtin(t_parselex *list, t_shell *info)
-{
-	if (!(ft_strcmp(list->cutting[0], "cd")))
+	if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
 	{
-		ft_cd_pars(list->cutting, info->env, 1);
-		while (list->next && (!(end_token_tool(list->cutting[0], info))))
-			list = list->next;
-		list = list->next;
+		create_files(list);
+		exec_in_pipe(list->cutting, info, alloc_tab(info->env));
 	}
+	if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
+	{
+		exec_simpl(list->cutting, info);
+		reset_fd_tool(info);
+	}
+	list = list->next;
 	return (list);
-}*/
+}
 
 int						core(t_shell *info)
 {
@@ -283,10 +278,9 @@ int						core(t_shell *info)
 	}*/
 	if (parsing_list(list))
 		return (0);
+	create_files(list);
 	while (list)
 	{
-//		if (!(list = check_builtin(list, info)))
-//			break;
 		if (!(list = check_redire(list, info)))
 			break;
 		list = check_exec(list, info);
