@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/02/12 22:34:04 by corosteg         ###   ########.fr        #
+#    Updated: 2018/02/14 15:52:50 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,9 @@ SRCS = ./srcs/main.c\
 	   ./srcs/ft_echo.c\
 	   ./srcs/redirection.c\
 	   ./srcs/check_builtin.c\
+	   ./srcs/ft_cd3.c\
 	   ./srcs/tools3.c\
+	   ./srcs/lexem2.c\
 	   ./srcs/lexem.c
 
 
