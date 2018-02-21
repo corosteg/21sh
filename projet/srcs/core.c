@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/17 15:33:09 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/21 23:49:51 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,8 @@ static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 	{
 		exec_simpl(list->cutting, info);
 		reset_fd_tool(info);
+		info->kill = 0;
+		info->father = 0;
 	}
 	list = list->next;
 	return (list);
@@ -264,18 +266,6 @@ int						core(t_shell *info)
 	info->fd_out = dup(1);
 	info->fd_err = dup(2);
 	list = parse_cmd(info, 1, NULL, NULL);
-	int i = 0;
-/*	while (list)
-	{
-		while (list->cutting[i])
-		{
-			ft_print("%s\n", list->cutting[i]);
-			i++;
-		}
-		i = 0;
-		ft_print("maillon suivant\n");
-		list = list->next;
-	}*/
 	if (parsing_list(list))
 		return (0);
 	create_files(list);

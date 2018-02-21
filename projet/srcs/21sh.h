@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/14 15:49:36 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/21 23:48:55 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct			s_shell
 	int					fd_err;
 	int					exec_sign;
 	int					redir;
+	int					status;
+	int					father;
+	int					kill;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*cp_string;
