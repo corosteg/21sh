@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 16:46:03 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 19:18:24 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/22 20:33:15 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void		reset_fd_tool(t_shell *info)
 {
+	close(0);
 	close(info->fd_in);
-	close(info->fd_out);
 	info->fd_in = dup(info->save_stdin);
-	info->fd_out = dup(info->save_stdout);
+	dup2(info->save_stdin, 0);
 }
 
 void			free_list_path_tool(t_path *list)
