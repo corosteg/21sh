@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/12 22:45:20 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/02/22 15:18:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void			exec_in_pipe(char **com, t_shell *info, char **env)
 			exit(father);
 		}
 	}
+	info->father++;
 	free_c_tab(env);
 	free(bin_path);
 	info->fd_in = tmp_fd[0];
