@@ -6,11 +6,11 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:47:41 by corosteg          #+#    #+#             */
-/*   Updated: 2017/10/17 15:38:20 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/03 17:21:36 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "21sh.h"
 
 t_env		*remv_var(t_env *rmv, t_env *list)
 {
@@ -45,16 +45,28 @@ int			check_as_var_u(char *str)
 		return (0);
 }
 
-t_env		*ft_unsetenv(char **command2, t_env *list)
+static int	check_ft_envfunct_action(char **command2, t_env *list, int a)
+{
+	a = 0;
+	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '=') + 1)))
+	&& command2[2] != NULL)
+		return (1);
+	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '=') + 1)))
+	&& command2[2] == NULL)
+		return (2);
+	return (0);
+}
+
+t_env		*ft_unsetenv(char **command, t_env *list)
 {
 	t_env		*tmp;
 
-	if (command2[1] == NULL)
+	if (command[1] == NULL)
 	{
 		ft_print("usage: unsetenv [VAR=] to delete\n");
 		return (list);
 	}
-	if (command2[2] || !(check_as_var_u(command2[1])))
+	if ((command[1] && command[2]) || !(check_as_var_u(command[1])))
 	{
 		ft_print("usage: unsetenv [VAR=] to delete\n");
 		return (list);
@@ -62,7 +74,7 @@ t_env		*ft_unsetenv(char **command2, t_env *list)
 	tmp = list;
 	while (tmp)
 	{
-		if (check_ft_envfunct_action(command2, tmp, 0) == 2)
+		if (check_ft_envfunct_action(command, tmp, 0) == 2)
 		{
 			remv_var(tmp, list);
 			break ;

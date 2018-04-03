@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/02/14 14:18:30 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/03/28 20:22:47 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 		tmp = tmp->next;
 	}
 	list2 = parselex(list, NULL, 0);
+//	return (list2);
 	return (check_heredoc(list2, info));
 }

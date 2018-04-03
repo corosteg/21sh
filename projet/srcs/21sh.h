@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/22 15:19:17 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/03 16:51:31 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct			s_shell
 	int					exec_sign;
 	int					redir;
 	int					father;
+	int					kill;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*cp_string;
@@ -174,11 +175,12 @@ t_his					*p_up(t_shell *info, t_his *his);
 t_his					*check_entry(t_shell *info, t_his *his);
 t_his					*manage_his_list(t_his *his, t_shell *info);
 t_his					*p_down(t_shell *info, t_his *his);
-
-t_env					*set_env(char *path, t_env *env, char *arg, int p);
 char					*findhome(t_env *env);
 char					*findoldpwd(t_env *env);
 int						ft_get_arg(char **command2);
+t_env					*ft_unsetenv(char **command, t_env *list);
+t_env					*ft_setenv(char **command, t_env *list);
+t_env					*set_env(char *path, t_env *env, char *arg, int p);
 t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
 t_env					*ft_cd_pars(char **command2, t_env *env, int i,
 							t_shell *info);

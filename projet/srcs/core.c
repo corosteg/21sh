@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/17 15:33:09 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/03 17:20:41 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,8 +217,33 @@ int			parsing_list(t_parselex *list)
 	return (0);
 }
 
-static t_parselex		*check_redire(t_parselex *list, t_shell *info)
+int						check_built(char **command, t_shell *info)
 {
+	if (!(ft_strcmp(command[0], "cd")))
+	{
+		info->env  = ft_cd(command, info->env, info);
+		return (1);
+	}
+	if (!(ft_strcmp(command[0], "setenv")))
+	{
+		info->env = ft_setenv(command, info->env);
+		return (1);
+	}
+	if (!(ft_strcmp(command[0], "unsetenv")))
+	{
+		info->env = ft_unsetenv(command, info->env);
+		return (1);
+	}
+	return (0);
+}
+
+static	t_parselex		*check_redire(t_parselex *list, t_shell *info)
+{
+	if (check_built(list->cutting, info))
+	{
+		return (NULL);
+	//	go_at_end(list);
+	}
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<<")))
 		list = redir_heredoc(info,list);
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
@@ -263,7 +288,8 @@ int						core(t_shell *info)
 	info->fd_in = dup(0);
 	info->fd_out = dup(1);
 	info->fd_err = dup(2);
-	list = parse_cmd(info, 1, NULL, NULL);
+	if ((list = parse_cmd(info, 1, NULL, NULL)) == NULL)
+		return(0);
 	int i = 0;
 /*	while (list)
 	{
