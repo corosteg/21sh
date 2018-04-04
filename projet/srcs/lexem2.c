@@ -6,27 +6,24 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 14:14:13 by paoroste          #+#    #+#             */
-/*   Updated: 2018/02/14 14:19:20 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/04 15:32:02 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./21sh.h"
 
-int				one_ofs(char *s, char *c, int nb)
+int				one_ofs(char *s, char *c, int nb, int i)
 {
-	int		i;
-
-	i = 0;
 	if (s[nb] == '\0' || c == NULL)
 		return (0);
 	while (c[i])
 	{
 		if ((s[nb] == '0' || s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
-		{
-			if (s[nb + 2] == '&' || (s[nb + 2] == '&' && s[nb + 3] != '#'))
+			if (s[nb + 2] == '&' || (s[nb + 2] == '&' && s[nb + 3] == '-'))
 				return (1);
-		}
-		if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
+		if ((s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
+			return (1);
+		else if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
 		{
 			if (c[i] == s[nb] && c[i] == s[nb + 1])
 				return (1);

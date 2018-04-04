@@ -6,33 +6,32 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:10:21 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/14 15:23:24 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/04 15:32:13 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "../srcs/21sh.h"
 
-int					one_of(char const *s, char *c, int nb)
+int					one_of(char const *s, char *c, int nb, int i)
 {
-	int		i;
-
-	i = 0;
 	if (s[nb] == '\0' || c == NULL)
 		return (0);
 	while (c[i])
 	{
-		if ((s[nb] == '0' || s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
-		{
-			if (s[nb + 2] == '&' || (s[nb + 2] == '&' && s[nb + 3] != ' '))
+		if ((s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
+			if (s[nb + 2] == '&' || (s[nb + 2] == '&' && s[nb + 3] == '-'))
 				return (1);
-		}
-		if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
+		if ((s[nb] == '1' || s[nb] =='2') && s[nb + 1] == '>')
+			return (1);
+		else if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
 		{
+				return (1);
 			if (c[i] == s[nb] && c[i] == s[nb + 1])
 				return (1);
 		}
-		if (c[i] == s[nb] && (s[nb] != '0' && s[nb] != '1' && s[nb] != '2'))
+		else if (c[i] == s[nb] &&
+				(s[nb] != '1' && s[nb] != '2' && s[nb] != '0'))
 			return (1);
 		i++;
 	}
@@ -48,11 +47,11 @@ static int			ft_compte(char const *s, char *c)
 	compteur = 0;
 	while (s[i])
 	{
-		while (one_of(s, c, i))
+		while (one_of(s, c, i, 0))
 			i++;
 		if (s[i] != '\0')
 			compteur++;
-		while (s[i] && (!(one_of(s, c, i))))
+		while (s[i] && (!(one_of(s, c, i, 0))))
 			i++;
 	}
 	return (compteur);
@@ -63,15 +62,15 @@ int					fck_quote(int i, char const *s, char *c)
 	int		r;
 
 	r = 0;
-	while (one_of(s, c, i))
+	while (one_of(s, c, i, 0))
 		i++;
-	while (s[i] && (!(one_of(s, c, i))))
+	while (s[i] && (!(one_of(s, c, i, 0))))
 	{
 		if (s[i] == '\"' || s[i] == '\'')
 			r++;
 		i++;
 	}
-	if ((one_of(s, c, i)) && r == 1)
+	if ((one_of(s, c, i, 0)) && r == 1)
 	{
 		while (s[i] != '\"' || s[i] != '\'')
 			i++;

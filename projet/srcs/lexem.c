@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/02/14 14:18:30 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/04 15:39:06 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ t_parselex		*cutting(t_parselex *tmp, char *str)
 {
 	tmp->cutting = (char**)malloc(sizeof(char*) * 2);
 	if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1] == '>'
-			&& str[2] == '&' && str[3] != '#')
-		tmp->cutting[0] = ft_strndup(str, 4);
-	else if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1]
-			== '>' && str[2] == '&')
+			&& str[2] == '&')
 		tmp->cutting[0] = ft_strndup(str, 3);
+	else if ((str[0] == '0' || str[0] == '1' || str[0] == '2') && str[1]
+			== '>')
+		tmp->cutting[0] = ft_strndup(str, 2);
 	else if (str[1] == str[0])
 		tmp->cutting[0] = ft_strndup(str, 2);
 	else
@@ -76,7 +76,7 @@ t_parselex		*parselex(t_lexem *list, t_parselex *tmp, int i)
 	{
 		tmp->next = (t_parselex*)malloc(sizeof(t_parselex));
 		tmp = tmp->next;
-		if (one_ofs(list->command, "&;|<>", 0))
+		if (one_ofs(list->command, "&;|<>", 0, 0))
 			tmp = cutting(tmp, list->command);
 		tmp->cutting = ft_splitmulti(list->command, "#&|;<>");
 		tmp->next = NULL;
@@ -112,6 +112,12 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	list = tmp;
 	list->command = ft_strdup(tableau[0]);
 	list->next = NULL;
+	/*int nb = 0;
+	while (tableau[nb])
+	{
+		printf("1st: %s\n", tableau[nb]);
+		nb++;
+	}*/
 	while (tableau[i])
 	{
 		tmp->next = (t_lexem*)malloc(sizeof(t_lexem));
@@ -123,8 +129,11 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	while (tmp)
 	{
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
+	//	ft_putstr(tmp->command);
+	//	ft_putchar('\n');
 		tmp = tmp->next;
 	}
 	list2 = parselex(list, NULL, 0);
+	//return (list2);
 	return (check_heredoc(list2, info));
 }
