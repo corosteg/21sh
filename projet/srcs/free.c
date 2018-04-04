@@ -1,44 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 20:50:31 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 15:00:10 by corosteg         ###   ########.fr       */
+/*   Created: 2018/04/04 14:09:40 by corosteg          #+#    #+#             */
+/*   Updated: 2018/04/04 15:05:49 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-/*void		free_list(t_env *list)
+static void				free_env(t_env *list)
 {
-	t_env	*tmp;
+	t_env		*tmp;
 
-	while (list != NULL)
+	while (list)
 	{
-		tmp = list->next;
-		ft_strdel(&(list)->var);
-		free(list);
-		list = tmp;
+		free(list->var);
+		tmp = list;
+		list = list->next;
+		free(tmp);
 	}
 }
 
-void		free_e_path(t_env *list)
+void					free_lex(t_parselex *list)
 {
-	t_env	*tmp;
+	t_parselex	*tmp;
 
-	while (list->next != NULL)
+	while (list)
 	{
-		tmp = list->next;
-		ft_strdel(&(list)->var);
-		free(list);
-		list = tmp;
+		free_c_tab(list->cutting);
+		tmp = list;
+		list = list->next;
+		free(tmp);
 	}
 }
 
-void		free_str(char **array)
+void					free_info(t_shell *info)
+{
+	free(info->command);
+	free(info->command2);
+	free(info->cp_string);
+	if (info->env && info->env_int == 1)
+		free_env(info->env);
+}
+
+void		free_c_tab(char **array)
 {
 	int	i;
 
@@ -52,11 +61,4 @@ void		free_str(char **array)
 		}
 		free(array);
 	}
-}*/
-
-void		ft_exit(t_parselex *first, t_shell *info)
-{
-	free_info(info);
-	free_lex(first);
-	exit(0);
 }

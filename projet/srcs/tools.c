@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 21:35:47 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 16:25:29 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 15:02:54 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,20 +115,4 @@ char			**alloc_tab(t_env *list)
 		list = list->next;
 	}
 	return (tab1);
-}
-
-void		free_c_tab(char **array)
-{
-	int	i;
-
-	if (array)
-	{
-		i = -1;
-		while (array[++i])
-		{
-			ft_strdel(&array[i]);
-			free(array[i]);
-		}
-		free(array);
-	}
 }

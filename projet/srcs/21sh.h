@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/03 16:51:31 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 15:06:24 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define CYAN		"\033[36m"
 # define RED		"\033[31m"
 # define GRAS		"\033[1m"
+
+struct s_shell			*g_info;
 
 typedef struct			s_env
 {
@@ -64,6 +66,8 @@ typedef struct			s_shell
 	int					redir;
 	int					father;
 	int					kill;
+	int					his_int;
+	int					env_int;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*cp_string;
@@ -184,10 +188,14 @@ t_env					*set_env(char *path, t_env *env, char *arg, int p);
 t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
 t_env					*ft_cd_pars(char **command2, t_env *env, int i,
 							t_shell *info);
+void					ft_exit(t_parselex *first, t_shell *info);
 void					cd_error(int i, char *str, t_shell *info);
+void					check_signal(void);
+void					free_info(t_shell *info);
+void					free_lex(t_parselex *list);
 
 int						ft_echo(char **command, t_env *list, int out);
 
-int			print_env(t_env *list, char *str, t_env *l, int a);
+int						print_env(t_env *list, char *str, t_env *l, int a);
 
 #endif

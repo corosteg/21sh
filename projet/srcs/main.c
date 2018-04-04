@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/03/28 20:07:04 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 14:48:57 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,6 @@ static t_shell				*init_info_list(t_shell *info, char **env)
 	return (info);
 }
 
-static void				free_env(t_env *list)
-{
-	t_env		*tmp;
-
-	while (list)
-	{
-		free(list->var);
-		tmp = list;
-		list = list->next;
-		free(tmp);
-	}
-}
-
-static void				free_info(t_shell *info)
-{
-//	free(info->command);
-//	free(info->command2);
-	free(info->cp_string);
-	free_env(info->env);
-}
-
 void				ft_error(char *str)
 {
 	str = NULL;
@@ -82,25 +61,29 @@ void				init_term(void)
 		ft_error("tcsetattr");
 }
 
-
 int					main(int ac, char **av, char **env)
 {
 	t_shell		*info;
 	t_his		*his;
 	char		**tab_env;
 
-//	check_signal();
 	(void)av;
 	his = NULL;
 	init_term();
 	info = init_info_list(info, env);
+	info->his_int = 0;
+	info->env_int = 0;
+	g_info = info;
+	check_signal();
 	while(42)
 	{
 		ft_print(""GRAS""VERT"21sh"RED">"STOP"");
 		his = check_entry(info, his);
-		free(info->command);
-		free(info->command2);
+		info->his_int = 1;
+//		free(info->command);
+//		free(info->command2);
 		tab_env = alloc_tab(info->env);
+		info->env_int = 1;
 		free_info(info);
 		info = init_info_list(info, tab_env);
 		free_c_tab(tab_env);

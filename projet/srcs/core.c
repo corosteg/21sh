@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/03 17:20:41 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 15:14:42 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int			parsing_list(t_parselex *list)
 	return (0);
 }
 
-int						check_built(char **command, t_shell *info)
+int						check_built(char **command, t_shell *info, t_parselex *first)
 {
 	if (!(ft_strcmp(command[0], "cd")))
 	{
@@ -234,12 +234,18 @@ int						check_built(char **command, t_shell *info)
 		info->env = ft_unsetenv(command, info->env);
 		return (1);
 	}
+	if (!(ft_strcmp(command[0], "exit")))
+	{
+		ft_exit(first, info);
+		return (1);
+	}
 	return (0);
 }
 
-static	t_parselex		*check_redire(t_parselex *list, t_shell *info)
+static	t_parselex		*check_redire(t_parselex *list, t_shell *info,
+						t_parselex *first)
 {
-	if (check_built(list->cutting, info))
+	if (check_built(list->cutting, info, first))
 	{
 		return (NULL);
 	//	go_at_end(list);
@@ -284,6 +290,7 @@ static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 int						core(t_shell *info)
 {
 	t_parselex		*list;
+	t_parselex		*first;
 
 	info->fd_in = dup(0);
 	info->fd_out = dup(1);
@@ -305,12 +312,14 @@ int						core(t_shell *info)
 	if (parsing_list(list))
 		return (0);
 	create_files(list);
+	first = list;
 	while (list)
 	{
-		if (!(list = check_redire(list, info)))
+		if (!(list = check_redire(list, info, first)))
 			break;
 		list = check_exec(list, info);
 	}
+	free_lex(first);
 	dup2(info->save_stdin, 0); //peut etre a remplacer par reset_fd_tool
 	return (1);
 }
