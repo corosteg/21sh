@@ -6,11 +6,11 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:48:03 by corosteg          #+#    #+#             */
-/*   Updated: 2017/10/08 17:30:17 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/03 17:20:30 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "21sh.h"
 
 t_env		*modif(t_env *list, char *str)
 {
@@ -41,6 +41,8 @@ int			check_as_var(char *str)
 	int		i;
 
 	i = 0;
+	if (str == NULL)
+		return (0);
 	while (str[i] && str[i] != '=' && str[i] != ' ')
 		i++;
 	if (str[i] == '=')
@@ -49,13 +51,25 @@ int			check_as_var(char *str)
 		return (0);
 }
 
-t_env		*ft_setenv(char **command2, t_env *list)
+static int	check_ft_envfunct_action(char **command2, t_env *list, int a)
+{
+	a = 0;
+	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '=') + 1)))
+	&& command2[2] != NULL)
+		return (1);
+	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '=') + 1)))
+	&& command2[2] == NULL)
+		return (2);
+	return (0);
+}
+
+t_env		*ft_setenv(char **command, t_env *list)
 {
 	t_env		*tmp;
 	int			m;
 
 	m = 0;
-	if (command2[2] || !(check_as_var(command2[1])))
+	if ((command[1] && command[2]) || !(check_as_var(command[1])))
 	{
 		ft_print("usage: setenv [VAR=] new value\n");
 		ft_print("       setenv [NEWVAR=] value\n");
@@ -64,15 +78,15 @@ t_env		*ft_setenv(char **command2, t_env *list)
 	tmp = list;
 	while (tmp)
 	{
-		if (command2[1])
-			if (check_ft_envfunct_action(command2, tmp, 0) == 2)
+		if (command[1])
+			if (check_ft_envfunct_action(command, tmp, 0) == 2)
 			{
-				modif(tmp, command2[1]);
+				modif(tmp, command[1]);
 				m = 42;
 			}
 		tmp = tmp->next;
 	}
 	if (m == 0)
-		list = add_var(list, command2);
+		list = add_var(list, command);
 	return (list);
 }

@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/02/14 15:52:50 by corosteg         ###   ########.fr        #
+#    Updated: 2018/04/04 14:51:16 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,13 +48,18 @@ SRCS = ./srcs/main.c\
 	   ./srcs/press_alt_cvx.c\
 	   ./srcs/check_funct.c\
 	   ./srcs/exec.c\
+	   ./srcs/signal.c\
 	   ./srcs/manage_heredoc.c\
 	   ./srcs/ft_cd.c\
 	   ./srcs/ft_cd2.c\
+	   ./srcs/ft_cd3.c\
+	   ./srcs/ft_setenv.c\
+	   ./srcs/ft_unsetenv.c\
+	   ./srcs/ft_exit.c\
 	   ./srcs/ft_echo.c\
+	   ./srcs/free.c\
 	   ./srcs/redirection.c\
 	   ./srcs/check_builtin.c\
-	   ./srcs/ft_cd3.c\
 	   ./srcs/tools3.c\
 	   ./srcs/lexem2.c\
 	   ./srcs/lexem.c

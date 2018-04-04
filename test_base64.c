@@ -1,4 +1,4 @@
-#include "21sh/projet/srcs/21sh.h"
+#include "projet/srcs/21sh.h"
 #include <string.h>
 
 void		ft_sigstp(int i)

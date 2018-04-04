@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/29 20:27:44 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 16:29:16 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int				parse_command(char *str)
 	while (str[i])
 	{
 		if (str[i] == '&')
+			if (check_false(str, (i + 1)))
+				return (0);
+		if (str[i] == '>')
 			if (check_false(str, (i + 1)))
 				return (0);
 		if (str[i] == '|')

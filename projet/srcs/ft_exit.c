@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 20:50:31 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/17 20:14:41 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 15:00:10 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "21sh.h"
 
-void		free_list(t_env *list)
+/*void		free_list(t_env *list)
 {
 	t_env	*tmp;
 
@@ -52,11 +52,11 @@ void		free_str(char **array)
 		}
 		free(array);
 	}
-}
+}*/
 
-void		ft_exit(char **command2, t_env *list)
+void		ft_exit(t_parselex *first, t_shell *info)
 {
-	free_list(list);
-	free_str(command2);
+	free_info(info);
+	free_lex(first);
 	exit(0);
 }

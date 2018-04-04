@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/04 15:39:06 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/04 16:14:07 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*epur_cmd(char *str, int i, int nb, int odd)
 	if (new[nb - 1] == ' ')
 		nb--;
 	new[nb] = '\0';
+	free(str);
 	return (new);
 }
 
@@ -134,6 +135,9 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 		tmp = tmp->next;
 	}
 	list2 = parselex(list, NULL, 0);
+	free_lexem(list);
+	free_c_tab(tableau);
 	//return (list2);
+//	return (list2);
 	return (check_heredoc(list2, info));
 }

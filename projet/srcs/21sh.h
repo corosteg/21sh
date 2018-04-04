@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/22 15:19:17 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 16:08:27 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define CYAN		"\033[36m"
 # define RED		"\033[31m"
 # define GRAS		"\033[1m"
+
+struct s_shell			*g_info;
 
 typedef struct			s_env
 {
@@ -63,6 +65,9 @@ typedef struct			s_shell
 	int					exec_sign;
 	int					redir;
 	int					father;
+	int					kill;
+	int					his_int;
+	int					env_int;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*cp_string;
@@ -158,7 +163,7 @@ int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info, int i);
 int						parse_command(char *str);
 int						p_a_x(t_shell *info);
-int						one_ofs(char *s, char *c, int nb);
+int						one_ofs(char *s, char *c, int nb, int i);
 int						is_even(int nb);
 int						epur_len(char *str, int i, int nb, int odd);
 t_parselex				*parse_cmd(t_shell *info, int i,
@@ -174,18 +179,24 @@ t_his					*p_up(t_shell *info, t_his *his);
 t_his					*check_entry(t_shell *info, t_his *his);
 t_his					*manage_his_list(t_his *his, t_shell *info);
 t_his					*p_down(t_shell *info, t_his *his);
-
-t_env					*set_env(char *path, t_env *env, char *arg, int p);
 char					*findhome(t_env *env);
 char					*findoldpwd(t_env *env);
 int						ft_get_arg(char **command2);
+t_env					*ft_unsetenv(char **command, t_env *list);
+t_env					*ft_setenv(char **command, t_env *list);
+t_env					*set_env(char *path, t_env *env, char *arg, int p);
 t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
 t_env					*ft_cd_pars(char **command2, t_env *env, int i,
 							t_shell *info);
+void					ft_exit(t_parselex *first, t_shell *info);
 void					cd_error(int i, char *str, t_shell *info);
+void					check_signal(void);
+void					free_info(t_shell *info);
+void					free_lex(t_parselex *list);
+void					free_lexem(t_lexem *list);
 
 int						ft_echo(char **command, t_env *list, int out);
 
-int			print_env(t_env *list, char *str, t_env *l, int a);
+int						print_env(t_env *list, char *str, t_env *l, int a);
 
 #endif

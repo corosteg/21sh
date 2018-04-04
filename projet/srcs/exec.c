@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/22 15:18:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/03 15:41:04 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,17 @@ void			exec_simpl(char **com, t_shell *info)
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
 	if (father > 0)
-		wait(NULL);
+	{
+		wait(0);
+		if (info->kill > 0)
+			kill(info->kill, 13);
+	}
+	int i = 0;
+	while (i < info->father)
+	{
+		i++;
+		wait(0);
+	}
 	if (father == 0)
 	{
 		dup2(info->fd_out, 1);
@@ -59,17 +69,19 @@ void			exec_in_pipe(char **com, t_shell *info, char **env)
 	father = fork();
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
-	if (father > 0)
-		wait(NULL);
+	if (!(ft_strcmp(com[0], "base64")) && father > 0)
+		info->kill = father;
 	if (father == 0)
 	{
 		dup2(tmp_fd[1], 1);
 		close(info->fd_in);
+		wait(0);
 		if (execve(bin_path, com, env))
 		{
 			ft_print("command not found: %s\n", com[0]);
-			exit(father);
+			exit(-1);
 		}
+		wait(0);
 	}
 	info->father++;
 	free_c_tab(env);
