@@ -3,7 +3,6 @@
 static int		need_a_break(char *s1, char *s2)
 {
 	int		i;
-	char	*tmp;
 
 	i = ft_strlen(s1);
 	while (i > 0 && s1[i - 1] != '\n')
@@ -19,7 +18,6 @@ static int		need_a_break(char *s1, char *s2)
 char			*manage_heredoc(t_shell *info, char *end)
 {
 	int		buf;
-	char	*ret;
 	int		i;
 
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 17:43:08 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:32:30 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char			*ft_chardup(int c)
 
 void			print_cpy(int buf, t_shell *info)
 {
-	int			ascii;
 	char		str[5];
 	char		tmp[2];
 	int			i = 0;
@@ -77,7 +76,7 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		info->his = p_up(info, info->his);
 		info->is_his = 1;
 	}
-	else if (buf == RIGHT_K && ((info->len) < ft_strlen(info->command)))
+	else if (buf == RIGHT_K && ((info->len) < (int)ft_strlen(info->command)))
 		p_right(info);
 	else if (buf == DOWN_K && his != NULL && his->last != 3 &&
 			!(info->no_move_his))
@@ -86,9 +85,9 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		print_cpy(buf, info);
 	else if  (buf == BCKSPCE_K && info->len > 0)
 		p_backspace(info, 0);
-	else if ((buf > 32 && buf < 126) && (info->len == ft_strlen(info->command)))
+	else if ((buf > 32 && buf < 126) && (info->len == (int)ft_strlen(info->command)))
 		p_ascii(info, str, buf);
-	else if ((buf > 32 && buf < 126) && (info->len < ft_strlen(info->command)))
+	else if ((buf > 32 && buf < 126) && (info->len < (int)ft_strlen(info->command)))
 		insert_ascii(info, str);
 	else if (buf == SPCE_K)
 		p_space(info, " ");
@@ -123,7 +122,6 @@ int				check_press(int buf, t_shell *info, t_his *his)
 
 t_his			*check_entry(t_shell *info, t_his *his)
 {
-	char		*tmp;
 	int			buf;
 
 	info->his = his;

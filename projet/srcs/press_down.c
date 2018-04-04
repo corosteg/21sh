@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 20:43:20 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/09 16:12:08 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:27:42 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 static t_his			*his_prev_null(t_shell *info, t_his *his)
 {
-	int		i;
 	char	*tmp;
 
 	while (info->len > 0)
@@ -36,7 +35,6 @@ static t_his			*his_prev_null(t_shell *info, t_his *his)
 
 static t_his			*p_down2(t_shell *info, t_his *his)
 {
-	int		i;
 	char	*tmp;
 
 	while (info->len > 0)
@@ -56,7 +54,6 @@ static t_his			*p_down2(t_shell *info, t_his *his)
 
 static void				his_next_null(t_shell *info, t_his *his)
 {
-	int		i;
 	char	*tmp;
 
 	while (info->len > 0)

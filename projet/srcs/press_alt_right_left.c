@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 18:20:40 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 12:36:58 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:37:20 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			p_a_left(t_shell *info)
 
 int			p_a_right(t_shell *info)
 {
-	if (info->len == ft_strlen(info->command))
+	if (info->len == (int)ft_strlen(info->command))
 		return (0);
 	if (info->end_cp == -1 && info->start_cp == -1)
 	{

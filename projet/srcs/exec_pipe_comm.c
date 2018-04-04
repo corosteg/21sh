@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 22:09:42 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/17 16:08:37 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:36:18 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int				check_com(char c, char c2)
+int				check_com(char c)
 {
 	if (c == '|')
 		return (0);
@@ -28,7 +28,7 @@ int				check_com(char c, char c2)
 		return (1);
 }
 
-static int		check_pipe(char *str)
+/*static int		check_pipe(char *str)
 {
 	int		i;
 	int		a;
@@ -50,7 +50,7 @@ static int		check_pipe(char *str)
 		i++;
 	}
 	return (5);
-}
+}*/
 
 void			redir_simpl2(t_shell *info, char *file)
 {

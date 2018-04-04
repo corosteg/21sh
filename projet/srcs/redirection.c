@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/17 16:08:43 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:38:01 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_parselex				*redir_simpl(t_shell *info, t_parselex *list)
 	fd = open(list->next->next->cutting[0], O_CREAT | O_TRUNC
 		| O_WRONLY, 0644);
 	exec_redir(list->cutting, info, fd);
-	while (list && !(end_token_tool(list->cutting[0], info)))
+	while (list && !(end_token_tool(list->cutting[0])))
 		list = list->next;
 	reset_fd_tool(info);
 	return (list);
@@ -63,7 +63,7 @@ t_parselex				*redir_doble(t_shell *info, t_parselex *list)
 	fd = open(list->next->next->cutting[0], O_APPEND
 		| O_RDWR, 0644);
 	exec_redir(list->cutting, info, fd);
-	while (list && !(end_token_tool(list->cutting[0], info)))
+	while (list && !(end_token_tool(list->cutting[0])))
 		list = list->next;
 	reset_fd_tool(info);
 	return (list);
@@ -85,7 +85,6 @@ t_parselex				*delete_next_token(t_parselex *list)
 
 t_parselex				*redir_left(t_shell *info, t_parselex *list)
 {
-	int		fd;
 	char	*ta[3];
 
 
@@ -105,7 +104,6 @@ t_parselex				*redir_left(t_shell *info, t_parselex *list)
 
 t_parselex				*redir_heredoc(t_shell *info, t_parselex *list)
 {
-	int		fd;
 	char	*ta[3];
 
 
@@ -116,6 +114,7 @@ t_parselex				*redir_heredoc(t_shell *info, t_parselex *list)
 	ta[2] = NULL;
 	exec_in_pipe(ta, info, alloc_tab(info->env));
 	list = delete_next_token(list);
+	free_c_tab(ta);
 //	reset_fd_tool(info);
 	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 20:58:47 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/16 18:21:27 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:29:18 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void			modify_string(t_shell *info, char *str2, int insert_len)
 {
-	int		i;
 	char	*tmp;
 	char	*tmp2;
 
@@ -30,7 +29,6 @@ static void			modify_string(t_shell *info, char *str2, int insert_len)
 
 int					insert_ascii(t_shell *info, char *str)
 {
-	int					buf;
 	char				*str2;
 	int					insert_len;
 	int					cursor;
@@ -54,7 +52,6 @@ int					insert_ascii(t_shell *info, char *str)
 
 int					insert_quote_ascii(t_shell *info, char *str)
 {
-	int					buf;
 	char				*str2;
 	int					insert_len;
 	int					cursor;

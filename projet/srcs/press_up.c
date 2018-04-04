@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 18:24:18 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/09 16:11:29 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:28:48 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ t_his			*his_next_null(t_shell *info, t_his *his)
 
 t_his			*p_up2(t_shell *info, t_his *his)
 {
-	int		i;
-
 	while (info->len > 0)
 		p_left(info);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);

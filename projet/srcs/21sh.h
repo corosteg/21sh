@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 16:08:27 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:26:08 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void					p_s_up(t_shell *info);
 void					exec_redir(char **com, t_shell *info, int fd);
 int						p_a_left(t_shell *info);
 int						p_a_right(t_shell *info);
-int						end_token_tool(char *str, t_shell *info);
+int						end_token_tool(char *str);
 int						check_builtin(char **command, t_shell *info, int out);
 void					free_c_tab(char **array);
 void					manage_squote(t_shell *info);

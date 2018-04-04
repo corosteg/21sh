@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/04 16:14:07 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:23:11 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_parselex		*cutting(t_parselex *tmp, char *str)
 	return (tmp);
 }
 
-t_parselex		*parselex(t_lexem *list, t_parselex *tmp, int i)
+t_parselex		*parselex(t_lexem *list, t_parselex *tmp)
 {
 	t_parselex	*newlist;
 
@@ -134,7 +134,7 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	//	ft_putchar('\n');
 		tmp = tmp->next;
 	}
-	list2 = parselex(list, NULL, 0);
+	list2 = parselex(list, NULL);
 	free_lexem(list);
 	free_c_tab(tableau);
 	//return (list2);

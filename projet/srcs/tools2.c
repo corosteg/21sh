@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 17:06:25 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 19:13:48 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:25:40 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		tool_refresh(t_shell *info)
 		p_left2(info);
 }
 
-int			end_token_tool(char *str, t_shell *info)
+int			end_token_tool(char *str)
 {
 	if (!(ft_strcmp(str, ";")))
 		return (1);

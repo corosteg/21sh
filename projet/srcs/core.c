@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 15:14:42 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:34:32 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int					check_operador(char c)
 	return (0);
 }
 
-int					check_redir(char *command, int run)
+/*int					check_redir(char *command, int run)
 {
 	return(0);
 }
@@ -71,7 +71,7 @@ int					check_redir(char *command, int run)
 int					redir(char *command, int run)
 {
 	return(0);
-}
+}*/
 
 int					check_final(t_shell *info, int run)
 {
@@ -278,7 +278,7 @@ static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 		create_files(list);
 		exec_in_pipe(list->cutting, info, alloc_tab(info->env));
 	}
-	if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
+	if (list->next == NULL || end_token_tool(list->next->cutting[0]))
 	{
 		exec_simpl(list->cutting, info);
 		reset_fd_tool(info);
@@ -297,8 +297,8 @@ int						core(t_shell *info)
 	info->fd_err = dup(2);
 	if ((list = parse_cmd(info, 1, NULL, NULL)) == NULL)
 		return(0);
-	int i = 0;
-/*	while (list)
+/*	int i = 0;
+	while (list)
 	{
 		while (list->cutting[i])
 		{

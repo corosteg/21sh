@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:09:40 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 16:24:57 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:19:23 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void					free_info(t_shell *info)
 	free(info->command);
 	free(info->command2);
 	free(info->cp_string);
-	if (info->env && info->env_int == 1)
+	if (info->env_int == 1)
 		free_env(info->env);
 	free(info);
 }
