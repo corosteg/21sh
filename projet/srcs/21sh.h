@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 17:26:08 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 16:04:04 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct			s_lexem
 }						t_lexem;
 
 void					p_home(t_shell *info);
-void					exec_in_pipe(char **com, t_shell *info, char **env);
+void					exec_in_pipe(char **com, t_shell *info, char **env, int i);
 int						core(t_shell *info);
 void					p_end(t_shell *info);
 void					press_string(t_shell *info);
@@ -173,6 +173,7 @@ t_parselex				*redir_simpl(t_shell *info, t_parselex *list);
 t_parselex				*redir_left(t_shell *info, t_parselex *list);
 t_parselex				*redir_heredoc(t_shell *info, t_parselex *list);
 t_parselex				*redir_left_and_right(t_shell *info, t_parselex *list);
+t_parselex				*delete_next_token(t_parselex *list);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);
 t_his					*p_up(t_shell *info, t_his *his);

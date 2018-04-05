@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 14:33:56 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 19:23:41 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,11 +245,8 @@ int						check_built(char **command, t_shell *info, t_parselex *first)
 static	t_parselex		*check_redire(t_parselex *list, t_shell *info,
 						t_parselex *first)
 {
-	if (check_built(list->cutting, info, first))
-	{
-		return (NULL);
-	//	go_at_end(list);
-	}
+//	if (check_built(list->cutting, info, first))
+//		return (list->next/*delete_next_token(list)*/);
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<<")))
 		list = redir_heredoc(info,list);
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
@@ -276,7 +273,7 @@ static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 	if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
 	{
 		create_files(list);
-		exec_in_pipe(list->cutting, info, alloc_tab(info->env));
+		exec_in_pipe(list->cutting, info, alloc_tab(info->env), 0);
 	}
 	if (list->next == NULL || end_token_tool(list->next->cutting[0]))
 	{
@@ -319,6 +316,19 @@ int						core(t_shell *info)
 			break;
 		list = check_exec(list, info);
 	}
+/*	int i = 0;
+	ft_print("\n-------------\n");
+	while (first)
+	{
+		while (first->cutting[i])
+		{
+			ft_print("%s\n", first->cutting[i]);
+			i++;
+		}
+		i = 0;
+		ft_print("maillon suivant\n");
+		first = first->next;
+	}*/
 	free_lex(first);
 	dup2(info->save_stdin, 0); //peut etre a remplacer par reset_fd_tool
 	return (1);

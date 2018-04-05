@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/03 15:41:04 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 18:25:05 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			exec_simpl(char **com, t_shell *info)
 	free(bin_path);
 }
 
-void			exec_in_pipe(char **com, t_shell *info, char **env)
+void			exec_in_pipe(char **com, t_shell *info, char **env, int i)
 {
 	pid_t		father;
 	char		*bin_path;
@@ -59,14 +59,16 @@ void			exec_in_pipe(char **com, t_shell *info, char **env)
 
 	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	pipe(tmp_fd);
-	if (check_builtin(com, info, tmp_fd[1]))
+/*	if (check_builtin(com, info, tmp_fd[1]))
 	{
 		close(tmp_fd[1]);
 		info->fd_in = tmp_fd[0];
 		info->fd_out = dup(info->save_stdout);
 		return;
-	}
+	}*/
 	father = fork();
+	if (i == 1)
+		wait(0);
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
 	if (!(ft_strcmp(com[0], "base64")) && father > 0)

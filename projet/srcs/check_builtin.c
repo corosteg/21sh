@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 21:58:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/13 19:40:44 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 19:22:49 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int					check_builtin(char **command, t_shell *info, int out)
 		ft_cd_pars(command, info->env, 1, info);
 		return (1);
 	}
-	if (!(ft_strcmp(command[0], "echo")))
-	{
-		ft_echo(command, info->env, out);
-		return (1);
-	}
+//	if (!(ft_strcmp(command[0], "echo")))
+//	{
+//		ft_echo(command, info->env, out);
+//		return (1);
+//	}
 	return (0);
 }

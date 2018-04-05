@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 15:05:53 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 19:24:41 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,12 @@ t_parselex				*delete_next_token(t_parselex *list)
 
 	tmp = list->next;
 	list->next = list->next->next;
-//	free_c_tab(tmp->cutting);
-	//free(tmp);
+	free_c_tab(tmp->cutting);
+	free(tmp);
+	tmp = list->next;
 	list->next = list->next->next;
-//	free_c_tab(tmp->cutting);
-//	free(tmp);
+	free_c_tab(tmp->cutting);
+	free(tmp);
 	return (list);
 }
 
@@ -95,11 +96,13 @@ t_parselex				*redir_left(t_shell *info, t_parselex *list)
 	ta[0] = ft_strdup("/bin/cat");
 	ta[1] = ft_strdup(list->next->next->cutting[0]);
 	ta[2] = NULL;
-	exec_in_pipe(ta, info, alloc_tab(info->env));
+	exec_in_pipe(ta, info, alloc_tab(info->env), 1);
 //	exec_redir(list->cutting, info, info->fd_out);
 //	while (list && !(end_token_tool(list->cutting[0], info)))
 //		list = list->next;
 //	reset_fd_tool(info);
+	free(ta[0]);
+	free(ta[1]);
 	list = delete_next_token(list);
 	return (list);
 }
@@ -114,9 +117,10 @@ t_parselex				*redir_heredoc(t_shell *info, t_parselex *list)
 	ta[0] = ft_strdup("/bin/cat");
 	ta[1] = ft_strdup(list->next->next->cutting[0]);
 	ta[2] = NULL;
-	exec_in_pipe(ta, info, alloc_tab(info->env));
+	exec_in_pipe(ta, info, alloc_tab(info->env), 1);
 	list = delete_next_token(list);
-	free_c_tab(ta);
+	free(ta[0]);
+	free(ta[1]);
 //	reset_fd_tool(info);
 	return (list);
 }
