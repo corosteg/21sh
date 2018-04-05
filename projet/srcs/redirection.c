@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 17:38:01 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 15:05:53 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void				exec_redir(char **com, t_shell *info, int fd)
 			exit(father);
 		}
 	}
+	free_c_tab(env);
+	free(bin_path);
 }
 
 t_parselex				*redir_simpl(t_shell *info, t_parselex *list)

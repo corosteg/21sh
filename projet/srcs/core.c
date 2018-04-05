@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 17:34:32 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 14:33:56 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int						check_built(char **command, t_shell *info, t_parselex *first)
 {
 	if (!(ft_strcmp(command[0], "cd")))
 	{
-		info->env  = ft_cd(command, info->env, info);
+		info->env  = ft_cd_pars(command, info->env, 1, info);
 		return (1);
 	}
 	if (!(ft_strcmp(command[0], "setenv")))

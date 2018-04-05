@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 17:31:04 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/05 13:58:56 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static t_shell				*init_info_list(t_shell *info, char **env)
+static t_shell				*init_info_list(t_shell *info, char **env, int i)
 {
 	info = (t_shell*)malloc(sizeof(t_shell));
 	info->command = ft_strdup("\0");
@@ -32,9 +32,20 @@ static t_shell				*init_info_list(t_shell *info, char **env)
 	info->len = 0;
 	info->kill = 0;
 	info->father = 0;
+	info->is_his = 0;
 	info->save_stdin = dup(0);
 	info->save_stdout = dup(1);
 	info->save_stderr = dup(2);
+	if (i == 1)
+	{
+		info->his_int = 0;
+		info->env_int = 0;
+	}
+	else
+	{
+		info->his_int = 1;
+		info->env_int = 1;
+	}
 	return (info);
 }
 
@@ -71,9 +82,7 @@ int					main(int ac, char **av, char **env)
 	his = NULL;
 	init_term();
 	info = NULL;
-	info = init_info_list(info, env);
-	info->his_int = 0;
-	info->env_int = 0;
+	info = init_info_list(info, env, 1);
 	g_info = info;
 	check_signal();
 	while(42)
@@ -86,7 +95,7 @@ int					main(int ac, char **av, char **env)
 		tab_env = alloc_tab(info->env);
 		info->env_int = 1;
 		free_info(info);
-		info = init_info_list(info, tab_env);
+		info = init_info_list(info, tab_env, 0);
 		free_c_tab(tab_env);
 	}
 	return (ac);
