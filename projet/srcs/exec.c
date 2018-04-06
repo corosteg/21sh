@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 18:25:05 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/06 13:17:50 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void			exec_simpl(char **com, t_shell *info)
 	char		**env;
 	pid_t		father;
 
-	env = alloc_tab(info->env);
-	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	if (check_builtin(com, info, info->fd_out))
 		return;
+	env = alloc_tab(info->env);
+	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	father = fork();
 	dup2(info->fd_in, 0);
 	close(info->fd_out);

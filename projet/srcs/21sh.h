@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 16:04:04 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/06 14:35:15 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void					check_signal(void);
 void					free_info(t_shell *info);
 void					free_lex(t_parselex *list);
 void					free_lexem(t_lexem *list);
+void					check_agregation(t_parselex *list, t_shell *info);
 
 int						ft_echo(char **command, t_env *list, int out);
 

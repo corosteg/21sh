@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 20:43:20 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 18:58:07 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/06 13:35:47 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,19 @@ static t_his			*p_down2(t_shell *info, t_his *his)
 static void				his_next_null(t_shell *info, t_his *his)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	while (info->len > 0)
 		p_left(info);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	tmp = info->command2;
+	tmp2 = info->command;
 	info->command = ft_strdup(info->command2);
 	info->command2 = ft_strdup("\0");
 	p_ascii_emulation(info->command, info);
 	info->len = ft_strlen(info->command);
 	free(tmp);
+	free(tmp2);
 	his->last = 3;
 	info->is_his = 0;
 }

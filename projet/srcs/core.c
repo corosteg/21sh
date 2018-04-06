@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 19:23:41 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/06 14:39:11 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,7 @@ static void				create_files(t_parselex *list)
 
 static t_parselex		*check_exec(t_parselex *list, t_shell *info)
 {
+	check_agregation(list, info);
 	if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
 	{
 		create_files(list);
