@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/04 16:14:07 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/09 16:54:14 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_parselex		*parselex(t_lexem *list, t_parselex *tmp, int i)
 		newlist->cutting[1] = NULL;
 	}
 	else
-		newlist->cutting = ft_splitmulti(list->command, "#&;|<>");
+		newlist->cutting = tool_lex1(list->command, "#&;|<>");
 	list = list->next;
 	newlist->next = NULL;
 	while (list)
@@ -79,7 +79,7 @@ t_parselex		*parselex(t_lexem *list, t_parselex *tmp, int i)
 		tmp = tmp->next;
 		if (one_ofs(list->command, "&;|<>", 0, 0))
 			tmp = cutting(tmp, list->command);
-		tmp->cutting = ft_splitmulti(list->command, "#&|;<>");
+		tmp->cutting = tool_lex1(list->command, "#&|;<>");
 		tmp->next = NULL;
 		list = list->next;
 	}
@@ -108,17 +108,17 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 
 	if (info->command[0] == '\0')
 		return (NULL);
-	(tableau = ft_strsplitkeep(info->command, ";&|<>"));
+	(tableau = tool_lex2(info->command, ";&|<>"));
 	tmp = (t_lexem*)malloc(sizeof(t_lexem));
 	list = tmp;
 	list->command = ft_strdup(tableau[0]);
 	list->next = NULL;
-	/*int nb = 0;
+	int nb = 0;
 	while (tableau[nb])
 	{
 		printf("1st: %s\n", tableau[nb]);
 		nb++;
-	}*/
+	}
 	while (tableau[i])
 	{
 		tmp->next = (t_lexem*)malloc(sizeof(t_lexem));
@@ -130,14 +130,14 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	while (tmp)
 	{
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
-	//	ft_putstr(tmp->command);
-	//	ft_putchar('\n');
+		ft_putstr(tmp->command);
+		ft_putchar('\n');
 		tmp = tmp->next;
 	}
 	list2 = parselex(list, NULL, 0);
 	free_lexem(list);
 	free_c_tab(tableau);
 	//return (list2);
-//	return (list2);
-	return (check_heredoc(list2, info));
+	return (list2);
+//	return (check_heredoc(list2, info));
 }
