@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/06 14:39:11 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/09 16:46:29 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int			parsing_list(t_parselex *list)
 	return (0);
 }
 
-int						check_built(char **command, t_shell *info, t_parselex *first)
+/*int						check_built(char **command, t_shell *info, t_parselex *first)
 {
 	if (!(ft_strcmp(command[0], "cd")))
 	{
@@ -240,7 +240,7 @@ int						check_built(char **command, t_shell *info, t_parselex *first)
 		return (1);
 	}
 	return (0);
-}
+}*/
 
 static	t_parselex		*check_redire(t_parselex *list, t_shell *info,
 						t_parselex *first)

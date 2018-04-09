@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 13:58:56 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/09 16:09:12 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static t_shell				*init_info_list(t_shell *info, char **env, int i)
 	info->env = copy_env(env, info->env);
 	info->x = 5;
 	info->y = 0;
+	info->ag = 1;
+	info->ag2 = 1;
 	info->quote = 0;
 	info->dquote = 0;
 	info->len = 0;

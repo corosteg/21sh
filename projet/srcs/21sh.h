@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/06 14:35:15 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/09 17:43:28 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct			s_shell
 	int					kill;
 	int					his_int;
 	int					env_int;
+	int					ag;
+	int					ag2;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*cp_string;
@@ -183,8 +185,8 @@ t_his					*p_down(t_shell *info, t_his *his);
 char					*findhome(t_env *env);
 char					*findoldpwd(t_env *env);
 int						ft_get_arg(char **command2);
-t_env					*ft_unsetenv(char **command, t_env *list);
-t_env					*ft_setenv(char **command, t_env *list);
+t_env					*ft_unsetenv(char **command, t_env *list, t_shell *info);
+t_env					*ft_setenv(char **command, t_env *list, t_shell *info);
 t_env					*set_env(char *path, t_env *env, char *arg, int p);
 t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
 t_env					*ft_cd_pars(char **command2, t_env *env, int i,

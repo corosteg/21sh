@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:47:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/03 17:21:36 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/09 17:39:55 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,27 @@ int			check_as_var_u(char *str)
 static int	check_ft_envfunct_action(char **command2, t_env *list, int a)
 {
 	a = 0;
-	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '=') + 1)))
+	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '='))))
 	&& command2[2] != NULL)
 		return (1);
-	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '=') + 1)))
+	if (!(ft_strncmp(command2[1], list->var, (ft_strclen(list->var, '='))))
 	&& command2[2] == NULL)
 		return (2);
 	return (0);
 }
 
-t_env		*ft_unsetenv(char **command, t_env *list)
+t_env		*ft_unsetenv(char **command, t_env *list, t_shell *info)
 {
 	t_env		*tmp;
 
 	if (command[1] == NULL)
 	{
-		ft_print("usage: unsetenv [VAR=] to delete\n");
+		ft_putstr_fd("usage: unsetenv [VAR] to delete\n", info->fd_err);
 		return (list);
 	}
-	if ((command[1] && command[2]) || !(check_as_var_u(command[1])))
+	if ((command[1] && command[2]) /*|| !(check_as_var_u(command[1]))*/)
 	{
-		ft_print("usage: unsetenv [VAR=] to delete\n");
+		ft_putstr_fd("usage: unsetenv [VAR] to delete\n", info->fd_err);
 		return (list);
 	}
 	tmp = list;

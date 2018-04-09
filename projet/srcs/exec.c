@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/06 13:17:50 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/09 16:54:48 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ void			exec_simpl(char **com, t_shell *info)
 	}
 	if (father == 0)
 	{
-		dup2(info->fd_out, 1);
+		if (info->ag2 == 0)
+			close(1);
+		else if (info->ag2 == 1)	
+			dup2(info->fd_out, 1);
+		else if (info->ag2 == 2)	
+			dup2(info->save_stderr, 1);
 		close(info->fd_in);
 		if (execve(bin_path, com, env))
 		{
@@ -57,15 +62,15 @@ void			exec_in_pipe(char **com, t_shell *info, char **env, int i)
 	char		*bin_path;
 	int			tmp_fd[2];
 
-	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	pipe(tmp_fd);
-/*	if (check_builtin(com, info, tmp_fd[1]))
+	if (check_builtin(com, info, tmp_fd[1]))
 	{
 		close(tmp_fd[1]);
 		info->fd_in = tmp_fd[0];
 		info->fd_out = dup(info->save_stdout);
 		return;
-	}*/
+	}
+	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	father = fork();
 	if (i == 1)
 		wait(0);
@@ -75,7 +80,12 @@ void			exec_in_pipe(char **com, t_shell *info, char **env, int i)
 		info->kill = father;
 	if (father == 0)
 	{
-		dup2(tmp_fd[1], 1);
+		if (info->ag == 0)	
+			dup2(tmp_fd[1], 0);
+		else if (info->ag == 1)	
+			dup2(tmp_fd[1], 1);
+		else if (info->ag == 2)	
+			dup2(tmp_fd[1], 2);
 		close(info->fd_in);
 		wait(0);
 		if (execve(bin_path, com, env))
