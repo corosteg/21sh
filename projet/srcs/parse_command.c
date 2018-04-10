@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 14:22:59 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 15:22:09 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,34 @@ static int		check_false2(char *str, int i)
 	return (0);
 }
 
+int				white_line(char *str, int i)
+{
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	else
+		return (0);
+}
+
+int				parse2(char *str, int i)
+{
+	while (str[i])
+	{
+		if (str[i + 1] == '\0' && str[i] == ';')
+			str[i] = '\0';
+		i++;
+	}	
+	return (white_line(str, 0));
+}
+
 int				parse_command(char *str)
 {
 	int		i;
 
 	i = 0;
+	if (parse2(str, 0))
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '&')

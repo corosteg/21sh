@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/05 14:20:23 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 15:23:53 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		print_cpy(buf, info);
 	else if  (buf == BCKSPCE_K && info->len > 0)
 		p_backspace(info, 0);
-	else if ((buf > 32 && buf < 126) && (info->len == (int)ft_strlen(info->command)))
+	else if ((buf > 32 && buf < 127) && (info->len == (int)ft_strlen(info->command)))
 		p_ascii(info, str, buf);
-	else if ((buf > 32 && buf < 126) && (info->len < (int)ft_strlen(info->command)))
+	else if ((buf > 32 && buf < 127) && (info->len < (int)ft_strlen(info->command)))
 		insert_ascii(info, str);
 	else if (buf == SPCE_K)
 		p_space(info, " ");
@@ -143,7 +143,7 @@ t_his			*check_entry(t_shell *info, t_his *his)
 	his = manage_his_list(his, info);
 	ft_print("\n");
 //	ft_print("%s\n", info->command);
-//	if (parse_command(info->command))
+	if (parse_command(info->command))
 		core(info);
 	return (his);
 }
