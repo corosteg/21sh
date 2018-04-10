@@ -6,13 +6,14 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 21:58:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/09 17:47:20 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 14:32:17 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./21sh.h"
 
-int					check_builtin(char **command, t_shell *info, int out)
+int					check_builtin(char **command, t_shell *info,
+					int out, t_parselex *first)
 {
 	if (!(ft_strcmp(command[0], "cd")))
 	{
@@ -39,10 +40,15 @@ int					check_builtin(char **command, t_shell *info, int out)
 		ft_setenv(command, info->env, info);
 		return (1);
 	}
-//	if (!(ft_strcmp(command[0], "env")))
-//	{
-//		ft_setenv(command, info->env, info);
-//		return (1);
-//	}
+	if (!(ft_strcmp(command[0], "exit")))
+	{
+		ft_exit(first, info);
+		return (1);
+	}
+	if (!(ft_strcmp(command[0], "env")))
+	{
+		ft_env(info->env, out);
+		return (1);
+	}
 	return (0);
 }

@@ -6,21 +6,23 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/09 16:54:48 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 14:55:00 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./21sh.h"
 
-void			exec_simpl(char **com, t_shell *info)
+void			exec_simpl(char **com, t_shell *info, t_parselex *first,
+				char **env)
 {
 	char		*bin_path;
-	char		**env;
 	pid_t		father;
 
-	if (check_builtin(com, info, info->fd_out))
+	if (check_builtin(com, info, info->fd_out, first))
+	{
+		free_c_tab(env);
 		return;
-	env = alloc_tab(info->env);
+	}
 	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	father = fork();
 	dup2(info->fd_in, 0);
@@ -56,18 +58,21 @@ void			exec_simpl(char **com, t_shell *info)
 	free(bin_path);
 }
 
-void			exec_in_pipe(char **com, t_shell *info, char **env, int i)
+void			exec_in_pipe(char **com, t_shell *info, t_parselex *first, int i)
 {
 	pid_t		father;
 	char		*bin_path;
 	int			tmp_fd[2];
+	char		**env;
 
+	env = alloc_tab(info->env);
 	pipe(tmp_fd);
-	if (check_builtin(com, info, tmp_fd[1]))
+	if (check_builtin(com, info, tmp_fd[1], first))
 	{
 		close(tmp_fd[1]);
 		info->fd_in = tmp_fd[0];
 		info->fd_out = dup(info->save_stdout);
+		free(env);
 		return;
 	}
 	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
