@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/10 17:23:25 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 20:14:05 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,9 +200,10 @@ int						ft_get_arg(char **command2);
 t_env					*ft_unsetenv(char **command, t_env *list, t_shell *info);
 t_env					*ft_setenv(char **command, t_env *list, t_shell *info);
 t_env					*set_env(char *path, t_env *env, char *arg, int p);
-t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
+t_env					*ft_cd(char *command2, t_env *env, t_shell *info);
 t_env					*ft_cd_pars(char **command2, t_env *env, int i,
 							t_shell *info);
+char					*home_path(char *dest, char *src);
 void					ft_exit(t_parselex *first, t_shell *info);
 void					ft_exit2(t_shell *info);
 void					cd_error(int i, char *str, t_shell *info);
@@ -213,6 +214,8 @@ void					free_lexem(t_lexem *list);
 void					check_agregation(t_parselex *list, t_shell *info);
 
 int						ft_echo(char **command, t_env *list, int out);
+char					**tool_lex1(const char *s, char *c);
+char					**tool_lex2(const char *s, char *c);
 
 //int						print_env(t_env *list, char *str, t_env *l, int a);
 
