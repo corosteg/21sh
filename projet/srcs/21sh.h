@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/10 14:34:34 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 17:23:25 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void					p_heredoc_backspace(t_shell *info);
 void					p_delete(t_shell *info);
 void					p_right(t_shell *info);
 void					p_right2(t_shell *info);
+void					init_term(void);
+void					init_term2(void);
 int						p_left(t_shell *info);
 int						p_left2(t_shell *info);
 void					p_ascii(t_shell *info, char *str, int buf);
@@ -202,6 +204,7 @@ t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
 t_env					*ft_cd_pars(char **command2, t_env *env, int i,
 							t_shell *info);
 void					ft_exit(t_parselex *first, t_shell *info);
+void					ft_exit2(t_shell *info);
 void					cd_error(int i, char *str, t_shell *info);
 void					check_signal(void);
 void					free_info(t_shell *info);

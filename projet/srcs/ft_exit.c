@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 20:50:31 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 15:00:10 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 17:21:46 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,11 @@ void		ft_exit(t_parselex *first, t_shell *info)
 {
 	free_info(info);
 	free_lex(first);
+	exit(0);
+}
+
+void		ft_exit2(t_shell *info)
+{
+	free_info(info);
 	exit(0);
 }

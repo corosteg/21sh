@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/10 15:23:53 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 18:25:52 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,16 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		p_home(info);
 	else if (buf == END_K)
 		p_end(info);
+	else if (buf == 3)
+	{
+		free(info->command);
+		info->command = ft_strdup("\0");
+		return(1);
+	}
+	else if (buf == 4 && info->len == 0)
+		ft_exit2(info);
 	else if (buf == RET_K)
 		return (1);
-//	printf("buf == %i\n", buf);
 	return (0);
 }
 
@@ -124,17 +131,18 @@ t_his			*check_entry(t_shell *info, t_his *his)
 {
 	int			buf;
 
+	init_term();
 	info->his = his;
 	while (42)
 	{
 		buf = 0;
-	//	printf("coucou\n");
 		if (read(STDIN_FILENO, &buf, sizeof(int)))
 		{
 			if (check_press(buf, info, his))
 				break ;
 		}
 	}
+	init_term2();
 	check_quotes(info);
 	if (info->quote == 1)
 		manage_squote(info);
@@ -142,7 +150,6 @@ t_his			*check_entry(t_shell *info, t_his *his)
 		manage_dquote(info);
 	his = manage_his_list(his, info);
 	ft_print("\n");
-//	ft_print("%s\n", info->command);
 	if (parse_command(info->command))
 		core(info);
 	return (his);

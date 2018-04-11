@@ -15,6 +15,15 @@ static int		need_a_break(char *s1, char *s2)
 	return (0);
 }
 
+int				control_d(int buf, t_shell *info)
+{
+	if (buf != 4)
+		return (0);
+	ft_print("%s", info->command);
+	info->command = ft_strdup(" \0");
+	return (1);
+}
+
 char			*manage_heredoc(t_shell *info, char *end)
 {
 	int		buf;
@@ -32,11 +41,14 @@ char			*manage_heredoc(t_shell *info, char *end)
 	info->x = 6;
 	free(info->command);
 	info->command = ft_strdup("\n");
+	init_term();
 	while (42)
 	{
 		buf = 0;
 		if (read(0, &buf, sizeof(int)))
 		{
+			if (control_d(buf, info))
+				break;
 			if (check_press_quote(buf, info, 1))
 			{
 				if (need_a_break(info->command, end))
@@ -49,6 +61,7 @@ char			*manage_heredoc(t_shell *info, char *end)
 			}
 		}
 	}
+	init_term2();
 	ft_print("\n");
 	buf = open("/tmp/21sh_heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	ft_putstr_fd(&info->command[1], buf);
