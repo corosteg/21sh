@@ -6,13 +6,14 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 19:58:27 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 20:18:04 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int					ft_echo(char **command, t_env *list, int out, t_shell *info)
+static int					ft_echo_redire(char **command, t_env *list,
+							int out, t_shell *info)
 {
 	int i = 1;
 	int father;
@@ -46,7 +47,7 @@ void				exec_redir(char **com, t_shell *info, int fd,
 
 	if (!ft_strcmp(com[0], "echo"))
 	{
-		ft_echo(com, info->env, fd, info);
+		ft_echo_redire(com, info->env, fd, info);
 		return;
 	}
 	else if (check_builtin(com, info, fd, first))

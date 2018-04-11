@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 20:43:25 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 15:38:01 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 20:16:55 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void		print_var(char *command, t_env *list, int out)
 	free(tmp);
 }
 
-//int			ft_echo(char **command, t_env *list, int out)
-//{
-/*	int		i;
+int			ft_echo(char **command, t_env *list, int out)
+{
+	int		i;
 	int		nl;
 
 	i = 0;
@@ -55,14 +55,5 @@ void		print_var(char *command, t_env *list, int out)
 	}
 	if (nl != 1)
 		ft_putstr_fd("\n", out);
-	return (0);*/
-/*	int i = 1;
-
-	while (command[i])
-	{
-		ft_putstr_fd(command[i], out);
-		i++;
-	}
-	ft_putstr_fd("\n", out);
 	return (0);
-}*/
+}
