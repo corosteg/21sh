@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 19:09:38 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/13 19:39:06 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:31:06 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,32 @@ void			cd_error(int i, char *str, t_shell *info)
 		ft_putstr_fd(str, info->fd_err);
 		ft_putstr_fd("\n", info->fd_err);
 	}
+}
+
+char		*home_path(char *dest, char *src)
+{
+	char		*new;
+	int			i;
+	int			nb;
+
+	i = 0;
+	nb = 0;
+	new = (char*)malloc(sizeof(char) * (ft_strlen(src) + ft_strlen(dest)));
+	while (dest[i])
+	{
+		new[nb] = dest[i];
+		nb++;
+		i++;
+	}
+	i = 1;
+	while (src[i])
+	{
+		new[nb] = src[i];
+		i++;
+		nb++;
+	}
+	new[nb] = '\0';
+	//free(dest);
+	//free(src);
+	return (new);
 }

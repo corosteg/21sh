@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 20:20:38 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/13 19:39:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:41:26 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int			ft_get_cd(char **command2)
 	cd = 0;
 	if (command2[1])
 	{
-		if ((ft_strcmp(command2[1], "~")) == 0 ||
-				(ft_strcmp(command2[1], "~/")) == 0)
+		if ((ft_strcmp(command2[1], "~")) == 0)
 			cd = 1;
+		else if ((ft_strcmp(command2[1], "~/")) == 0)
+			cd = 3;
 		else if ((ft_strcmp(command2[1], "-")) == 0)
 			cd = 2;
 		else if ((ft_strcmp(command2[1], "--")) == 0)
@@ -84,7 +85,7 @@ t_env		*ft_cd_oldpwd(char **command2, t_env *env, t_shell *info)
 	return (env);
 }
 
-t_env		*ft_cd(char **command2, t_env *env, t_shell *info)
+t_env		*ft_cd(char *command2, t_env *env, t_shell *info)
 {
 	char	*oldpwd;
 	char	*path;
@@ -94,9 +95,9 @@ t_env		*ft_cd(char **command2, t_env *env, t_shell *info)
 	path = NULL;
 	oldpwd = getcwd(cwd, sizeof(cwd));
 	env = set_env(oldpwd, env, "OLDPWD", 2);
-	path = ft_strdup(command2[1]);
+	path = ft_strdup(command2);
 	if (chdir(path) != 0)
-		cd_error(1, command2[1], info);
+		cd_error(3, command2, info);
 	getcwd(cwd, sizeof(cwd));
 	free(path);
 	env = set_env(cwd, env, "PWD", 1);
@@ -107,7 +108,9 @@ t_env		*ft_cd_pars(char **command2, t_env *env, int i, t_shell *info)
 {
 	int		arg;
 	int		cd;
+	char	*home;
 
+	home = NULL;
 	arg = ft_get_arg(command2);
 	cd = ft_get_cd(command2);
 	if (arg > 3)
@@ -120,8 +123,12 @@ t_env		*ft_cd_pars(char **command2, t_env *env, int i, t_shell *info)
 			env = ft_cd_home(command2, env, info);
 		else if (cd == 2)
 			env = ft_cd_oldpwd(command2, env, info);
+		else if ((cd == 3) && (!(home = findhome(env))))
+			cd_error(2, "HOME not set\n", info);
+		else if ((command2[1] != NULL && cd != 1 && cd != 2 && cd == 3))
+			env = ft_cd(home_path(home, command2[1]), env, info);
 		else if ((command2[1] != NULL && cd != 1 && cd != 2) || i != 0)
-			env = ft_cd(command2, env, info);
+			env = ft_cd(command2[1], env, info);
 	}
 	return (env);
 }
