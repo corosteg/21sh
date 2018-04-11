@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_heredoc.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/11 19:42:48 by corosteg          #+#    #+#             */
+/*   Updated: 2018/04/11 19:43:48 by corosteg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 static int		need_a_break(char *s1, char *s2)
@@ -20,6 +32,7 @@ int				control_d(int buf, t_shell *info)
 	if (buf != 4)
 		return (0);
 	ft_print("%s", info->command);
+	free(info->command);
 	info->command = ft_strdup(" \0");
 	return (1);
 }

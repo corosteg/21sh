@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/04/10 17:08:51 by corosteg         ###   ########.fr        #
+#    Updated: 2018/04/11 16:46:15 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,8 @@ SRCS = ./srcs/main.c\
 	   ./srcs/tools3.c\
 	   ./srcs/lexem2.c\
 	   ./srcs/term.c\
+	   ./srcs/tool_lex1.c\
+	   ./srcs/tool_lex2.c\
 	   ./srcs/lexem.c
 
 

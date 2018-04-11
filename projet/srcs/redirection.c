@@ -6,21 +6,34 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 16:29:04 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 18:37:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int					ft_echo(char **command, t_env *list, int out)
+int					ft_echo(char **command, t_env *list, int out, t_shell *info)
 {
 	int i = 1;
-	while (command[i])
+	int father;
+	
+	father = fork();
+	dup2(info->fd_in, 0);
+	close(info->fd_out);
+	if (father > 0)
+		wait(0);
+	if (father == 0)
 	{
-		ft_putstr_fd(command[i], out);
-		i++;
+		dup2(out, 1);
+		close(info->fd_in);
+		while (command[i])
+		{
+			ft_print("%s", command[i]);
+			i++;
+		}
+		ft_print("\n");
+		exit(0);
 	}
-	ft_putstr_fd("\n", out);
 	return (0);
 }
 
@@ -33,10 +46,10 @@ void				exec_redir(char **com, t_shell *info, int fd,
 
 	if (!ft_strcmp(com[0], "echo"))
 	{
-		ft_echo(com, info->env, fd);
+		ft_echo(com, info->env, fd, info);
 		return;
 	}
-	else if (check_builtin(com, info, fd, first))
+/*	else*/ if (check_builtin(com, info, fd, first))
 		return;
 	env = alloc_tab(info->env);
 	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
@@ -80,11 +93,15 @@ t_parselex				*redir_doble(t_shell *info, t_parselex *list,
 						t_parselex *first)
 {
 	int		fd;
+	char	buf;
 
 	if (list->next->next == NULL)
 		return (NULL);
-	fd = open(list->next->next->cutting[0], O_APPEND
-		| O_RDWR | FD_CLOEXEC, 0644);
+	fd = open(list->next->next->cutting[0], O_CREAT | O_APPEND
+		| O_RDWR, 0644);
+//	fd = open(list->next->next->cutting[0], O_RDWR, 0644);
+//	while (read(fd, &buf, 1));
+//	buf = '\0';
 	exec_redir(list->cutting, info, fd, first);
 	while (list && !(end_token_tool(list->cutting[0])))
 		list = list->next;

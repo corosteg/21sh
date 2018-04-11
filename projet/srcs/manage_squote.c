@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:56:11 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/16 17:51:34 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 19:24:08 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void				manage_squote(t_shell *info)
 	info->quote_len = 6;
 	info->len++;
 	info->x = 6;
+	init_term();
 	while (42)
 	{
 		buf = 0;
@@ -39,4 +40,5 @@ void				manage_squote(t_shell *info)
 			}
 		}
 	}
+	init_term2();
 }

@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/10 19:03:57 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 17:10:23 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,7 @@ int						core(t_shell *info)
 	first = list;
 	while (list)
 	{
+//		printf("cutting[0] =====> %s\n", list->cutting[0]);
 		if (!(list = check_redire(list, info, first)))
 			break;
 		list = check_exec(list, info, first);

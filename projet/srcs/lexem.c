@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/11 16:37:00 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 16:49:21 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,12 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	list = tmp;
 	list->command = ft_strdup(tableau[0]);
 	list->next = NULL;
-	int nb = 0;
+	/*int nb = 0;
 	while (tableau[nb])
 	{
 		printf("1st: %s\n", tableau[nb]);
 		nb++;
-	}
+	}*/
 	while (tableau[i])
 	{
 		tmp->next = (t_lexem*)malloc(sizeof(t_lexem));
@@ -130,14 +130,14 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	while (tmp)
 	{
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
-		ft_putstr(tmp->command);
-		ft_putchar('\n');
+		//ft_putstr(tmp->command);
+		//ft_putchar('\n');
 		tmp = tmp->next;
 	}
 	list2 = parselex(list, NULL);
 	free_lexem(list);
 	free_c_tab(tableau);
 	//return (list2);
-	return (list2);
-//	return (check_heredoc(list2, info));
+	//return (list2);
+	return (check_heredoc(list2, info));
 }
