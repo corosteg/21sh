@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 16:57:56 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/06 17:42:47 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 20:34:55 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_his				*manage_his_list(t_his *his, t_shell *info)
 	tmp->next = (t_his*)malloc(sizeof(t_his));
 	tmp = tmp->next;
 	tmp->command = ft_strdup(info->command);
+	tmp->first = 0;
 	tmp->next = NULL;
 	tmp->prev = tmp2;
 	return (tmp);

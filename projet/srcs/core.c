@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 15:14:42 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 19:03:57 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int					check_operador(char c)
 	return (0);
 }
 
-int					check_redir(char *command, int run)
+/*int					check_redir(char *command, int run)
 {
 	return(0);
 }
@@ -71,7 +71,7 @@ int					check_redir(char *command, int run)
 int					redir(char *command, int run)
 {
 	return(0);
-}
+}*/
 
 int					check_final(t_shell *info, int run)
 {
@@ -217,11 +217,11 @@ int			parsing_list(t_parselex *list)
 	return (0);
 }
 
-int						check_built(char **command, t_shell *info, t_parselex *first)
+/*int						check_built(char **command, t_shell *info, t_parselex *first)
 {
 	if (!(ft_strcmp(command[0], "cd")))
 	{
-		info->env  = ft_cd(command, info->env, info);
+		info->env  = ft_cd_pars(command, info->env, 1, info);
 		return (1);
 	}
 	if (!(ft_strcmp(command[0], "setenv")))
@@ -240,24 +240,21 @@ int						check_built(char **command, t_shell *info, t_parselex *first)
 		return (1);
 	}
 	return (0);
-}
+}*/
 
 static	t_parselex		*check_redire(t_parselex *list, t_shell *info,
 						t_parselex *first)
 {
-	if (check_built(list->cutting, info, first))
-	{
-		return (NULL);
-	//	go_at_end(list);
-	}
+//	if (check_built(list->cutting, info, first))
+//		return (list->next/*delete_next_token(list)*/);
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<<")))
-		list = redir_heredoc(info,list);
+		list = redir_heredoc(info, list, first);
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], "<")))
-		list = redir_left(info,list);
+		list = redir_left(info, list, first);
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">")))
-		list = redir_simpl(info,list);
+		list = redir_simpl(info, list, first);
 	if (list && list->next && !(ft_strcmp(list->next->cutting[0], ">>")))
-		list = redir_doble(info,list);
+		list = redir_doble(info, list, first);
 	return (list);
 }
 
@@ -271,16 +268,18 @@ static void				create_files(t_parselex *list)
 	}
 }
 
-static t_parselex		*check_exec(t_parselex *list, t_shell *info)
+static t_parselex		*check_exec(t_parselex *list, t_shell *info,
+						t_parselex *first)
 {
+	check_agregation(list, info);
 	if (list->next && !(ft_strcmp(list->next->cutting[0], "|")))
 	{
 		create_files(list);
-		exec_in_pipe(list->cutting, info, alloc_tab(info->env));
+		exec_in_pipe(list->cutting, info, first, 0);
 	}
-	if (list->next == NULL || end_token_tool(list->next->cutting[0], info))
+	if (list->next == NULL || end_token_tool(list->next->cutting[0]))
 	{
-		exec_simpl(list->cutting, info);
+		exec_simpl(list->cutting, info, first, alloc_tab(info->env));
 		reset_fd_tool(info);
 	}
 	list = list->next;
@@ -297,8 +296,8 @@ int						core(t_shell *info)
 	info->fd_err = dup(2);
 	if ((list = parse_cmd(info, 1, NULL, NULL)) == NULL)
 		return(0);
-	int i = 0;
-/*	while (list)
+/*	int i = 0;
+	while (list)
 	{
 		while (list->cutting[i])
 		{
@@ -317,8 +316,21 @@ int						core(t_shell *info)
 	{
 		if (!(list = check_redire(list, info, first)))
 			break;
-		list = check_exec(list, info);
+		list = check_exec(list, info, first);
 	}
+/*	int i = 0;
+	ft_print("\n-------------\n");
+	while (first)
+	{
+		while (first->cutting[i])
+		{
+			ft_print("%s\n", first->cutting[i]);
+			i++;
+		}
+		i = 0;
+		ft_print("maillon suivant\n");
+		first = first->next;
+	}*/
 	free_lex(first);
 	dup2(info->save_stdin, 0); //peut etre a remplacer par reset_fd_tool
 	return (1);

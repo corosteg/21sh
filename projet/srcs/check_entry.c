@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 17:43:08 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 18:25:52 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char			*ft_chardup(int c)
 
 void			print_cpy(int buf, t_shell *info)
 {
-	int			ascii;
 	char		str[5];
 	char		tmp[2];
 	int			i = 0;
@@ -77,7 +76,7 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		info->his = p_up(info, info->his);
 		info->is_his = 1;
 	}
-	else if (buf == RIGHT_K && ((info->len) < ft_strlen(info->command)))
+	else if (buf == RIGHT_K && ((info->len) < (int)ft_strlen(info->command)))
 		p_right(info);
 	else if (buf == DOWN_K && his != NULL && his->last != 3 &&
 			!(info->no_move_his))
@@ -86,9 +85,9 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		print_cpy(buf, info);
 	else if  (buf == BCKSPCE_K && info->len > 0)
 		p_backspace(info, 0);
-	else if ((buf > 32 && buf < 126) && (info->len == ft_strlen(info->command)))
+	else if ((buf > 32 && buf < 127) && (info->len == (int)ft_strlen(info->command)))
 		p_ascii(info, str, buf);
-	else if ((buf > 32 && buf < 126) && (info->len < ft_strlen(info->command)))
+	else if ((buf > 32 && buf < 127) && (info->len < (int)ft_strlen(info->command)))
 		insert_ascii(info, str);
 	else if (buf == SPCE_K)
 		p_space(info, " ");
@@ -114,29 +113,36 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		p_home(info);
 	else if (buf == END_K)
 		p_end(info);
+	else if (buf == 3)
+	{
+		free(info->command);
+		info->command = ft_strdup("\0");
+		return(1);
+	}
+	else if (buf == 4 && info->len == 0)
+		ft_exit2(info);
 	else if (buf == RET_K)
 		return (1);
-//	printf("buf == %i\n", buf);
 	return (0);
 }
 
 
 t_his			*check_entry(t_shell *info, t_his *his)
 {
-	char		*tmp;
 	int			buf;
 
+	init_term();
 	info->his = his;
 	while (42)
 	{
 		buf = 0;
-	//	printf("coucou\n");
 		if (read(STDIN_FILENO, &buf, sizeof(int)))
 		{
 			if (check_press(buf, info, his))
 				break ;
 		}
 	}
+	init_term2();
 	check_quotes(info);
 	if (info->quote == 1)
 		manage_squote(info);
@@ -144,7 +150,6 @@ t_his			*check_entry(t_shell *info, t_his *his)
 		manage_dquote(info);
 	his = manage_his_list(his, info);
 	ft_print("\n");
-//	ft_print("%s\n", info->command);
 	if (parse_command(info->command))
 		core(info);
 	return (his);

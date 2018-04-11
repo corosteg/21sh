@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 19:05:05 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/16 18:27:58 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:33:57 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void			p_home(t_shell *info)
 
 void			p_end(t_shell *info)
 {
-	while (info->len < ft_strlen(info->command))
+	while (info->len < (int)ft_strlen(info->command))
 		p_right(info);
 }

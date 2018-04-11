@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 16:25:07 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 17:20:02 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static t_shell				*init_info_list(t_shell *info, char **env)
+static t_shell				*init_info_list(t_shell *info, char **env, int i)
 {
 	info = (t_shell*)malloc(sizeof(t_shell));
 	info->command = ft_strdup("\0");
@@ -27,38 +27,28 @@ static t_shell				*init_info_list(t_shell *info, char **env)
 	info->env = copy_env(env, info->env);
 	info->x = 5;
 	info->y = 0;
+	info->ag = 1;
+	info->ag2 = 1;
 	info->quote = 0;
 	info->dquote = 0;
 	info->len = 0;
 	info->kill = 0;
 	info->father = 0;
+	info->is_his = 0;
 	info->save_stdin = dup(0);
 	info->save_stdout = dup(1);
 	info->save_stderr = dup(2);
+	if (i == 1)
+	{
+		info->his_int = 0;
+		info->env_int = 0;
+	}
+	else
+	{
+		info->his_int = 1;
+		info->env_int = 1;
+	}
 	return (info);
-}
-
-void				ft_error(char *str)
-{
-	str = NULL;
-}
-
-void				init_term(void)
-{
-	const char			*name;
-	struct termios		term;
-
-	if (!(name = getenv("TERM")))
-		ft_error("getenv");
-	if (tgetent(NULL, name) <= 0)
-		ft_error("tgetent");
-	if (tcgetattr(0, &term) == -1)
-		ft_error("tcgetattr");
-	term.c_lflag &= ~(ICANON | ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSADRAIN, &term) == -1)
-		ft_error("tcsetattr");
 }
 
 int					main(int ac, char **av, char **env)
@@ -69,10 +59,8 @@ int					main(int ac, char **av, char **env)
 
 	(void)av;
 	his = NULL;
-	init_term();
-	info = init_info_list(info, env);
-	info->his_int = 0;
-	info->env_int = 0;
+	info = NULL;
+	info = init_info_list(info, env, 1);
 	g_info = info;
 	check_signal();
 	while(42)
@@ -80,12 +68,10 @@ int					main(int ac, char **av, char **env)
 		ft_print(""GRAS""VERT"21sh"RED">"STOP"");
 		his = check_entry(info, his);
 		info->his_int = 1;
-//		free(info->command);
-//		free(info->command2);
 		tab_env = alloc_tab(info->env);
 		info->env_int = 1;
 		free_info(info);
-		info = init_info_list(info, tab_env);
+		info = init_info_list(info, tab_env, 0);
 		free_c_tab(tab_env);
 	}
 	return (ac);

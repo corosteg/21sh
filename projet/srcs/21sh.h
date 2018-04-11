@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 16:08:27 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 17:23:25 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct			s_shell
 	int					kill;
 	int					his_int;
 	int					env_int;
+	int					ag;
+	int					ag2;
 	struct s_his		*his;
 	struct s_env		*env;
 	char				*cp_string;
@@ -104,7 +106,8 @@ typedef struct			s_lexem
 }						t_lexem;
 
 void					p_home(t_shell *info);
-void					exec_in_pipe(char **com, t_shell *info, char **env);
+void					exec_in_pipe(char **com, t_shell *info,
+						t_parselex *first, int i);
 int						core(t_shell *info);
 void					p_end(t_shell *info);
 void					press_string(t_shell *info);
@@ -117,6 +120,8 @@ void					p_heredoc_backspace(t_shell *info);
 void					p_delete(t_shell *info);
 void					p_right(t_shell *info);
 void					p_right2(t_shell *info);
+void					init_term(void);
+void					init_term2(void);
 int						p_left(t_shell *info);
 int						p_left2(t_shell *info);
 void					p_ascii(t_shell *info, char *str, int buf);
@@ -125,11 +130,13 @@ void					p_s_left(t_shell *info);
 void					p_s_right(t_shell *info);
 void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
-void					exec_redir(char **com, t_shell *info, int fd);
+void					exec_redir(char **com, t_shell *info,
+						int fd, t_parselex *first);
 int						p_a_left(t_shell *info);
 int						p_a_right(t_shell *info);
-int						end_token_tool(char *str, t_shell *info);
-int						check_builtin(char **command, t_shell *info, int out);
+int						end_token_tool(char *str);
+int						check_builtin(char **command, t_shell *info,
+						int out, t_parselex *first);
 void					free_c_tab(char **array);
 void					manage_squote(t_shell *info);
 void					manage_dquote(t_shell *info);
@@ -142,7 +149,8 @@ void					p_s_quote_left(t_shell *info);
 void					tool_refresh(t_shell *info);
 void					p_a_c(t_shell *info);
 void					p_a_v(t_shell *info);
-void					exec_simpl(char **com, t_shell *info);
+void					exec_simpl(char **com, t_shell *info, t_parselex *first,
+						char **env);
 void					free_list_path_tool(t_path *list);
 void					exec_pipe(t_shell *info, char *command,
 							int a, char **env_tab);
@@ -166,13 +174,20 @@ int						p_a_x(t_shell *info);
 int						one_ofs(char *s, char *c, int nb, int i);
 int						is_even(int nb);
 int						epur_len(char *str, int i, int nb, int odd);
+void					ft_env(t_env *list, int out);
 t_parselex				*parse_cmd(t_shell *info, int i,
 							t_lexem *list, t_lexem *tmp);
-t_parselex				*redir_doble(t_shell *info, t_parselex *list);
-t_parselex				*redir_simpl(t_shell *info, t_parselex *list);
-t_parselex				*redir_left(t_shell *info, t_parselex *list);
-t_parselex				*redir_heredoc(t_shell *info, t_parselex *list);
-t_parselex				*redir_left_and_right(t_shell *info, t_parselex *list);
+t_parselex				*redir_doble(t_shell *info, t_parselex *list,
+						t_parselex *first);
+t_parselex				*redir_simpl(t_shell *info, t_parselex *list,
+						t_parselex *first);
+t_parselex				*redir_left(t_shell *info, t_parselex *list,
+						t_parselex *first);
+t_parselex				*redir_heredoc(t_shell *info, t_parselex *list,
+						t_parselex *first);
+t_parselex				*redir_left_and_right(t_shell *info,
+						t_parselex *list, t_parselex *first);
+t_parselex				*delete_next_token(t_parselex *list);
 t_env					*copy_env(char **env, t_env *list);
 t_path					*parse_path(t_env *list);
 t_his					*p_up(t_shell *info, t_his *his);
@@ -182,21 +197,23 @@ t_his					*p_down(t_shell *info, t_his *his);
 char					*findhome(t_env *env);
 char					*findoldpwd(t_env *env);
 int						ft_get_arg(char **command2);
-t_env					*ft_unsetenv(char **command, t_env *list);
-t_env					*ft_setenv(char **command, t_env *list);
+t_env					*ft_unsetenv(char **command, t_env *list, t_shell *info);
+t_env					*ft_setenv(char **command, t_env *list, t_shell *info);
 t_env					*set_env(char *path, t_env *env, char *arg, int p);
 t_env					*ft_cd(char **command2, t_env *env, t_shell *info);
 t_env					*ft_cd_pars(char **command2, t_env *env, int i,
 							t_shell *info);
 void					ft_exit(t_parselex *first, t_shell *info);
+void					ft_exit2(t_shell *info);
 void					cd_error(int i, char *str, t_shell *info);
 void					check_signal(void);
 void					free_info(t_shell *info);
 void					free_lex(t_parselex *list);
 void					free_lexem(t_lexem *list);
+void					check_agregation(t_parselex *list, t_shell *info);
 
 int						ft_echo(char **command, t_env *list, int out);
 
-int						print_env(t_env *list, char *str, t_env *l, int a);
+//int						print_env(t_env *list, char *str, t_env *l, int a);
 
 #endif

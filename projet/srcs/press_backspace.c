@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:53:40 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/16 18:00:18 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:33:27 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void				p_backspace(t_shell *info, int a)
 		info->no_move_his = 1;
 }
 
-static void				print_quote_prompt(t_shell *info)
+/*static void				print_quote_prompt(t_shell *info)
 {
 	if (info->quote == 1)
 		ft_print("squote >");
-}
+}*/
 
 void					p_quote_backspace(t_shell *info, int i)
 {

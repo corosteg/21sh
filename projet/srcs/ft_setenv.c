@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:48:03 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/03 17:20:30 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/09 17:44:17 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	check_ft_envfunct_action(char **command2, t_env *list, int a)
 	return (0);
 }
 
-t_env		*ft_setenv(char **command, t_env *list)
+t_env		*ft_setenv(char **command, t_env *list, t_shell *info)
 {
 	t_env		*tmp;
 	int			m;
@@ -71,8 +71,8 @@ t_env		*ft_setenv(char **command, t_env *list)
 	m = 0;
 	if ((command[1] && command[2]) || !(check_as_var(command[1])))
 	{
-		ft_print("usage: setenv [VAR=] new value\n");
-		ft_print("       setenv [NEWVAR=] value\n");
+		ft_putstr_fd("usage: setenv [VAR=] new value\n", info->fd_err);
+		ft_putstr_fd("       setenv [NEWVAR=] value\n", info->fd_err);
 		return (list);
 	}
 	tmp = list;

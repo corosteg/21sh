@@ -6,22 +6,24 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/03 15:41:04 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/10 14:55:00 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./21sh.h"
 
-void			exec_simpl(char **com, t_shell *info)
+void			exec_simpl(char **com, t_shell *info, t_parselex *first,
+				char **env)
 {
 	char		*bin_path;
-	char		**env;
 	pid_t		father;
 
-	env = alloc_tab(info->env);
-	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
-	if (check_builtin(com, info, info->fd_out))
+	if (check_builtin(com, info, info->fd_out, first))
+	{
+		free_c_tab(env);
 		return;
+	}
+	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	father = fork();
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
@@ -39,7 +41,12 @@ void			exec_simpl(char **com, t_shell *info)
 	}
 	if (father == 0)
 	{
-		dup2(info->fd_out, 1);
+		if (info->ag2 == 0)
+			close(1);
+		else if (info->ag2 == 1)	
+			dup2(info->fd_out, 1);
+		else if (info->ag2 == 2)	
+			dup2(info->save_stderr, 1);
 		close(info->fd_in);
 		if (execve(bin_path, com, env))
 		{
@@ -51,29 +58,39 @@ void			exec_simpl(char **com, t_shell *info)
 	free(bin_path);
 }
 
-void			exec_in_pipe(char **com, t_shell *info, char **env)
+void			exec_in_pipe(char **com, t_shell *info, t_parselex *first, int i)
 {
 	pid_t		father;
 	char		*bin_path;
 	int			tmp_fd[2];
+	char		**env;
 
-	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
+	env = alloc_tab(info->env);
 	pipe(tmp_fd);
-	if (check_builtin(com, info, tmp_fd[1]))
+	if (check_builtin(com, info, tmp_fd[1], first))
 	{
 		close(tmp_fd[1]);
 		info->fd_in = tmp_fd[0];
 		info->fd_out = dup(info->save_stdout);
+		free(env);
 		return;
 	}
+	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
 	father = fork();
+	if (i == 1)
+		wait(0);
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
 	if (!(ft_strcmp(com[0], "base64")) && father > 0)
 		info->kill = father;
 	if (father == 0)
 	{
-		dup2(tmp_fd[1], 1);
+		if (info->ag == 0)	
+			dup2(tmp_fd[1], 0);
+		else if (info->ag == 1)	
+			dup2(tmp_fd[1], 1);
+		else if (info->ag == 2)	
+			dup2(tmp_fd[1], 2);
 		close(info->fd_in);
 		wait(0);
 		if (execve(bin_path, com, env))
