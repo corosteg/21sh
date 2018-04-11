@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/09 14:02:33 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:36:09 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int					one_3(char const *s, char *c, int nb)
 				return (1);
 		if ((s[nb] == '1' || s[nb] == '2') && s[nb + 1] == '>')
 			return (1);
-		else if(s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
+		if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
 		{
 			if (c[i] == s[nb] && c[i] == s[nb + 1])
 				return (1);

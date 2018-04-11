@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 21:10:21 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/09 14:01:06 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:36:25 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int					one(char const *s, char *c, int nb, int i)
 				return (1);
 		if ((s[nb] == '1' || s[nb] =='2') && s[nb + 1] == '>')
 			return (1);
-		else if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
+		if (s[nb] == '&' || s[nb] == '|' || s[nb] == '<' || s[nb] == '>')
 		{
 			if (c[i] == s[nb] && c[i] == s[nb + 1])
 				return (1);
 		}
-		else if (c[i] == s[nb] && (s[nb] != '1' && s[nb] != '2'))
+		if (c[i] == s[nb] && (s[nb] != '1' && s[nb] != '2'))
 			return (1);
 		i++;
 	}
