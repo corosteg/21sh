@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 18:37:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/11 19:58:27 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void				exec_redir(char **com, t_shell *info, int fd,
 		ft_echo(com, info->env, fd, info);
 		return;
 	}
-/*	else*/ if (check_builtin(com, info, fd, first))
+	else if (check_builtin(com, info, fd, first))
 		return;
 	env = alloc_tab(info->env);
 	bin_path = look_for_bin(com[0], parse_path(info->env), NULL, NULL);
