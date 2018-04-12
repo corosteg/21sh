@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 20:20:38 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 16:25:19 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/12 13:09:41 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,30 +95,25 @@ t_env		*ft_cd(char *command2, t_env *env, t_shell *info)
 	path = NULL;
 	oldpwd = getcwd(cwd, sizeof(cwd));
 	env = set_env(oldpwd, env, "OLDPWD", 2);
-		//printf("%s\n", command2);
-		//exit(1);
 	path = ft_strdup(command2);
 	if (chdir(path) != 0)
 		cd_error(3, command2, info);
+	free(command2);
 	getcwd(cwd, sizeof(cwd));
 	free(path);
 	env = set_env(cwd, env, "PWD", 1);
 	return (env);
 }
 
-t_env		*ft_cd_pars(char **command2, t_env *env, int i, t_shell *info)
+t_env		*ft_cd_pars(char **command2, t_env *env, char *home, t_shell *info)
 {
 	int		arg;
 	int		cd;
-	char	*home;
 
-	home = NULL;
-	arg = ft_get_arg(command2);
 	cd = ft_get_cd(command2);
-	//printf("%d\n", cd);
-	if (arg > 3)
+	if ((arg = ft_get_arg(command2)) > 3)
 		cd_error(2, "cd: too many arguments\n", info);
-	else if (arg == 3)
+	else if ((arg = ft_get_arg(command2)) == 3)
 		cd_error(3, command2[1], info);
 	else
 	{
@@ -131,6 +126,7 @@ t_env		*ft_cd_pars(char **command2, t_env *env, int i, t_shell *info)
 			if ((home = findhome(env)) == NULL)
 				cd_error(2, "HOME not set\n", info);
 			env = ft_cd(home_path(ft_strdup(&home[5]), command2[1]), env, info);
+			free(home);
 		}
 		else if ((command2[1] != NULL && cd != 1 && cd != 2 && cd != 3))
 			env = ft_cd(command2[1], env, info);

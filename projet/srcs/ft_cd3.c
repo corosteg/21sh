@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 19:09:38 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 16:37:13 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 12:58:35 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ char		*home_path(char *dest, char *src)
 	char		*new;
 
 	new = ft_strdup(dest);
-	new = ft_strfreejoin(new, &src[1], 0);
-	//free(dest);
-	//free(src);
+	new = ft_strfreejoin(new, &src[1], 1);
+	free(dest);
 	return (new);
 }
