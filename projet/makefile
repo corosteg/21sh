@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/04/12 16:26:52 by corosteg         ###   ########.fr        #
+#    Updated: 2018/04/12 18:37:55 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ FLAGS = -Wall -Werror -Wextra
 SRCS = ./srcs/main.c\
 	   ./srcs/check_entry.c\
 	   ./srcs/press_backspace.c\
+	   ./srcs/press_backspace2.c\
 	   ./srcs/press_delete.c\
 	   ./srcs/press_left.c\
 	   ./srcs/press_right.c\

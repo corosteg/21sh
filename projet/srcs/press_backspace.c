@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:53:40 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 17:33:27 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 18:37:23 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,64 +38,21 @@ static void			modify_string(t_shell *info)
 	free(tmp);
 }
 
-void				p_backspace(t_shell *info, int a)
+void				p_quote_backspace2(void)
 {
-	struct winsize		screen;
-	int					cursor;
-
-	info->x--;
-	ioctl(0, TIOCGWINSZ, &screen);
-	if (info->x < 0)
-	{
-		info->y--;
-		info->x = 0;
-		tputs(tgetstr("up", NULL), 1, ft_putchar);
-		while (info->x < screen.ws_col)
-		{
-			tputs(tgetstr("nd", NULL), 1, ft_putchar);
-			info->x++;
-		}
-		p_space(info, " ");
-		info->len--;
-		info->command[ft_strlen(info->command) - 1] = '\0';
-		tputs(tgetstr("up", NULL), 1, ft_putchar);
-		while (info->x < screen.ws_col)
-		{
-			tputs(tgetstr("nd", NULL), 1, ft_putchar);
-			info->x++;
-		}
-		info->x = screen.ws_col - 1;
-	}
-	else
-		tputs(tgetstr("le", NULL), 1, ft_putchar);
-	info->len--;
-	if (a != 1)
-		modify_string(info);
-	cursor = info->len;
-	while (info->len > 0)
-		p_left(info);
-		tputs(tgetstr("le", NULL), 1, ft_putchar);
-		tputs(tgetstr("le", NULL), 1, ft_putchar);
-		tputs(tgetstr("le", NULL), 1, ft_putchar);
-		tputs(tgetstr("le", NULL), 1, ft_putchar);
-		tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
+	tputs(tgetstr("le", NULL), 1, ft_putchar);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
-	ft_print(""GRAS""VERT"21sh"RED">"STOP"");
-	press_string(info);
-	while (info->len > cursor)
-		p_left(info);
-//	tputs(tgetstr("dc", NULL), 1, ft_putchar);
-	if (info->is_his && a != 1)
-		info->no_move_his = 1;
 }
 
-/*static void				print_quote_prompt(t_shell *info)
-{
-	if (info->quote == 1)
-		ft_print("squote >");
-}*/
-
-void					p_quote_backspace(t_shell *info, int i)
+void				p_quote_backspace(t_shell *info, int i)
 {
 	int			cursor;
 
@@ -104,19 +61,9 @@ void					p_quote_backspace(t_shell *info, int i)
 	info->quote_len--;
 	cursor = info->x;
 	modify_string(info);
-	while (info->x  > 6)
+	while (info->x > 6)
 		p_left(info);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("le", NULL), 1, ft_putchar);
-	tputs(tgetstr("cd", NULL), 1, ft_putchar);
-//	print_quote_prompt(info);
+	p_quote_backspace2();
 	if (i == 1)
 		ft_print("heredoc>");
 	else
@@ -126,7 +73,7 @@ void					p_quote_backspace(t_shell *info, int i)
 		p_left(info);
 }
 
-void					p_heredoc_backspace(t_shell *info)
+void				p_heredoc_backspace(t_shell *info)
 {
 	int			cursor;
 
@@ -135,7 +82,7 @@ void					p_heredoc_backspace(t_shell *info)
 	info->quote_len--;
 	cursor = info->x;
 	modify_string(info);
-	while (info->x  > 6)
+	while (info->x > 6)
 		p_left(info);
 	tputs(tgetstr("le", NULL), 1, ft_putchar);
 	tputs(tgetstr("le", NULL), 1, ft_putchar);
@@ -147,7 +94,6 @@ void					p_heredoc_backspace(t_shell *info)
 	tputs(tgetstr("le", NULL), 1, ft_putchar);
 	tputs(tgetstr("le", NULL), 1, ft_putchar);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
-//	print_quote_prompt(info);
 	ft_print("heredoc >");
 	press_quote_string(info);
 	while (info->x > cursor)
