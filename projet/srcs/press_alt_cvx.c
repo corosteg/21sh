@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 15:46:20 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 17:24:17 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:43:49 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			p_a_c(t_shell *info)
 	info->end_cp - info->start_cp);
 }
 
-static void			modify_string(t_shell *info, char *str2, int insert_len)
+static void		modify_string(t_shell *info, char *str2, int insert_len)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -61,12 +61,12 @@ int				p_a_x(t_shell *info)
 	int		i;
 
 	if (info->end_cp == -1 || info->start_cp == -1)
-		return(0);
+		return (0);
 	i = info->end_cp - info->start_cp;
 	while (i > 0)
 	{
 		p_backspace(info, 0);
 		i--;
 	}
-	return(0);
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 16:58:28 by corosteg          #+#    #+#             */
-/*   Updated: 2018/02/05 19:15:46 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:42:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int			str_is_null(char *str)
+static int				str_is_null(char *str)
 {
 	int i;
 
@@ -28,7 +28,7 @@ static int			str_is_null(char *str)
 		return (0);
 }
 
-static t_path		*create_e_path(char *str, int i)
+static t_path			*create_e_path(char *str, int i)
 {
 	char	**tab1;
 	t_path	*list;
