@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 17:39:26 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 20:27:23 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int				parse2(char *str, int i)
 	{
 		if (str[i + 1] == '\0' && str[i] == ';')
 			str[i] = '\0';
+		if (str[i] == '#')
+			return
+			(ft_print("21sh: syntax error near unexpected token '#'\n"));
 		i++;
 	}
 	return (white_line(str, 0));
