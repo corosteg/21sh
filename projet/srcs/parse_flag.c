@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 23:09:40 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/30 00:15:16 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:41:48 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char			*parse_flag(char *str)
 	int			i;
 
 	i = 0;
-	while(str[i] && str[i] != '>' && str[i] != '<')
+	while (str[i] && str[i] != '>' && str[i] != '<')
 		i++;
 	if (str[i] == '\0')
 		return (str);
@@ -83,11 +83,3 @@ char			*parse_flag(char *str)
 	final = create_final_str(ta);
 	return (final);
 }
-
-/*int				main(int ac, char **av)
-{
-	if (ac > 100)
-		return (0);
-	ft_print("%s\n", parse_flag(av[1]));
-	return (0);
-}*/
