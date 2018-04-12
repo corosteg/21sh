@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 19:42:48 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 17:21:34 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:49:41 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char			*manage_heredoc(t_shell *info, char *end)
 	int		i;
 
 	i = 0;
+	buf = 0;
 	while (i < info->y)
 	{
 		ft_print("\n");
