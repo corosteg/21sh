@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 13:18:11 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:35:10 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ void					p_s_left(t_shell *info);
 void					p_s_right(t_shell *info);
 void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
+void					print_cpy(int buf, t_shell *info);
+int						check_copy(int buf);
 void					exec_redir(char **com, t_shell *info,
 							int fd, t_parselex *first);
 int						p_a_left(t_shell *info);

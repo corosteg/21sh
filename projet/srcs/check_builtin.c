@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 21:58:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 14:22:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:31:47 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ int					check_builtin(char **command, t_shell *info,
 					int out, t_parselex *first)
 {
 	if (!(ft_strcmp(command[0], "cd")))
-	{
-		ft_cd_pars(command, info->env, 1, info);
-		return (1);
-	}
-	if (!(ft_strcmp(command[0], "echo")))
+		ft_cd_pars(command, info->env, NULL, info);
+	else if (!(ft_strcmp(command[0], "echo")))
 	{
 		if (info->ag == 1)
 			ft_echo(command, info->env, out);
@@ -28,27 +25,16 @@ int					check_builtin(char **command, t_shell *info,
 			ft_echo(command, info->env, 2);
 		else if (info->ag == 0)
 			;
-		return (1);
 	}
-	if (!(ft_strcmp(command[0], "unsetenv")))
-	{
+	else if (!(ft_strcmp(command[0], "unsetenv")))
 		ft_unsetenv(command, info->env, info);
-		return (1);
-	}
-	if (!(ft_strcmp(command[0], "setenv")))
-	{
+	else if (!(ft_strcmp(command[0], "setenv")))
 		ft_setenv(command, info->env, info);
-		return (1);
-	}
-	if (!(ft_strcmp(command[0], "exit")))
-	{
+	else if (!(ft_strcmp(command[0], "exit")))
 		ft_exit(first, info);
-		return (1);
-	}
-	if (!(ft_strcmp(command[0], "env")))
-	{
+	else if (!(ft_strcmp(command[0], "env")))
 		ft_env(info->env, out);
-		return (1);
-	}
-	return (0);
+	else
+		return (0);
+	return (1);
 }
