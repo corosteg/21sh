@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 15:21:11 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:28:49 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void					free_list_path_tool(t_path *list);
 void					exec_pipe(t_shell *info, char *command,
 							int a, char **env_tab);
 void					reset_fd_tool(t_shell *info);
+void					no_command(int father, char **com);
 char					**alloc_tab(t_env *list);
 char					*look_for_bin(char *co, t_path *e_path,
 							DIR *rep, char *tmp);

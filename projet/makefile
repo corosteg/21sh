@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/04/12 15:10:05 by corosteg         ###   ########.fr        #
+#    Updated: 2018/04/12 16:26:52 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,20 +35,18 @@ SRCS = ./srcs/main.c\
 	   ./srcs/press_home_or_end.c\
 	   ./srcs/core.c\
 	   ./srcs/core2.c\
-	   ./srcs/exec_simpl_comm.c\
 	   ./srcs/redir_left_right.c\
 	   ./srcs/tools.c\
-	   ./srcs/exec_pipe_comm.c\
 	   ./srcs/tools2.c\
 	   ./srcs/manage_all_quotes.c\
 	   ./srcs/manage_dquote.c\
 	   ./srcs/parse_path.c\
 	   ./srcs/manage_squote.c\
-	   ./srcs/exec_pipe.c\
 	   ./srcs/press_alt_right_left.c\
 	   ./srcs/press_alt_cvx.c\
 	   ./srcs/check_funct.c\
 	   ./srcs/exec.c\
+	   ./srcs/exec_in_pipe.c\
 	   ./srcs/signal.c\
 	   ./srcs/manage_heredoc.c\
 	   ./srcs/ft_cd.c\

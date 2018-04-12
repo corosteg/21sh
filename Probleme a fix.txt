@@ -6,3 +6,4 @@ _faire attention au droits.
 _leaks sur cd ~/Documents
 _rm nosuchfile 2>& | cat -e
 _double free sur cote simple
+probleme sur agregation
