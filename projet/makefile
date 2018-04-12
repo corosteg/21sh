@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/04/12 18:37:55 by corosteg         ###   ########.fr        #
+#    Updated: 2018/04/12 19:11:58 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS = ./srcs/main.c\
 	   ./srcs/copy.c\
 	   ./srcs/free.c\
 	   ./srcs/redirection.c\
+	   ./srcs/redirection2.c\
 	   ./srcs/check_builtin.c\
 	   ./srcs/agregation.c\
 	   ./srcs/tools3.c\
