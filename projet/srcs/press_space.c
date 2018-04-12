@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 static void			modify_string(t_shell *info, char *str2, int insert_len)
 {

@@ -1,4 +1,4 @@
-#include "21sh.h"
+#include "sh.h"
 
 t_parselex			*redir_left_and_right(t_shell *info, t_parselex *list,
 					t_parselex *first)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./21sh.h"
+#include "sh.h"
 
 char	*epur_cmd(char *str, int i, int nb, int odd)
 {

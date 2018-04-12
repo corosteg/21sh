@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./21sh.h"
+#include "sh.h"
 
 void			exec_simpl(char **com, t_shell *info, t_parselex *first,
 				char **env)

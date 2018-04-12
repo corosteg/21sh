@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 static t_shell				*init_info_list(t_shell *info, char **env, int i)
 {

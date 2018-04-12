@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 
 static t_his			*his_prev_null(t_shell *info, t_his *his)

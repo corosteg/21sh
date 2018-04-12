@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 /*static void		first_pipe_exec(t_shell *info, char *command, char **env_tab)
 {

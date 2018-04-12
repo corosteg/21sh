@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 static int					ft_echo_redire(char **command, t_env *list,
 							int out, t_shell *info)

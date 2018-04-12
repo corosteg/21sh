@@ -6,11 +6,11 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 21:58:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 20:15:37 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:22:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./21sh.h"
+#include "sh.h"
 
 int					check_builtin(char **command, t_shell *info,
 					int out, t_parselex *first)

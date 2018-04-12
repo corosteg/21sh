@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./21sh.h"
+#include "sh.h"
 
 /*static int		exec_bin_comm(t_shell *info, char *command, t_path *var_path)
 {
