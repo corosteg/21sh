@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 14:35:10 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:21:11 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ int						exec_simpl_comm(t_shell *info, char *command);
 int						exec_pipe_comm(t_shell *info, char *str,
 							int i, int fd);
 int						quote_n(t_shell *info);
+int						check_operador(char c);
+int						check_final(t_shell *info, int run);
 int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info, int i);
 int						parse_command(char *str);
@@ -203,10 +205,10 @@ t_env					*ft_unsetenv(char **command, t_env *list,
 							t_shell *info);
 t_env					*ft_setenv(char **command, t_env *list, t_shell *info);
 t_env					*set_env(char *path, t_env *env, char *arg, int p);
-t_env					*ft_cd(char *command2, t_env *env, t_shell *info);
+t_env					*ft_cd(char *command2, t_env *env, t_shell *info, int i);
 t_env					*ft_cd_pars(char **command2, t_env *env, char *home,
 							t_shell *info);
-char					*home_path(char *dest, char *src);
+char					*path(char *dest, char *src);
 void					ft_exit(t_parselex *first, t_shell *info);
 void					ft_exit2(t_shell *info);
 void					cd_error(int i, char *str, t_shell *info);

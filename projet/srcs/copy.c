@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 14:37:15 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 14:37:27 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:03:52 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void			print_cpy(int buf, t_shell *info)
 {
 	char		str[5];
 	char		tmp[2];
-	int			i = 0;
+	int			i;
 
+	i = 0;
 	str[0] = buf % 128;
 	str[1] = buf >> 8;
 	str[2] = buf >> 16;

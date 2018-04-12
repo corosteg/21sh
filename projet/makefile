@@ -6,7 +6,7 @@
 #    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/04/12 14:38:07 by corosteg         ###   ########.fr        #
+#    Updated: 2018/04/12 15:10:05 by corosteg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS = ./srcs/main.c\
 	   ./srcs/press_shift_up.c\
 	   ./srcs/press_home_or_end.c\
 	   ./srcs/core.c\
+	   ./srcs/core2.c\
 	   ./srcs/exec_simpl_comm.c\
 	   ./srcs/redir_left_right.c\
 	   ./srcs/tools.c\
