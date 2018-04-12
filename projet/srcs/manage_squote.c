@@ -6,21 +6,26 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:56:11 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 19:24:08 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:34:41 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void				manage_squote(t_shell *info)
+static void			manage_squote2(t_shell *info)
 {
-	int			buf;
-
 	ft_print("\nsquote >");
 	info->command = ft_strfreejoin(info->command, "\n", 1);
 	info->quote_len = 6;
 	info->len++;
 	info->x = 6;
+}
+
+void				manage_squote(t_shell *info)
+{
+	int			buf;
+
+	manage_squote2(info);
 	init_term();
 	while (42)
 	{
