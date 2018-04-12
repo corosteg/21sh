@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 14:09:40 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 20:34:57 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:31:58 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void					free_info(t_shell *info)
 	free(info);
 }
 
-void		free_lexem(t_lexem *list)
+void					free_lexem(t_lexem *list)
 {
 	t_lexem		*tmp;
 
@@ -61,7 +61,7 @@ void		free_lexem(t_lexem *list)
 	}
 }
 
-void		free_c_tab(char **array)
+void					free_c_tab(char **array)
 {
 	int	i;
 

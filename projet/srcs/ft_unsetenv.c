@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 16:47:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/09 17:39:55 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:33:55 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_env		*ft_unsetenv(char **command, t_env *list, t_shell *info)
 		ft_putstr_fd("usage: unsetenv [VAR] to delete\n", info->fd_err);
 		return (list);
 	}
-	if ((command[1] && command[2]) /*|| !(check_as_var_u(command[1]))*/)
+	if ((command[1] && command[2]))
 	{
 		ft_putstr_fd("usage: unsetenv [VAR] to delete\n", info->fd_err);
 		return (list);

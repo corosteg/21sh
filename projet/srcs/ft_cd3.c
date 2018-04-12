@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 19:09:38 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 15:20:29 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:32:32 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			cd_error(int i, char *str, t_shell *info)
 	}
 }
 
-char		*path(char *dest, char *src)
+char			*path(char *dest, char *src)
 {
 	char		*new;
 
