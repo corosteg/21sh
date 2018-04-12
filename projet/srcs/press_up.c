@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 18:24:18 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/06 13:34:16 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 18:53:01 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_his			*p_up2(t_shell *info, t_his *his)
 		his->first = 1;
 	else
 		his = his->prev;
-	return(his);
+	return (his);
 }
 
 t_his			*p_up(t_shell *info, t_his *his)

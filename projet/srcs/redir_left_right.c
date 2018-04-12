@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir_left_right.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/12 18:53:55 by corosteg          #+#    #+#             */
+/*   Updated: 2018/04/12 18:55:36 by corosteg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sh.h"
 
 t_parselex			*redir_left_and_right(t_shell *info, t_parselex *list,
-					t_parselex *first)
+						t_parselex *first)
 {
 	int		fd;
 	char	*ta[3];
-
 
 	if (list->next->next == NULL)
 		return (NULL);
