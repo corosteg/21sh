@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 23:53:08 by corosteg          #+#    #+#             */
-/*   Updated: 2017/11/16 18:30:55 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:45:14 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,24 @@ void				check_quotes(t_shell *info)
 	}
 }
 
-int				check_press_quote(int buf, t_shell *info, int i)
+static int			check_press_quote2(int buf, t_shell *info)
+{
+	if (buf == 32)
+		p_quote_space(info, " ");
+	else if (buf == 17202)
+		p_s_right(info);
+	else if (buf == 17458)
+		p_s_quote_left(info);
+	else if (buf == 4741915)
+		p_quote_home(info);
+	else if (buf == 4610843)
+		p_end(info);
+	else
+		return (0);
+	return (1);
+}
+
+int					check_press_quote(int buf, t_shell *info, int i)
 {
 	char	str[2];
 
@@ -55,22 +72,14 @@ int				check_press_quote(int buf, t_shell *info, int i)
 		p_right(info);
 	else if (check_copy(buf))
 		print_cpy(buf, info);
-	else if  (buf == 127 && info->x > 6)
+	else if (buf == 127 && info->x > 6)
 		p_quote_backspace(info, i);
 	else if ((buf > 32 && buf < 126) && (info->x == info->quote_len))
 		p_ascii(info, str, buf);
 	else if ((buf > 32 && buf < 126) && (info->x < info->quote_len))
 		insert_quote_ascii(info, str);
-	else if (buf == 32)
-		p_quote_space(info, " ");
-	else if (buf == 17202)
-		p_s_right(info);
-	else if (buf == 17458)
-		p_s_quote_left(info);
-	else if (buf == 4741915)
-		p_quote_home(info);
-	else if (buf == 4610843)
-		p_end(info);
+	else if (check_press_quote2(buf, info))
+		;
 	else if (buf == 10)
 		return (1);
 	return (0);
