@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 16:28:49 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:14:19 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,8 @@ t_env					*ft_unsetenv(char **command, t_env *list,
 							t_shell *info);
 t_env					*ft_setenv(char **command, t_env *list, t_shell *info);
 t_env					*set_env(char *path, t_env *env, char *arg, int p);
-t_env					*ft_cd(char *command2, t_env *env, t_shell *info, int i);
+t_env					*ft_cd(char *command2, t_env *env, t_shell *info,
+							int i);
 t_env					*ft_cd_pars(char **command2, t_env *env, char *home,
 							t_shell *info);
 char					*path(char *dest, char *src);

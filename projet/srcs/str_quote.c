@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 13:01:10 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/29 23:16:56 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:14:43 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,3 @@ char			*str_quote(int *i, char *str)
 	str = ft_strndup(&str[a], b);
 	return (str);
 }
-
-/*int			main(void)
-{
-	int i = 3;
-	printf("%s\n", str_quote(&i, "012\'\'\"\" koleine \'\'\"\""));
-}*/

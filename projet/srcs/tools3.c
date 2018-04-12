@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 16:46:03 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/09 16:08:43 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:18:49 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		reset_fd_tool(t_shell *info)
 	info->ag2 = 1;
 }
 
-void			free_list_path_tool(t_path *list)
+void		free_list_path_tool(t_path *list)
 {
 	t_path		*tmp;
 

@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 17:06:25 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/04 17:25:40 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:18:31 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int			check_n(char *str)
+static int	check_n(char *str)
 {
 	int			i;
 
@@ -23,9 +23,9 @@ static int			check_n(char *str)
 	return (i);
 }
 
-void				press_quote_string(t_shell *info)
+void		press_quote_string(t_shell *info)
 {
-	int		i;
+	int					i;
 	struct winsize		screen;
 
 	i = check_n(info->command);
@@ -77,7 +77,9 @@ char		*look_for_bin(char *co, t_path *e_path, DIR *rep, char *tmp)
 
 void		tool_refresh(t_shell *info)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	i = info->len;
 	while (info->len > 0)
 		p_left2(info);
@@ -97,4 +99,3 @@ int			end_token_tool(char *str)
 		return (1);
 	return (0);
 }
-

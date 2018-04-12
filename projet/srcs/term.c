@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 17:04:11 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/10 18:37:38 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:15:03 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void				init_term2(void)
 		ft_putstr("tgetent\n");
 	if (tcgetattr(0, &term) == -1)
 		ft_putstr("tcgetattr\n");
-//	term.c_lflag &= ~(ICANON);
-//	term.c_lflag &= ~(ECHO);
 	term.c_lflag |= (ECHO);
 	term.c_lflag |= (ICANON);
 	term.c_lflag &= ~(ECHOCTL);
