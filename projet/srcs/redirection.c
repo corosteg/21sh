@@ -6,14 +6,14 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 20:18:04 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:54:27 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int					ft_echo_redire(char **command, t_env *list,
-							int out, t_shell *info)
+static int					ft_echo_redire(char **command, int out,
+								t_shell *info)
 {
 	int i = 1;
 	int father;
@@ -47,7 +47,7 @@ void				exec_redir(char **com, t_shell *info, int fd,
 
 	if (!ft_strcmp(com[0], "echo"))
 	{
-		ft_echo_redire(com, info->env, fd, info);
+		ft_echo_redire(com, fd, info);
 		return;
 	}
 	else if (check_builtin(com, info, fd, first))
@@ -94,15 +94,11 @@ t_parselex				*redir_doble(t_shell *info, t_parselex *list,
 						t_parselex *first)
 {
 	int		fd;
-	char	buf;
 
 	if (list->next->next == NULL)
 		return (NULL);
 	fd = open(list->next->next->cutting[0], O_CREAT | O_APPEND
 		| O_RDWR, 0644);
-//	fd = open(list->next->next->cutting[0], O_RDWR, 0644);
-//	while (read(fd, &buf, 1));
-//	buf = '\0';
 	exec_redir(list->cutting, info, fd, first);
 	while (list && !(end_token_tool(list->cutting[0])))
 		list = list->next;

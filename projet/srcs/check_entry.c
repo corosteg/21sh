@@ -6,43 +6,15 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 14:37:38 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:00:52 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int				check_press(int buf, t_shell *info, t_his *his)
+static int		check_press2(int buf, t_shell *info)
 {
-	char	str[2];
-
-	str[0] = (char)buf;
-	str[1] = '\0';
-	if (buf == DELETE_K)
-		p_delete(info);
-	else if (buf == LEFT_K && (info->len > 0))
-		p_left(info);
-	else if (buf == UP_K && his != NULL && !(info->no_move_his))
-	{
-		info->his = p_up(info, info->his);
-		info->is_his = 1;
-	}
-	else if (buf == RIGHT_K && ((info->len) < (int)ft_strlen(info->command)))
-		p_right(info);
-	else if (buf == DOWN_K && his != NULL && his->last != 3 &&
-			!(info->no_move_his))
-		info->his = p_down(info, info->his);
-	else if (check_copy(buf))
-		print_cpy(buf, info);
-	else if  (buf == BCKSPCE_K && info->len > 0)
-		p_backspace(info, 0);
-	else if ((buf > 32 && buf < 127) && (info->len == (int)ft_strlen(info->command)))
-		p_ascii(info, str, buf);
-	else if ((buf > 32 && buf < 127) && (info->len < (int)ft_strlen(info->command)))
-		insert_ascii(info, str);
-	else if (buf == SPCE_K)
-		p_space(info, " ");
-	else if (buf == SHIFTUP_K)
+	if (buf == SHIFTUP_K)
 		p_s_up(info);
 	else if (buf == SHIFTDWN_K)
 		p_s_down(info);
@@ -64,19 +36,69 @@ int				check_press(int buf, t_shell *info, t_his *his)
 		p_home(info);
 	else if (buf == END_K)
 		p_end(info);
-	else if (buf == 3)
+	else
+		return (0);
+	return (1);
+}
+
+static int		check_press3(int buf, t_shell *info, t_his *his, char *str)
+{
+	if (buf == RIGHT_K && ((info->len) < (int)ft_strlen(info->command)))
+		p_right(info);
+	else if (buf == DOWN_K && his != NULL && his->last != 3 &&
+			!(info->no_move_his))
+		info->his = p_down(info, info->his);
+	else if (check_copy(buf))
+		print_cpy(buf, info);
+	else if (buf == BCKSPCE_K && info->len > 0)
+		p_backspace(info, 0);
+	else if ((buf > 32 && buf < 127) &&
+			(info->len == (int)ft_strlen(info->command)))
+		p_ascii(info, str, buf);
+	else if ((buf > 32 && buf < 127) &&
+			(info->len < (int)ft_strlen(info->command)))
+		insert_ascii(info, str);
+	else if (buf == SPCE_K)
+		p_space(info, " ");
+	else
+		return (0);
+	return (1);
+}
+
+static int		control_c(t_shell *info)
+{
+	free(info->command);
+	info->command = ft_strdup("\0");
+	return (1);
+}
+
+int				check_press(int buf, t_shell *info, t_his *his)
+{
+	char	str[2];
+
+	str[0] = (char)buf;
+	str[1] = '\0';
+	if (buf == DELETE_K)
+		p_delete(info);
+	else if (buf == LEFT_K && (info->len > 0))
+		p_left(info);
+	else if (buf == UP_K && his != NULL && !(info->no_move_his))
 	{
-		free(info->command);
-		info->command = ft_strdup("\0");
-		return(1);
+		info->his = p_up(info, info->his);
+		info->is_his = 1;
 	}
+	else if (check_press3(buf, info, his, str))
+		;
+	else if (check_press2(buf, info))
+		;
+	else if (buf == 3)
+		return (control_c(info));
 	else if (buf == 4 && info->len == 0)
 		ft_exit2(info);
 	else if (buf == RET_K)
 		return (1);
 	return (0);
 }
-
 
 t_his			*check_entry(t_shell *info, t_his *his)
 {
