@@ -6,11 +6,18 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:28:25 by corosteg          #+#    #+#             */
-/*   Updated: 2018/01/24 16:28:29 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 18:50:04 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+void				p_left3(t_shell *info)
+{
+	info->start_cp = -1;
+	info->end_cp = -1;
+	tool_refresh(info);
+}
 
 int					p_left(t_shell *info)
 {
@@ -34,11 +41,7 @@ int					p_left(t_shell *info)
 		tputs(tgetstr("le", NULL), 1, ft_putchar);
 	info->len--;
 	if (info->start_cp != -1 || info->end_cp != -1)
-	{
-		info->start_cp = -1;
-		info->end_cp = -1;
-		tool_refresh(info);
-	}
+		p_left3(info);
 	return (0);
 }
 

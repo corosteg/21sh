@@ -6,12 +6,11 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 20:43:20 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/06 13:35:47 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 18:48:24 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
 
 static t_his			*his_prev_null(t_shell *info, t_his *his)
 {
@@ -49,7 +48,7 @@ static t_his			*p_down2(t_shell *info, t_his *his)
 		his->last = 1;
 	else
 		his = his->next;
-	return(his);
+	return (his);
 }
 
 static void				his_next_null(t_shell *info, t_his *his)
