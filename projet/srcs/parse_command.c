@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/10 18:57:17 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:39:26 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ static int		check_false(char *str, int i)
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] == '\0')
-		return (ft_print
-				("\n21sh: syntax error near unexpected token 'newline'\n"));
+		return
+		(ft_print("\n21sh: syntax error near unexpected token 'newline'\n"));
 	if (str[i] == ';')
 		return (ft_print("\n21sh: syntax error near unexpected token ';'\n"));
-//	if (str[i] == '>' && (str[i + 1] > '9' || str[i + 1] < '0') && str[i + 1] != ' ')
-//		return (ft_print("\n21sh: syntax error near unexpected token '%c'\n"),
-//				str[i]);
 	if (str[i] == '|')
 		return (ft_print("\n21sh: syntax error near unexpected token '|'\n"));
 	if (str[i] == '>' && str[i + 1] == '>')
@@ -38,8 +35,8 @@ static int		check_false2(char *str, int i)
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] == '\0')
-		return (ft_print("\n21sh: syntax error near unexpected token 'newline'\n"
-					));
+		return
+		(ft_print("\n21sh: syntax error near unexpected token 'newline'\n"));
 	if (str[i] == ';')
 		return (ft_print("\n21sh: syntax error near unexpected token ';'\n"));
 	if (str[i] == '&')
@@ -66,7 +63,7 @@ int				parse2(char *str, int i)
 		if (str[i + 1] == '\0' && str[i] == ';')
 			str[i] = '\0';
 		i++;
-	}	
+	}
 	return (white_line(str, 0));
 }
 
