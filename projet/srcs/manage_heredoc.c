@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 19:42:48 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 19:43:48 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:21:34 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		need_a_break(char *s1, char *s2)
 	if (!(ft_strcmp(&s1[i], s2)))
 	{
 		s1[i] = '\0';
-		return(1);
+		return (1);
 	}
 	return (0);
 }
@@ -37,6 +37,38 @@ int				control_d(int buf, t_shell *info)
 	return (1);
 }
 
+static void		manage_heredoc2(t_shell *info)
+{
+	ft_print("heredoc>");
+	info->quote_len = 6;
+	info->len = 1;
+	info->x = 6;
+	free(info->command);
+	info->command = ft_strdup("\n");
+	init_term();
+}
+
+static int		manage_heredoc3(t_shell *info, int buf, char *end)
+{
+	buf = 0;
+	if (read(0, &buf, sizeof(int)))
+	{
+		if (control_d(buf, info))
+			return (1);
+		if (check_press_quote(buf, info, 1))
+		{
+			if (need_a_break(info->command, end))
+				return (1);
+			ft_print("\nheredoc>");
+			info->command = ft_strfreejoin(info->command, "\n", 1);
+			info->len++;
+			info->quote_len = 6;
+			info->x = 6;
+		}
+	}
+	return (0);
+}
+
 char			*manage_heredoc(t_shell *info, char *end)
 {
 	int		buf;
@@ -48,31 +80,11 @@ char			*manage_heredoc(t_shell *info, char *end)
 		ft_print("\n");
 		i++;
 	}
-	ft_print("heredoc>");
-	info->quote_len = 6;
-	info->len = 1;
-	info->x = 6;
-	free(info->command);
-	info->command = ft_strdup("\n");
-	init_term();
+	manage_heredoc2(info);
 	while (42)
 	{
-		buf = 0;
-		if (read(0, &buf, sizeof(int)))
-		{
-			if (control_d(buf, info))
-				break;
-			if (check_press_quote(buf, info, 1))
-			{
-				if (need_a_break(info->command, end))
-					break;
-				ft_print("\nheredoc>");
-				info->command = ft_strfreejoin(info->command, "\n", 1);
-				info->len++;
-				info->quote_len = 6;
-				info->x = 6;
-			}
-		}
+		if (manage_heredoc3(info, buf, end))
+			break ;
 	}
 	init_term2();
 	ft_print("\n");
