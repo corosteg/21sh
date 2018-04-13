@@ -1,19 +1,11 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: corosteg <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/10/02 13:49:12 by corosteg          #+#    #+#              #
-#    Updated: 2018/04/12 19:11:58 by corosteg         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = 21sh
+
 LIB_PATH = ./libft/
+
 LIB = $(LIB_PATH)libft.a
+
 FLAGS = -Wall -Werror -Wextra
+
 SRCS = ./srcs/main.c\
 	   ./srcs/check_entry.c\
 	   ./srcs/press_backspace.c\
@@ -71,27 +63,70 @@ SRCS = ./srcs/main.c\
 	   ./srcs/tool_lex2.c\
 	   ./srcs/lexem.c
 
+SRCO = ./main.o\
+	   ./check_entry.o\
+	   ./press_backspace.o\
+	   ./press_backspace2.o\
+	   ./press_delete.o\
+	   ./press_left.o\
+	   ./press_right.o\
+	   ./press_ascii.o\
+	   ./insert_ascii.o\
+	   ./press_space.o\
+	   ./parse_command.o\
+	   ./init_list.o\
+	   ./manage_his_list.o\
+	   ./press_up.o\
+	   ./press_down.o\
+	   ./press_shift_left.o\
+	   ./press_shift_down.o\
+	   ./press_shift_right.o\
+	   ./press_shift_up.o\
+	   ./press_home_or_end.o\
+	   ./core.o\
+	   ./core2.o\
+	   ./redir_left_right.o\
+	   ./tools.o\
+	   ./tools2.o\
+	   ./manage_all_quotes.o\
+	   ./manage_dquote.o\
+	   ./parse_path.o\
+	   ./manage_squote.o\
+	   ./press_alt_right_left.o\
+	   ./press_alt_cvx.o\
+	   ./check_funct.o\
+	   ./exec.o\
+	   ./exec_in_pipe.o\
+	   ./signal.o\
+	   ./manage_heredoc.o\
+	   ./ft_cd.o\
+	   ./ft_cd2.o\
+	   ./ft_cd3.o\
+	   ./ft_setenv.o\
+	   ./ft_unsetenv.o\
+	   ./ft_exit.o\
+	   ./ft_echo.o\
+	   ./ft_env.o\
+	   ./copy.o\
+	   ./free.o\
+	   ./redirection.o\
+	   ./redirection2.o\
+	   ./check_builtin.o\
+	   ./agregation.o\
+	   ./tools3.o\
+	   ./lexem2.o\
+	   ./term.o\
+	   ./tool_lex1.o\
+	   ./tool_lex2.o\
+	   ./lexem.o
 
 all: $(NAME)
 
 $(NAME):
 		@echo "\033[31m" "compiling" [ $(NAME) ]
 		make -C $(LIB_PATH)
-		gcc $(FLAGS) $(SRCS) $(LIB) -ltermcap -o $(NAME)
-		@echo "\033[32m" "   ****   **           **"
-		@echo "\033[32m" "  */// * ***          /**"
-		@echo "\033[32m" " /    /*//**   ****** /**"
-		@echo "\033[32m" "    ***  /**  **////  /******"
-		@echo "\033[32m" "   *//   /** //*****  /**///**"
-		@echo "\033[32m" "  *      /**  /////** /**  /**"
-		@echo "\033[32m" " /****** **** ******  /**  /**"
-		@echo "\033[32m" " ////// //// //////   //   //  "
-		@echo "\033[32m" "                                                    "
-		@echo "\033[32m" "                                                    "
-		@echo "\033[32m" "                                                    "
-
-cc:
-		gcc $(SRCS) $(LIB) -g3 -ltermcap -o $(NAME)
+		gcc $(FLAGS) -c $(SRCS)
+		gcc $(FLAGS) $(SRCO) $(LIB) -ltermcap -o $(NAME)
 		@echo "\033[32m" "       _________________________________________________________________"
 		@echo "\033[32m" "    /    _____________________________________________________________    \ "
 		@echo "\033[32m" "    |   |                                                             |   | "
@@ -124,7 +159,21 @@ cc:
 		@echo "\033[32m" "  \`-----------------------------------------------------------------------------' "
 		@echo "\033[32m" " "
 		@echo "\033[32m" " "
-		@echo "\033[32m" " "
+		@echo "\033[37m" " "
+
+
+cc:
+		gcc $(SRCS) $(LIB) -g3 -ltermcap -o $(NAME)
+		@echo "\033[32m" "   ****   **           **"
+		@echo "\033[32m" "  */// * ***          /**"
+		@echo "\033[32m" " /    /*//**   ****** /**"
+		@echo "\033[32m" "    ***  /**  **////  /******"
+		@echo "\033[32m" "   *//   /** //*****  /**///**"
+		@echo "\033[32m" "  *      /**  /////** /**  /**"
+		@echo "\033[32m" " /****** **** ******  /**  /**"
+		@echo "\033[32m" " ////// //// //////   //   //  "
+		@echo "\033[32m" "                                                    "
+		@echo "\033[37m" "                                                    "
 
 
 sanitize:
@@ -139,14 +188,18 @@ sanitize:
 		@echo "\033[32m" " ////// //// //////   //   //  "
 		@echo "\033[32m" "                                                    "
 		@echo "\033[32m" "                                                    "
-		@echo "\033[32m" "                                                    "
+		@echo "\033[37m" "                                                    "
 clean:
 		@echo "\033[34m" "Deleting"
 		make -C $(LIB_PATH) clean
+		/bin/rm -f $(SRCO)
 
 fclean:
 		@echo "\033[34m" "Deleting"
 		/bin/rm -f $(NAME)
+		/bin/rm -f $(SRCO)
 		make -C $(LIB_PATH) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re
