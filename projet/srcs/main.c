@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 16:38:34 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/13 17:01:18 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ static t_shell				*init_info_list(t_shell *info, char **env, int i)
 	return (info);
 }
 
+int							stop_that(void)
+{
+	ft_putstr_fd("Please start 21sh with valid environement\n", 2);
+	return (1);
+}
+
 int							main(int ac, char **av, char **env)
 {
 	t_shell		*info;
@@ -65,6 +71,8 @@ int							main(int ac, char **av, char **env)
 	(void)av;
 	his = NULL;
 	info = NULL;
+	if (env == NULL)
+		return (stop_that());
 	info = init_info_list(info, env, 1);
 	g_info = info;
 	check_signal();

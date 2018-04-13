@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 19:14:19 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/13 18:54:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void					p_home(t_shell *info);
 void					exec_in_pipe(char **com, t_shell *info,
 							t_parselex *first, int i);
 int						core(t_shell *info);
+int						stop_that(void);
 void					p_end(t_shell *info);
 void					press_string(t_shell *info);
 void					p_quote_delete(t_shell *info);
@@ -131,6 +132,8 @@ void					p_s_right(t_shell *info);
 void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
 void					print_cpy(int buf, t_shell *info);
+void					infanticide(t_shell *info);
+void					born_to_kill(t_shell *info);
 int						check_copy(int buf);
 void					exec_redir(char **com, t_shell *info,
 							int fd, t_parselex *first);

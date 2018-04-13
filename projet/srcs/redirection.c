@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 20:08:35 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 19:11:30 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/13 18:57:16 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void				exec_redir(char **com, t_shell *info, int fd,
 	dup2(info->fd_in, 0);
 	close(info->fd_out);
 	if (father > 0)
-		wait(NULL);
+		born_to_kill(info);
+	infanticide(info);
 	if (father == 0)
 	{
 		dup2(fd, 1);

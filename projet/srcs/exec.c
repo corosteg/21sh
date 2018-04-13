@@ -6,13 +6,13 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:28:41 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 16:29:54 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/13 18:54:00 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static void		infanticide(t_shell *info)
+void			infanticide(t_shell *info)
 {
 	int i;
 
@@ -26,11 +26,13 @@ static void		infanticide(t_shell *info)
 
 void			no_command(int father, char **com)
 {
-	ft_print("command not found: %s\n", com[0]);
+	ft_putstr_fd("command not found: ", 2);
+	ft_putstr_fd(com[0], 2);
+	ft_putstr_fd("\n", 2);
 	exit(father);
 }
 
-static void		born_to_kill(t_shell *info)
+void			born_to_kill(t_shell *info)
 {
 	wait(0);
 	if (info->kill > 0)

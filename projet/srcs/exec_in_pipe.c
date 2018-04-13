@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 16:25:40 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 16:26:00 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/13 17:18:47 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			exec_in_pipe2(char **env, t_shell *info, int fd, int fd2)
 	close(fd);
 	info->fd_in = fd2;
 	info->fd_out = dup(info->save_stdout);
-	free(env);
+	free_c_tab(env);
 }
 
 void			exec_in_pipe3(char **env, t_shell *info, char *bin_path,
