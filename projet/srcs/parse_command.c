@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 20:27:23 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/14 19:08:41 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ int				white_line(char *str, int i)
 		i++;
 	if (str[i] == '\0')
 		return (1);
+	else if (str[i] == '|')
+		return (ft_print("\n21sh: syntax error near unexpected token '|'\n"));
+	else if (str[i] == '&')
+		return (ft_print("\n21sh: syntax error near unexpected token '&'\n"));
+	else if (str[i] == ';')
+		return (ft_print("\n21sh: syntax error near unexpected token ';'\n"));
+	else if (str[i] == '<')
+		return (ft_print("\n21sh: syntax error near unexpected token '<'\n"));
+	else if (str[i] == '>')
+		return (ft_print("\n21sh: syntax error near unexpected token '>'\n"));
 	else
 		return (0);
 }
@@ -65,6 +75,12 @@ int				parse2(char *str, int i)
 		if (str[i] == '#')
 			return
 			(ft_print("21sh: syntax error near unexpected token '#'\n"));
+i//		if ((str[i] == '\"') && (str[i + 1] != ' ' || str[i + 1] != '\0'))
+//			return
+//			(ft_print("\n21sh: syntax error near unexpected token '\"'\n"));
+//		if (str[i] == '\'' && (str[i + 1] != ' ' || str[i + 1] != '\0' || str[i+]))
+//			return
+//			(ft_print("\n21sh: syntax error near unexpected token '\''\n"));
 		i++;
 	}
 	return (white_line(str, 0));
