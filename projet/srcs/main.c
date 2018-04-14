@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/13 17:01:18 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/14 19:56:25 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void					init_info2(t_shell *info)
 {
 	info->x = 5;
+	info->i_quote = 0;
 	info->y = 0;
 	info->ag = 1;
 	info->ag2 = 1;

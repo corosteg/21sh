@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/14 19:08:41 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/15 00:53:46 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ int				white_line(char *str, int i)
 		return (0);
 }
 
-int				parse2(char *str, int i)
+int				parse2(char *str, int i, t_shell *info)
 {
+	char	*tmp;
+	char	*tmp2;
+
 	while (str[i])
 	{
 		if (str[i + 1] == '\0' && str[i] == ';')
@@ -75,23 +78,27 @@ int				parse2(char *str, int i)
 		if (str[i] == '#')
 			return
 			(ft_print("21sh: syntax error near unexpected token '#'\n"));
-i//		if ((str[i] == '\"') && (str[i + 1] != ' ' || str[i + 1] != '\0'))
-//			return
-//			(ft_print("\n21sh: syntax error near unexpected token '\"'\n"));
-//		if (str[i] == '\'' && (str[i + 1] != ' ' || str[i + 1] != '\0' || str[i+]))
-//			return
-//			(ft_print("\n21sh: syntax error near unexpected token '\''\n"));
 		i++;
+	}
+	if (info->i_quote > 0)
+	{
+		tmp = ft_strndup(info->command, info->i_quote + 1);
+		tmp = ft_strfreejoin(tmp, " ", 1);
+		tmp = ft_strfreejoin(tmp, &info->command[info->i_quote + 1], 1);
+		tmp2 = info->command;
+		info->command = ft_strdup(tmp);
+		free(tmp);
+		free(tmp2);
 	}
 	return (white_line(str, 0));
 }
 
-int				parse_command(char *str)
+int				parse_command(char *str, t_shell *info)
 {
 	int		i;
 
 	i = 0;
-	if (parse2(str, 0))
+	if (parse2(str, 0, info))
 		return (0);
 	while (str[i])
 	{

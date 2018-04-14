@@ -6,22 +6,18 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 23:53:08 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 20:13:55 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/15 00:54:07 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void				check_quotes(t_shell *info)
+int					check_quotes(t_shell *info)
 {
-	int		a;
-	int		b;
 	int		i;
 
-	a = 0;
-	b = 0;
-	i = ft_strlen(info->command);
-	while (i >= 0 && info->command[i] != '\n')
+	i = 0;
+	while (info->command[i] && info->command[i] != '\n')
 	{
 		if (info->command[i] == '\'')
 		{
@@ -29,6 +25,7 @@ void				check_quotes(t_shell *info)
 				info->quote = 0;
 			else
 				info->quote = 1;
+			info->i_quote = i;
 		}
 		if (info->command[i] == '\"')
 		{
@@ -36,9 +33,11 @@ void				check_quotes(t_shell *info)
 				info->dquote = 0;
 			else
 				info->dquote = 1;
+			info->i_quote = i;
 		}
-		i--;
+		i++;
 	}
+	return (i);
 }
 
 static int			check_press_quote2(int buf, t_shell *info)

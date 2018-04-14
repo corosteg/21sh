@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:08:34 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 15:00:52 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/15 00:29:16 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ t_his			*check_entry(t_shell *info, t_his *his)
 		manage_dquote(info);
 	his = manage_his_list(his, info);
 	ft_print("\n");
-	if (parse_command(info->command))
+	if (parse_command(info->command, info))
 		core(info);
 	return (his);
 }

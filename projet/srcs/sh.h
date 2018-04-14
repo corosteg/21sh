@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/13 18:54:39 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/14 20:02:37 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_shell
 	int					len;
 	int					is_his;
 	int					no_move_his;
+	int					i_quote;
 	int					quote;
 	int					dquote;
 	int					quote_len;
@@ -145,7 +146,7 @@ int						check_builtin(char **command, t_shell *info,
 void					free_c_tab(char **array);
 void					manage_squote(t_shell *info);
 void					manage_dquote(t_shell *info);
-void					check_quotes(t_shell *info);
+int						check_quotes(t_shell *info);
 void					print_cpy(int buf, t_shell *info);
 void					press_quote_string(t_shell *info);
 void					p_quote_home(t_shell *info);
@@ -177,7 +178,7 @@ int						check_operador(char c);
 int						check_final(t_shell *info, int run);
 int						check_copy(int buf);
 int						check_press_quote(int buf, t_shell *info, int i);
-int						parse_command(char *str);
+int						parse_command(char *str, t_shell *info);
 int						p_a_x(t_shell *info);
 int						one_ofs(char *s, char *c, int nb, int i);
 int						is_even(int nb);
