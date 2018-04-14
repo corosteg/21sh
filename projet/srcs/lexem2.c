@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 14:14:13 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/09 13:26:14 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/14 18:48:24 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		epur_len(char *str, int i, int nb, int odd)
 {
 	while (str[i])
 	{
-		if (i > 0 && str[i - 1] == '\"')
+		if (i > 0 && (str[i - 1] == '\"' || str[i - 1] == '\''))
 			odd++;
 		if (IS_SPACE(str[i]) && is_even(odd) == 1)
 		{

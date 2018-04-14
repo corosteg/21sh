@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/11 16:49:21 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/14 18:52:19 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*epur_cmd(char *str, int i, int nb, int odd)
 	new = (char*)malloc(sizeof(char) * (epur_len(str, 0, 0, 0) + 1));
 	while (str[i] != '\0')
 	{
-		if (i > 0 && str[i - 1] == '\"')
+		if (i > 0 && (str[i - 1] == '\"' || str[i - 1] == '\''))
 			odd++;
 		if (IS_SPACE(str[i]) && is_even(odd) == 1)
 		{
@@ -130,8 +130,8 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	while (tmp)
 	{
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
-		//ft_putstr(tmp->command);
-		//ft_putchar('\n');
+//		ft_putstr(tmp->command);
+//		ft_putchar('\n');
 		tmp = tmp->next;
 	}
 	list2 = parselex(list, NULL);
