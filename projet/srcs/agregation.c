@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 14:05:21 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/11 20:19:33 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/14 17:28:22 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ int					check_agregation2(t_parselex *list, t_shell *info)
 		info->ag = 2;
 		return (1);
 	}
+	if (list->next && list->next->next
+	&& !(ft_strcmp(list->next->cutting[0], "1>&"))
+	&& !(ft_strcmp(list->next->next->cutting[0], "1")))
+		return (1);
+	if (list->next && list->next->next
+	&& !(ft_strcmp(list->next->cutting[0], "2>&"))
+	&& !(ft_strcmp(list->next->next->cutting[0], "2")))
+		return (1);
 	return (0);
 }
 
