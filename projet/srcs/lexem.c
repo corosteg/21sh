@@ -93,7 +93,7 @@ t_parselex		*check_heredoc(t_parselex *list, t_shell *info)
 	tmp = list;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->cutting[0], "<<"))
+		if (tmp->cutting[0] && !ft_strcmp(tmp->cutting[0], "<<"))
 			tmp->next->cutting[0] =
 				manage_heredoc(info, tmp->next->cutting[0]);
 		tmp = tmp->next;

@@ -17,7 +17,8 @@ int					check_quotes(t_shell *info)
 	int		i;
 
 	i = 0;
-	while (info->command[i] && info->command[i] != '\n')
+	i = ft_strlen(info->command);
+	while (i >= 0 && info->command[i] != '\n')
 	{
 		if (info->command[i] == '\'')
 		{
@@ -25,7 +26,6 @@ int					check_quotes(t_shell *info)
 				info->quote = 0;
 			else
 				info->quote = 1;
-			info->i_quote = i;
 		}
 		if (info->command[i] == '\"')
 		{
@@ -33,9 +33,8 @@ int					check_quotes(t_shell *info)
 				info->dquote = 0;
 			else
 				info->dquote = 1;
-			info->i_quote = i;
 		}
-		i++;
+		i--;
 	}
 	return (i);
 }

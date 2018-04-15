@@ -61,6 +61,7 @@ SRCS = ./srcs/main.c\
 	   ./srcs/term.c\
 	   ./srcs/tool_lex1.c\
 	   ./srcs/tool_lex2.c\
+	   ./srcs/parse_command2.c\
 	   ./srcs/lexem.c
 
 SRCO = ./main.o\
@@ -118,6 +119,7 @@ SRCO = ./main.o\
 	   ./term.o\
 	   ./tool_lex1.o\
 	   ./tool_lex2.o\
+	   ./parse_command2.o\
 	   ./lexem.o
 
 all: $(NAME)

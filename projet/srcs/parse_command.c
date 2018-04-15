@@ -80,17 +80,21 @@ int				parse2(char *str, int i, t_shell *info)
 			(ft_print("21sh: syntax error near unexpected token '#'\n"));
 		i++;
 	}
-	if (info->i_quote > 0)
+	i = 0;
+	while (i > 0 && info->command[i] != '\"' && info->command[i] != '\'')
+		i--;
+	if (i > 0)
 	{
-		tmp = ft_strndup(info->command, info->i_quote + 1);
+		tmp = ft_strndup(info->command, i  + 1);
 		tmp = ft_strfreejoin(tmp, " ", 1);
-		tmp = ft_strfreejoin(tmp, &info->command[info->i_quote + 1], 1);
+		tmp = ft_strfreejoin(tmp, &info->command[i  + 1], 1);
 		tmp2 = info->command;
 		info->command = ft_strdup(tmp);
 		free(tmp);
 		free(tmp2);
 	}
-	return (white_line(str, 0));
+	printf("info->command ===> %s\n", info->command);
+	return (white_line(info->command, 0));
 }
 
 int				parse_command(char *str, t_shell *info)
@@ -98,7 +102,9 @@ int				parse_command(char *str, t_shell *info)
 	int		i;
 
 	i = 0;
-	if (parse2(str, 0, info))
+	parse_dquote(info, 0, ft_strlen(info->command), 0);
+	parse_squote(info, 0, ft_strlen(info->command), 0);
+	if (parse2(str, 0, info) || parse3(info))
 		return (0);
 	while (str[i])
 	{

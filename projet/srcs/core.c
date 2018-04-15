@@ -14,19 +14,27 @@
 
 int						parsing_list(t_parselex *list)
 {
+	t_parselex *tmp;
+
+	tmp = list;
+	while (list)
+	{
+		if (list->cutting[0] == NULL)
+			return (ft_print("21sh:  syntax error\n"));
+		list = list->next;
+	}
+	list = tmp;
 	if (!(ft_strcmp(list->cutting[0], ";")))
-		ft_print("21sh:  syntax error near unexpected token `;'");
+		ft_print("21sh:  syntax error near unexpected token `;'\n");
 	else if (!(ft_strcmp(list->cutting[0], "|")))
-		ft_print("21sh:  syntax error near unexpected token `|'");
+		ft_print("21sh:  syntax error near unexpected token `|'\n");
 	else if (!(ft_strcmp(list->cutting[0], "||")))
-		ft_print("21sh:  syntax error near unexpected token `||'");
+		ft_print("21sh:  syntax error near unexpected token `||'\n");
 	else if (!(ft_strcmp(list->cutting[0], "&")))
-		ft_print("21sh:  syntax error near unexpected token `&'");
+		ft_print("21sh:  syntax error near unexpected token `&'\n");
 	else if (!(ft_strcmp(list->cutting[0], "&&")))
-		ft_print("21sh:  syntax error near unexpected token `&&'");
-	else
-		return (0);
-	return (1);
+		ft_print("21sh:  syntax error near unexpected token `&&'\n");
+	return (0);
 }
 
 static	t_parselex		*check_redire(t_parselex *list, t_shell *info,

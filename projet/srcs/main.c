@@ -15,7 +15,6 @@
 static void					init_info2(t_shell *info)
 {
 	info->x = 5;
-	info->i_quote = 0;
 	info->y = 0;
 	info->ag = 1;
 	info->ag2 = 1;

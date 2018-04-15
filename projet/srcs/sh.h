@@ -48,7 +48,6 @@ typedef struct			s_shell
 	int					len;
 	int					is_his;
 	int					no_move_his;
-	int					i_quote;
 	int					quote;
 	int					dquote;
 	int					quote_len;
@@ -124,6 +123,7 @@ void					p_right(t_shell *info);
 void					p_right2(t_shell *info);
 void					init_term(void);
 void					init_term2(void);
+int						parse3(t_shell *info);
 int						p_left(t_shell *info);
 int						p_left2(t_shell *info);
 void					p_ascii(t_shell *info, char *str, int buf);
@@ -134,6 +134,8 @@ void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
 void					print_cpy(int buf, t_shell *info);
 void					infanticide(t_shell *info);
+void					parse_squote(t_shell *info, int i, int b, int c);
+void					parse_dquote(t_shell *info, int i, int b, int c);
 void					born_to_kill(t_shell *info);
 int						check_copy(int buf);
 void					exec_redir(char **com, t_shell *info,
