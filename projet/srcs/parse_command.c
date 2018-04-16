@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/16 15:56:45 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:56:08 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int				parse_command(char *str, t_shell *info)
 	int		i;
 
 	i = 0;
-	parse_dquote(info, 0, ft_strlen(info->command), 0);
-	parse_squote(info, 0, ft_strlen(info->command), 0);
 	if (parse2(str, 0, info) || parse3(info))
 		return (0);
 	while (str[i])
