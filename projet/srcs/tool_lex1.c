@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/16 15:58:44 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:34:25 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int			compte(char const *s, char *c, int r)
 	{
 		if (r == 1)
 		{
-			while ((s[i] != '\"' || s[i] != '\'') && s[i] != '\0')
+			while ((s[i] != '\"') && s[i] != '\0')
 				i++;
 			r = 0;
 		}
@@ -78,13 +78,13 @@ int					quote2(char const *s, int len, char *c)
 		len++;
 	while (s[len] && (!(one_3(s, c, len))))
 	{
-		if (s[len] == '\"' || s[len] == '\'')
+		if (s[len] == '\"')
 			r++;
 		len++;
 	}
 	if ((one_3(s, c, len)) && r == 1)
 	{
-		while ((s[len] != '\"' || s[len] != '\'') && s[len] != '\0')
+		while ((s[len] != '\"') && s[len] != '\0')
 			len++;
 		len++;
 	}
