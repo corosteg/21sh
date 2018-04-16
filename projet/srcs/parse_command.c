@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/16 16:56:08 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:10:39 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int		check_false2(char *str, int i)
 	return (0);
 }
 
-int				white_line(char *str, int i)
+static int		white_line(char *str, int i)
 {
 	while (str[i] == ' ')
 		i++;
@@ -68,9 +68,6 @@ int				white_line(char *str, int i)
 
 int				parse2(char *str, int i, t_shell *info)
 {
-	char	*tmp;
-	char	*tmp2;
-
 	while (str[i])
 	{
 		if (str[i + 1] == '\0' && str[i] == ';')
@@ -80,19 +77,7 @@ int				parse2(char *str, int i, t_shell *info)
 			(ft_print("21sh: syntax error near unexpected token '#'\n"));
 		i++;
 	}
-	i = 0;
-	while (i > 0 && info->command[i] != '\"' && info->command[i] != '\'')
-		i--;
-	if (i > 0)
-	{
-		tmp = ft_strndup(info->command, i  + 1);
-		tmp = ft_strfreejoin(tmp, " ", 1);
-		tmp = ft_strfreejoin(tmp, &info->command[i  + 1], 1);
-		tmp2 = info->command;
-		info->command = ft_strdup(tmp);
-		free(tmp);
-		free(tmp2);
-	}
+	parse2_2(info);
 	return (white_line(info->command, 0));
 }
 

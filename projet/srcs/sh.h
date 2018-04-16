@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 16:37:55 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/14 20:02:37 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:09:17 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,7 @@ void					p_s_down(t_shell *info);
 void					p_s_up(t_shell *info);
 void					print_cpy(int buf, t_shell *info);
 void					infanticide(t_shell *info);
-void					parse_squote(t_shell *info, int i, int b, int c);
-void					parse_dquote(t_shell *info, int i, int b, int c);
+void					parse2_2(t_shell *info);
 void					born_to_kill(t_shell *info);
 int						check_copy(int buf);
 void					exec_redir(char **com, t_shell *info,

@@ -6,75 +6,11 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 16:05:54 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/16 16:08:28 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:10:15 by corosteg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-static void		parse_dquote2(t_shell *info, int c, int d)
-{
-	info->command[c] = ' ';
-	info->command[d] = ' ';
-}
-
-void			parse_dquote(t_shell *info, int i, int b, int c)
-{
-	int			d;
-
-	while (info->command[i + 1] && info->command[i] != '\"')
-		i++;
-	while (b > 1 && b > i && info->command[b] != '\"')
-		b--;
-	c = i;
-	d = b;
-	i++;
-	b--;
-	while (info->command[i] && b > 0 && b > i)
-	{
-		if (info->command[i] == '\"' && info->command[b] == '\"')
-		{
-			parse_dquote2(info, c, d);
-			c = i;
-			d = b;
-			b--;
-			i++;
-		}
-		if (info->command[b] != '\"')
-			b--;
-		if (info->command[i] != '\"')
-			i++;
-	}
-}
-
-void			parse_squote(t_shell *info, int i, int b, int c)
-{
-	int			d;
-
-	while (info->command[i + 1] && info->command[i] != '\'')
-		i++;
-	while (b > 1 && b > i && info->command[b] != '\'')
-		b--;
-	c = i;
-	d = b;
-	i++;
-	b--;
-	while (info->command[i] && b > 0 && b > i)
-	{
-		if (info->command[i] == '\'' && info->command[b] == '\'')
-		{
-			parse_dquote2(info, c, d);
-			c = i;
-			d = b;
-			b--;
-			i++;
-		}
-		if (info->command[b] != '\'')
-			b--;
-		if (info->command[i] != '\'')
-			i++;
-	}
-}
 
 int				parse3(t_shell *info)
 {
@@ -97,4 +33,28 @@ int				parse3(t_shell *info)
 		i++;
 	}
 	return (0);
+}
+
+void			parse2_2(t_shell *info)
+{
+	int 	i;
+	char	*tmp;
+	char	*tmp2;
+
+	i = 0;
+	while (info->command[i])
+	{
+		if ((info->command[i] == '\"' || info->command[i] == '\'')
+			&& info->command[i + 1] != ' ')
+		{
+			tmp = ft_strndup(info->command, i  + 1);
+			tmp = ft_strfreejoin(tmp, " ", 1);
+			tmp = ft_strfreejoin(tmp, &info->command[i  + 1], 1);
+			tmp2 = info->command;
+			info->command = ft_strdup(tmp);
+			free(tmp);
+			free(tmp2);
+		}
+		i++;
+	}
 }
