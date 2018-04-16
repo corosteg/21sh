@@ -6,13 +6,13 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 09:26:16 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/14 18:52:19 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:05:31 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-char	*epur_cmd(char *str, int i, int nb, int odd)
+char			*epur_cmd(char *str, int i, int nb, int odd)
 {
 	char	*new;
 
@@ -106,19 +106,11 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	t_parselex	*list2;
 	char		**tableau;
 
-	if (info->command[0] == '\0')
-		return (NULL);
 	(tableau = tool_lex2(info->command, ";&|<>"));
 	tmp = (t_lexem*)malloc(sizeof(t_lexem));
 	list = tmp;
 	list->command = ft_strdup(tableau[0]);
 	list->next = NULL;
-	/*int nb = 0;
-	while (tableau[nb])
-	{
-		printf("1st: %s\n", tableau[nb]);
-		nb++;
-	}*/
 	while (tableau[i])
 	{
 		tmp->next = (t_lexem*)malloc(sizeof(t_lexem));
@@ -130,14 +122,10 @@ t_parselex		*parse_cmd(t_shell *info, int i, t_lexem *list, t_lexem *tmp)
 	while (tmp)
 	{
 		tmp->command = epur_cmd(tmp->command, 0, 0, 0);
-//		ft_putstr(tmp->command);
-//		ft_putchar('\n');
 		tmp = tmp->next;
 	}
 	list2 = parselex(list, NULL);
 	free_lexem(list);
 	free_c_tab(tableau);
-	//return (list2);
-	//return (list2);
 	return (check_heredoc(list2, info));
 }

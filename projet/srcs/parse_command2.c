@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_command2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/16 16:05:54 by paoroste          #+#    #+#             */
+/*   Updated: 2018/04/16 16:08:28 by paoroste         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "sh.h"
 
@@ -81,8 +92,7 @@ int				parse3(t_shell *info)
 			while (info->command[a] == ' ')
 				a++;
 			if (info->command[a] == ';')
-				return (ft_print
-				("\n21sh: syntax error near unexpected token ';'\n"));
+				return (ft_print("\n21sh: syntax error near unexpected token ';'\n"));
 		}
 		i++;
 	}

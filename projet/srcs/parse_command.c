@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 20:36:00 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/15 00:53:46 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/16 15:56:45 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int				parse2(char *str, int i, t_shell *info)
 		free(tmp);
 		free(tmp2);
 	}
-	printf("info->command ===> %s\n", info->command);
 	return (white_line(info->command, 0));
 }
 

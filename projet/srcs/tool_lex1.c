@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 11:00:51 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/14 18:54:51 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/16 15:58:44 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,12 @@ int					one_3(char const *s, char *c, int nb)
 	return (0);
 }
 
-static int			compte(char const *s, char *c)
+static int			compte(char const *s, char *c, int r)
 {
 	unsigned int	i;
 	int				compteur;
-	int				r;
 
 	i = 0;
-	r = 0;
 	compteur = 0;
 	while (s[i])
 	{
@@ -127,7 +125,7 @@ char				**tool_lex1(char const *s, char *c)
 
 	if (s == NULL)
 		return (NULL);
-	if (!(str = (char **)malloc(sizeof(char *) * (compte(s, c) + 1))))
+	if (!(str = (char **)malloc(sizeof(char *) * (compte(s, c, 0) + 1))))
 		return (NULL);
 	return (split(s, c, str, 0));
 }

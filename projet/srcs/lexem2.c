@@ -6,7 +6,7 @@
 /*   By: paoroste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 14:14:13 by paoroste          #+#    #+#             */
-/*   Updated: 2018/04/14 18:48:24 by paoroste         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:01:20 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				one_ofs(char *s, char *c, int nb, int i)
 	return (0);
 }
 
-int		is_even(int nb)
+int				is_even(int nb)
 {
 	if (nb % 2 == 0)
 		return (1);
@@ -43,7 +43,7 @@ int		is_even(int nb)
 		return (0);
 }
 
-int		epur_len(char *str, int i, int nb, int odd)
+int				epur_len(char *str, int i, int nb, int odd)
 {
 	while (str[i])
 	{

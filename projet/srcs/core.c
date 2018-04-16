@@ -6,7 +6,7 @@
 /*   By: corosteg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:23:59 by corosteg          #+#    #+#             */
-/*   Updated: 2018/04/12 15:10:14 by corosteg         ###   ########.fr       */
+/*   Updated: 2018/04/16 16:03:18 by paoroste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int						core(t_shell *info)
 	info->fd_in = dup(0);
 	info->fd_out = dup(1);
 	info->fd_err = dup(2);
-	if ((list = parse_cmd(info, 1, NULL, NULL)) == NULL)
+	if (((list = parse_cmd(info, 1, NULL, NULL)) == NULL)
+			&& info->command[0] == '\0')
 		return (0);
 	if (parsing_list(list))
 		return (0);
