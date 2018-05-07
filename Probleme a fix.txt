@@ -1,9 +1,0 @@
-
-
-_cd /tmp; sort << EOF | cat -e > sorted_poem ; sed -e 's/Roses/Turnips/' < sorted_poem > better_poem; cd -; echo "I prefer turnips anyway" >> /tmp/better_poem; cat /tmp/better_poem (marche une fois sur deux).
-
-_faire attention au droits.
-_double free sur cote simple
-_probleme sur agregation
-_probleme cd- a partir de bash
-_ echo 1>&- ...
